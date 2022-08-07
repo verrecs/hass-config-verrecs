@@ -1,18 +1,18 @@
 homeassistant:
-  name: Hem
+  name: ColonelFabien
   latitude: !secret homeassistant_latitude
   longitude: !secret homeassistant_longitude
   elevation: !secret homeassistant_elevation
   unit_system: metric
   temperature_unit: C
-  time_zone: Europe/Stockholm
-  currency: SEK
+  time_zone: Europe/Paris
+  currency: EUR
   packages: !include_dir_named packages
   customize_domain:
     automation:
       initial_state: true
-  allowlist_external_dirs:
-    - /config
+  # allowlist_external_dirs:
+  #   - /config
 
 default_config:
 
@@ -40,11 +40,11 @@ lovelace:
       { url: '/local/fonts.css?v=2.1',                                              type: css }
     ]
 
-recorder:
-  db_url: !secret recorder_db_url
-  exclude:
-    entity_globs:
-      - sensor.browser_*
+# recorder:
+#   db_url: !secret recorder_db_url
+#   exclude:
+#     entity_globs:
+#       - sensor.browser_*
 
 logger:
   default: warning

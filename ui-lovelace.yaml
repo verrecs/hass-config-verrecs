@@ -490,7 +490,7 @@ views:
 
           - type: custom:button-card
             name: >
-              <ha-icon icon="mdi:nas"></ha-icon> NAS
+              <ha-icon icon="mdi:nas"></ha-icon> NUCleide
             tap_action:
               !include popup/footer_nas.yaml
             triggers_update:
@@ -513,7 +513,7 @@ views:
 
           - type: custom:button-card
             name: >
-              <ha-icon icon="mdi:arrow-up-bold-circle-outline"></ha-icon> Uppdatera
+              <ha-icon icon="mdi:arrow-up-bold-circle-outline"></ha-icon> Updates
             tap_action:
               !include popup/footer_updates.yaml
             triggers_update:
@@ -540,7 +540,7 @@ views:
 
           - type: custom:button-card
             name: >
-              <ha-icon icon="mdi:robot-vacuum-variant"></ha-icon> Städa
+              <ha-icon icon="mdi:robot-vacuum-variant"></ha-icon> Aspirateur
             tap_action:
               !include popup/footer_vacuum.yaml
             triggers_update:
@@ -555,7 +555,7 @@ views:
 
           - type: custom:button-card
             name: >
-              <ha-icon icon="mdi:chart-line-variant"></ha-icon> Historik
+              <ha-icon icon="mdi:chart-line-variant"></ha-icon> Historique
             tap_action:
               !include popup/footer_history.yaml
             template: footer
@@ -575,7 +575,7 @@ views:
 
           - type: custom:button-card
             name: >
-              <ha-icon icon="mdi:router-wireless"></ha-icon> Router
+              <ha-icon icon="mdi:router-wireless"></ha-icon> Routeur
             tap_action:
               !include popup/footer_router.yaml
             triggers_update:

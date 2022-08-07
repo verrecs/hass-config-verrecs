@@ -1,14 +1,11 @@
 action: fire-dom-event
 browser_mod:
   command: popup
-  title: NAS
+  title: Geek Zone
   style:
     .: |
       :host {
         --ha-card-border-radius: 0;
-        --mdc-typography-body1-letter-spacing: unset;
-        --mdc-typography-body1-font-weight: 400;
-        --mdc-typography-body1-font-size: 1.03em;
       }
       @media screen and (min-width: 1200px) {
         :host .content {
@@ -29,6 +26,7 @@ browser_mod:
                 border-right: 1.5px solid rgba(0, 0, 0, 0.2);
                 border-radius: 0;
                 transition: none;
+                letter-spacing: normal;
               }
               /* portrait */
               @media screen and (max-width: 1200px) {
@@ -66,8 +64,8 @@ browser_mod:
 
       #################################################
       #                                               #
-      #                HOME ASSISTANT                 #
-      #                                               #
+      #       Réseau / Pi.hole / VPN / NZBGET         #
+      #           SpeedTest / NMAP...                 #
       #################################################
 
       - type: entities
@@ -78,15 +76,13 @@ browser_mod:
         card_mod:
           class: header
         entities:
-          - entity: sensor.current_version
-            name: Installerad
-            icon: mdi:home-assistant
+          - entity: sensor.template_hass_version
 
           - entity: switch.docker_watchtower
             name: Watchtower
-            icon: cil:docker-watchtower
+            icon: custom:docker-watchtower
 
-          - entity: sensor.template_hass_next_release
+          - entity: sensor.template_hass_dev_release
 
           - entity: sensor.databas
             icon: mdi:database
@@ -149,30 +145,22 @@ browser_mod:
                 name: Container
                 icon: mdi:reload
                 tap_action:
-                  services: |
-                    [[[
-                      return `[[[
-                        hass.callService('browser_mod', 'toast', {
-                            message: 'Startar om Home Assistant container...'
-                        });
-                        hass.callService('homeassistant', 'save_persistent_states');
-                        setTimeout(() => {
-                            hass.callService('shell_command', 'restart_container');
-                        }, '2000')
-                      ]]]`
-                    ]]]
+                  action: call-service
+                  service: script.turn_on
+                  service_data:
+                    entity_id: script.homeassistant_restart
                 template: icon_name
 
       #################################################
       #                                               #
-      #                    DOCKER                     #
+      #                 BOX INTERNET                  #
       #                                               #
       #################################################
 
       - type: entities
         view_layout:
           grid-area: tablet
-        title: Docker
+        title: Box Internet
         state_color: true
         show_header_toggle: false
         card_mod:
@@ -213,7 +201,9 @@ browser_mod:
           type: custom:apexcharts-card
           layout: minimal
           graph_span: 1h
-          locale: se
+          update_delay: 3s
+          update_interval: 1min
+          locale: fr
           apex_config:
             chart:
               fontFamily: var(--primary-font-family)
@@ -266,23 +256,23 @@ browser_mod:
             type: area
             fill_raw: last
           series:
-            - entity: sensor.nas_download_throughput
+            - entity: sensor.nzbget_average_speed
               name: Ned
               color: green
-            - entity: sensor.nas_upload_throughput
+            - entity: sensor.nzbget_article_cache
               name: Upp
               color: '#385581'
 
       #################################################
       #                                               #
-      #                      NAS                      #
+      #                      NUC                      #
       #                                               #
       #################################################
 
       - type: entities
         view_layout:
           grid-area: nas
-        title: Synology DS918+
+        title: NUCleide
         show_header_toggle: false
         card_mod:
           class: header
@@ -291,18 +281,6 @@ browser_mod:
               border: none !important;
             }
         entities:
-          - entity: sensor.template_nas_status
-
-          - entity: binary_sensor.nas_security_status
-            name: Säkerhetsstatus
-
-          - entity: sensor.nas_volume_1_average_disk_temp
-
-          - entity: sensor.last_boot
-            name: Senast omstart
-
-          - entity: binary_sensor.nas_update_available
-            name: Uppdatering
 
           - type: custom:bar-card
             width: 55%
@@ -315,15 +293,15 @@ browser_mod:
             entities:
 
               - entity: sensor.processor_use
-                name: Processor
+                name: CPU
                 tap_action:
                   action: call-service
                   service: homeassistant.update_entity
                   service_data:
-                    entity_id: sensor.processor_use
+                    entity_id: sensor.processor_use_percent
 
               - entity: sensor.memory_use_percent
-                name: Minne - 4GB
+                name: RAM (8Go)
                 tap_action:
                   action: call-service
                   service: homeassistant.update_entity
@@ -331,41 +309,89 @@ browser_mod:
                     entity_id: sensor.memory_use_percent
 
               - entity: sensor.disk_use_percent
-                name: Lagring - 10.5TB
+                name: / (30Go)
                 tap_action:
                   action: call-service
                   service: homeassistant.update_entity
                   service_data:
                     entity_id: sensor.disk_use_percent
 
-          - type: custom:hui-horizontal-stack-card
-            cards:
-              - type: custom:button-card
-                name: Starta om
-                icon: mdi:restart-alert
+              - entity: sensor.disk_use_percent_filer
+                name: /filer (3.6To)
                 tap_action:
-                  confirm: >
-                    [[[
-                      return `[[[
-                        if (window.confirm('Är du säker på att du vill starta om NAS?')) {
-                          hass.callService('browser_mod', 'toast', { message: 'Startar om NAS...', duration: 3000 });
-                          hass.callService('button', 'press', { entity_id: 'button.nas_reboot' });
-                        }
-                      ]]]`
-                    ]]]
-                template: icon_name
+                  action: call-service
+                  service: homeassistant.update_entity
+                  service_data:
+                    entity_id: sensor.disk_use_percent_filer
 
-              - type: custom:button-card
-                name: Stäng av...
-                icon: mdi:alert
-                tap_action:
-                  confirm: >
-                    [[[
-                      return `[[[
-                        if (window.confirm('Är du säker på att du vill stänga av NAS?')) {
-                          hass.callService('browser_mod', 'toast', { message: 'Stänger av NAS...', duration: 3000 });
-                          hass.callService('button', 'press', { entity_id: 'button.nas_shutdown' });
-                        }
-                      ]]]`
-                    ]]]
-                template: icon_name
+          - entity: sensor.processor_temperature
+          - entity: sensor.last_boot
+          - entity: sensor.ipv4_address_eno1
+
+        footer:
+          type: custom:apexcharts-card
+          layout: minimal
+          graph_span: 2h
+          all_series_config:
+           stroke_width: 1
+          # update_delay: 1s
+          # update_interval: 1s
+          locale: fr
+          apex_config:
+            chart:
+              fontFamily: var(--primary-font-family)
+              height: 300px
+            tooltip:
+              style:
+                fontSize: 14px
+              x:
+                show: true
+                format: dddd HH:mm
+            xaxis:
+              crosshairs:
+                show: false
+            legend:
+              fontSize: 14px
+              fontWeight: 500
+              itemMargin:
+                horizontal: 25
+              # formatter: |
+              #   EVAL: (seriesName, opts) => {
+              #     var arr = opts.w.globals.series[opts.seriesIndex],
+              #       value = arr[arr.length - 1],
+              #       convert = (value/1024).toFixed(2);
+              #     return value == null
+              #       ? seriesName : value < 1024 ? `${Math.round(value)} kB/s`
+              #       : `${convert} MB/s`;
+              #   }
+              markers:
+                width: 26
+                height: 23
+                customHTML:
+                  - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+                  - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+                fillColors:
+                  - none
+                  - none
+            fill:
+              type: gradient
+              gradient:
+                type: vertical
+                opacityFrom: 0.8
+                opacityTo: 0
+                stops:
+                  - 0
+                  - 99
+                  - 100
+            stroke:
+              width: 3
+          all_series_config:
+            type: area
+            fill_raw: last
+          series:
+            - entity: sensor.network_throughput_in_eno1
+              name: Download
+              color: green
+            - entity: sensor.network_throughput_out_eno1
+              name: Upload
+              color: '#385581'
