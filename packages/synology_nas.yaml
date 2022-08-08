@@ -35,7 +35,7 @@ sensor:
       - type: ipv4_address
         arg: eno1
       - type: ipv4_address
-        arg: ewg0
+        arg: wg0
 #    scan_interval: 120
 
   - platform: bbox

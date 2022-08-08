@@ -77,20 +77,20 @@ views:
 
       #################################################
       #                                               #
-      #                  VARDAGSRUM                   #
+      #                     SALON                     #
       #                                               #
       #################################################
 
       - type: grid
-        title: Vardagsrum
+        title: Salon
         view_layout:
           grid-area: vardagsrum
         columns: 2
         cards:
 
           - type: custom:button-card
-            entity: light.vardagsrum_group
-            name: Belysning
+            entity: light.salon_group
+            name: Eclairage
             template:
               - light
               - icon_hue

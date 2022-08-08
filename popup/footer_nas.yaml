@@ -327,6 +327,7 @@ browser_mod:
           - entity: sensor.processor_temperature
           - entity: sensor.last_boot
           - entity: sensor.ipv4_address_eno1
+          - entity: sensor.ipv4_address_wg0
 
         footer:
           type: custom:apexcharts-card

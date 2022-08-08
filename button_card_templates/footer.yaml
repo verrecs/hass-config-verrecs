@@ -71,6 +71,6 @@ footer:
     service: browser_mod.toast
     service_data:
       duration: 3000
-      message: "Tips! Tryck en gång för att öppna popup-meny"
+      message: "Tips! Appuyez une seule fois pour ouvrir l'écran"
   double_tap_action:
     <<: *toast
