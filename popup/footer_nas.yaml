@@ -64,39 +64,144 @@ browser_mod:
 
       #################################################
       #                                               #
-      #       Réseau / Pi.hole / VPN / NZBGET         #
-      #           SpeedTest / NMAP...                 #
+      #                BOX Internet                   #
+      #              SpeedTest / NMAP...              #
       #################################################
 
       - type: entities
         view_layout:
           grid-area: hass
-        title: Home Assistant
+        title: Internet
         show_header_toggle: false
         card_mod:
           class: header
         entities:
-          - entity: sensor.template_hass_version
+          - entity: sensor.current_down_bandwidth
+          
+          # - entity: sensor.template_hass_version
 
-          - entity: switch.docker_watchtower
-            name: Watchtower
-            icon: custom:docker-watchtower
+          # - entity: switch.docker_watchtower
+          #   name: Watchtower
+          #   icon: custom:docker-watchtower
 
-          - entity: sensor.template_hass_dev_release
+          # - entity: sensor.template_hass_dev_release
 
-          - entity: sensor.databas
-            icon: mdi:database
+          # - entity: sensor.databas
+          #   icon: mdi:database
 
-          - entity: sensor.home_assistant_log_size
-            name: Loggfil
-            icon: mdi:file-document
+          # - entity: sensor.home_assistant_log_size
+          #   name: Loggfil
+          #   icon: mdi:file-document
 
-          - type: attribute
-            entity: sensor.docker_home_assistant
-            attribute: uptime
-            format: relative
-            name: Senast omstart
-            icon: mdi:update
+          # - type: attribute
+          #   entity: sensor.docker_home_assistant
+          #   attribute: uptime
+          #   format: relative
+          #   name: Senast omstart
+          #   icon: mdi:update
+
+          # - type: custom:mini-graph-card
+          #   font_size: 70
+          #   height: 30
+          #   hours_to_show: 168
+          #   icon: mdi:pulse
+          #   line_color: var(--primary-color)
+          #   line_width: 2
+          #   name: Ping
+          #   points_per_hour: 1
+          #   show:
+          #     fill: true
+          #     graph: bar
+          #   entities:
+          #     - sensor.speedtest_ping
+
+          # - type: custom:mini-graph-card
+          #   font_size: 70
+          #   height: 30
+          #   hours_to_show: 168
+          #   icon: mdi:arrow-down-bold
+          #   line_color: var(--primary-color)
+          #   line_width: 2
+          #   name: Download
+          #   points_per_hour: 1
+          #   show:
+          #     extrema: true
+          #     labels: false
+          #   entities:
+          #     - sensor.speedtest_download
+          #     - sensor.speedtest_upload
+          #       # show_points: false
+
+
+          - type: custom:apexcharts-card
+            layout: minimal
+            graph_span: 2h
+            # update_delay: 1s
+            # update_interval: 1s
+            locale: fr
+            apex_config:
+              # chart:
+              #   fontFamily: var(--primary-font-family)
+              #   height: 300px
+              # tooltip:
+              #   style:
+              #     fontSize: 14px
+              #   x:
+              #     show: true
+              #     format: dddd HH:mm
+              # xaxis:
+              #   crosshairs:
+              #     show: false
+              # legend:
+              #   fontSize: 9px
+              #   fontWeight: 500
+              #   itemMargin:
+              #     horizontal: 25
+              #   markers:
+              #     width: 26
+              #     height: 23
+              #     # customHTML:
+              #     #   - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+              #     #   - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+              #     # fillColors:
+              #     #   - none
+              #     #   - none
+              # fill:
+              #   type: gradient
+              #   gradient:
+              #     type: vertical
+              #     opacityFrom: 0.8
+              #     opacityTo: 0
+              #     stops:
+              #       - 0
+              #       - 99
+              #       - 100
+              stroke:
+                width: 1
+            series:
+              - entity: sensor.speedtest_download
+                show:
+                  extremas: true
+                type: area
+                fill_raw: last
+                name: Down
+                color: '#f030b9'
+              - entity: sensor.speedtest_upload
+                show:
+                  extremas: true
+                type: area
+                fill_raw: last
+                name: Up
+                color: var(--primary-color)
+              - entity: sensor.speedtest_ping
+                show:
+                  extremas: true
+                type: column
+                fill_raw: last
+                name: Ping
+                color: '#f2befc'
+
+
 
           - type: custom:bar-card
             width: 55%
@@ -114,100 +219,101 @@ browser_mod:
             entity_row: true
             entities:
 
-              - entity: sensor.docker_home_assistant
-                attribute: cpu_percentage
-                name: Processor
-                icon: mdi:chip
+          #     - entity: sensor.docker_home_assistant
+          #       attribute: cpu_percentage
+          #       name: Processor
+          #       icon: mdi:chip
 
-              - entity: sensor.docker_home_assistant
-                attribute: memory_percentage
-                name: Minne
-                icon: mdi:memory
+          #     - entity: sensor.docker_home_assistant
+          #       attribute: memory_percentage
+          #       name: Minne
+          #       icon: mdi:memory
 
-          - type: custom:hui-horizontal-stack-card
-            cards:  
-              - type: custom:button-card
-                name: Serveromstart
-                icon: mdi:reload
-                tap_action:
-                  services: |
-                    [[[
-                      return `[[[
-                        hass.callService('browser_mod', 'toast', {
-                          message: 'Startar om Home Assistant...'
-                        });
-                        hass.callService('homeassistant', 'restart');
-                      ]]]`
-                    ]]]
-                template: icon_name
+          # - type: custom:hui-horizontal-stack-card
+          #   cards:  
+          #     - type: custom:button-card
+          #       name: Serveromstart
+          #       icon: mdi:reload
+          #       tap_action:
+          #         services: |
+          #           [[[
+          #             return `[[[
+          #               hass.callService('browser_mod', 'toast', {
+          #                 message: 'Startar om Home Assistant...'
+          #               });
+          #               hass.callService('homeassistant', 'restart');
+          #             ]]]`
+          #           ]]]
+          #       template: icon_name
 
-              - type: custom:button-card
-                name: Container
-                icon: mdi:reload
-                tap_action:
-                  action: call-service
-                  service: script.turn_on
-                  service_data:
-                    entity_id: script.homeassistant_restart
-                template: icon_name
+          #     - type: custom:button-card
+          #       name: Container
+          #       icon: mdi:reload
+          #       tap_action:
+          #         action: call-service
+          #         service: script.turn_on
+          #         service_data:
+          #           entity_id: script.homeassistant_restart
+          #       template: icon_name
 
       #################################################
       #                                               #
-      #                 BOX INTERNET                  #
+      #                 VPN etc....                   #
       #                                               #
       #################################################
 
       - type: entities
         view_layout:
           grid-area: tablet
-        title: Box Internet
+        title: VPN
         state_color: true
         show_header_toggle: false
         card_mod:
           class: header
         entities:
 
-          - type: custom:bar-card
-            width: 55%
-            height: 2em
-            decimal: 0
-            unit_of_measurement: '%'
-            positions: *bar_card_positions
-            severity: *bar_card_severity
-            entity_row: true
-            entities:
+          # - type: custom:bar-card
+          #   width: 55%
+          #   height: 2em
+          #   decimal: 0
+          #   unit_of_measurement: '%'
+          #   positions: *bar_card_positions
+          #   severity: *bar_card_severity
+          #   entity_row: true
+          #   entities:
 
-              - entity: sensor.docker_1cpu
-                name: Processor
+          #     - entity: sensor.docker_1cpu
+          #       name: Processor
 
-              - entity: sensor.docker_memory_percent
-                name: Minne
+          #     - entity: sensor.docker_memory_percent
+          #       name: Minne
 
-          - entity: sensor.docker_containers_total
-            name: Containrar Totalt
+          # - entity: sensor.docker_containers_total
+          #   name: Containrar Totalt
 
-          - entity: sensor.docker_containers_running
-            name: Containrar Körs
+          # - entity: sensor.docker_containers_running
+          #   name: Containrar Körs
 
-          - entity: sensor.docker_containers_paused
-            name: Containrar Pausade
+          # - entity: sensor.docker_containers_paused
+          #   name: Containrar Pausade
 
-          - entity: sensor.docker_containers_stopped
-            name: Containrar Stoppade
+          # - entity: sensor.docker_containers_stopped
+          #   name: Containrar Stoppade
 
-          - entity: switch.docker_transmission_seed
+          # - entity: switch.docker_transmission_seed
+          - entity: sensor.ipv4_address_wg0
 
         footer:
           type: custom:apexcharts-card
           layout: minimal
-          graph_span: 1h
-          update_delay: 3s
-          update_interval: 1min
+          graph_span: 6h
+          # update_delay: 1s
+          # update_interval: 1s
           locale: fr
           apex_config:
             chart:
               fontFamily: var(--primary-font-family)
-              height: 135px
+              height: 300px
             tooltip:
               style:
                 fontSize: 14px
@@ -219,18 +325,9 @@ browser_mod:
                 show: false
             legend:
               fontSize: 14px
-              fontWeight: 400
+              fontWeight: 500
               itemMargin:
                 horizontal: 25
-              formatter: |
-                EVAL: (seriesName, opts) => {
-                  var arr = opts.w.globals.series[opts.seriesIndex],
-                    value = arr[arr.length - 1],
-                    convert = (value/1024).toFixed(2);
-                  return value == null
-                    ? seriesName : value < 1024 ? `${Math.round(value)} kB/s`
-                    : `${convert} MB/s`;
-                }
               markers:
                 width: 26
                 height: 23
@@ -251,17 +348,17 @@ browser_mod:
                   - 99
                   - 100
             stroke:
-              width: 3
+              width: 1
           all_series_config:
             type: area
             fill_raw: last
           series:
-            - entity: sensor.nzbget_average_speed
-              name: Ned
-              color: green
-            - entity: sensor.nzbget_article_cache
-              name: Upp
-              color: '#385581'
+            - entity: sensor.network_throughput_in_wg0
+              name: Down
+              color: '#f030b9'
+            - entity: sensor.network_throughput_out_wg0
+              name: Up
+              color: var(--primary-color)
 
       #################################################
       #                                               #
@@ -327,14 +424,11 @@ browser_mod:
           - entity: sensor.processor_temperature
           - entity: sensor.last_boot
           - entity: sensor.ipv4_address_eno1
-          - entity: sensor.ipv4_address_wg0
 
         footer:
           type: custom:apexcharts-card
           layout: minimal
           graph_span: 2h
-          all_series_config:
-           stroke_width: 1
           # update_delay: 1s
           # update_interval: 1s
           locale: fr
@@ -356,15 +450,6 @@ browser_mod:
               fontWeight: 500
               itemMargin:
                 horizontal: 25
-              # formatter: |
-              #   EVAL: (seriesName, opts) => {
-              #     var arr = opts.w.globals.series[opts.seriesIndex],
-              #       value = arr[arr.length - 1],
-              #       convert = (value/1024).toFixed(2);
-              #     return value == null
-              #       ? seriesName : value < 1024 ? `${Math.round(value)} kB/s`
-              #       : `${convert} MB/s`;
-              #   }
               markers:
                 width: 26
                 height: 23
@@ -385,14 +470,14 @@ browser_mod:
                   - 99
                   - 100
             stroke:
-              width: 3
+              width: 1
           all_series_config:
             type: area
             fill_raw: last
           series:
             - entity: sensor.network_throughput_in_eno1
-              name: Download
-              color: green
+              name: Down
+              color: '#f030b9'
             - entity: sensor.network_throughput_out_eno1
-              name: Upload
-              color: '#385581'
+              name: Up
+              color: var(--primary-color)

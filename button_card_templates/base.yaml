@@ -50,7 +50,7 @@ base:
     service_data:
       duration: 3000
       message: >
-        Tips! Dubbelklicka för att öppna popup-meny
+        Tips! Double-cliquez pour ouvrir le menu contextuel
     haptic: failure
   styles:
     grid:
