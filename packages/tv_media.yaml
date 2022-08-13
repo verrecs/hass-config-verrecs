@@ -146,14 +146,14 @@ automation:
   #         data:
   #           command: wakeup
 
-  - alias: tv_on_lights
-    id: '6657050215613'
-    trigger:
-      platform: state
-      entity_id: media_player.sony_bravia_tv
-      from: 'off'
-      to: 'on'
-    action:
-      service: light.turn_on
-      target:
-        entity_id: light.vardagsrum_tv
+  # - alias: tv_on_lights
+  #   id: '6657050215613'
+  #   trigger:
+  #     platform: state
+  #     entity_id: media_player.sony_bravia_tv
+  #     from: 'off'
+  #     to: 'on'
+  #   action:
+  #     service: light.turn_on
+  #     target:
+  #       entity_id: light.vardagsrum_tv

@@ -61,19 +61,26 @@ views:
             entity: sensor.template_sidebar
             template: sidebar
 
-          - type: conditional
-            conditions:
-              - entity: input_boolean.laundry_display
-                state: 'on'
-            card:
-              type: custom:button-card
-              entity: timer.laundry
-              double_tap_action:
-                action: call-service
-                service: input_boolean.turn_off
-                service_data:
-                  entity_id: input_boolean.laundry_display
-              template: laundry
+          - type: custom:weather-card
+            entity: weather.paris_10eme_arrondissement
+            number_of_forecasts: '5'
+
+          - type: custom:sun-card
+            darkMode: true
+
+          # - type: conditional
+          #   conditions:
+          #     - entity: input_boolean.laundry_display
+          #       state: 'on'
+          #   card:
+          #     type: custom:button-card
+          #     entity: timer.laundry
+          #     double_tap_action:
+          #       action: call-service
+          #       service: input_boolean.turn_off
+          #       service_data:
+          #         entity_id: input_boolean.laundry_display
+          #     template: laundry
 
       #################################################
       #                                               #
@@ -205,7 +212,7 @@ views:
       #################################################
 
       - type: grid
-        title: Sovrum
+        title: Températures
         view_layout:
           grid-area: sovrum
         columns: 2
@@ -218,9 +225,10 @@ views:
               - light
               - icon_lamp
 
+          # TODO : voire l'icone
           - type: custom:button-card
-            entity: climate.ac
-            name: Klimat
+            entity: climate.wiser_salon
+            name: T°
             double_tap_action:
               !include popup/sovrum_klimat.yaml
             template:
@@ -297,7 +305,7 @@ views:
                     card:
                       type: custom:button-card
                       entity: sensor.plex_recently_added
-                      name: Senast tillagt
+                      name: Dernier téléchargement
                       tap_action:
                         action: none
                       template:
