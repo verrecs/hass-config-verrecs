@@ -8,7 +8,7 @@ light:
       - light.lampe_rouge
       - light.on_off_plug_1
       - light.spot_bleu
-      # - scene.film
+      # - scene.films_hass
 
   # - platform: group
   #   name: vardagsrum_group
@@ -54,7 +54,7 @@ light:
 homeassistant:
   customize:
     light.salon_group:
-      friendly_name: Eclairage
+      friendly_name: Lumière
     # light.vardagsrum_group:
     #   friendly_name: Belysning
     # light.studio_dator:

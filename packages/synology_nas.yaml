@@ -56,6 +56,9 @@ sensor:
     img_dir: /
     image_resolution: 800
 
+device_tracker:
+  - platform: bbox
+
 # template:
 #   - sensor:
 #       - unique_id: nas_status

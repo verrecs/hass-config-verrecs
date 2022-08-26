@@ -18,6 +18,7 @@ default_config:
 
 frontend: !include themes.yaml
 template: !include sidebar.yaml
+scene: !include scenes.yaml
 
 lovelace:
   mode: yaml
@@ -36,6 +37,8 @@ lovelace:
       { url: /hacsfiles/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js,  type: module },
       { url: /hacsfiles/swipe-card/swipe-card.js,                                   type: module },
       { url: /hacsfiles/weather-card/weather-card.js,                               type: module },
+      # { url: https://cdn.jsdelivr.net/gh/Imbuzi/meteo-france-weather-card/dist/meteo-france-weather-card.js,     type: module },
+      
       { url: /hacsfiles/home-assistant-sun-card/home-assistant-sun-card.js,         type: module },
 
       { url: '/local/marked.min.js?v=4.0.18',                                       type: module },
@@ -60,3 +63,17 @@ sensor:
     display_options:
       - time
       - date
+
+# TESTING AREA
+
+
+media_player:
+  - platform: samsungtv_tizen
+    host: 192.168.1.97
+    mac: 84:c0:ef:39:70:30
+
+wake_on_lan:
+
+switch:
+  - platform: wake_on_lan
+    mac: 84:c0:ef:39:70:30

@@ -1,0 +1,65 @@
+- id: '1660470571676'
+  name: Films
+  entities:
+    light.spot_bleu:
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      mode: normal
+      dynamics: none
+      icon: mdi:floor-lamp-torchiere-variant
+      friendly_name: Spot bleu
+      supported_features: 40
+      color_mode: color_temp
+      brightness: 51
+      color_temp: 440
+      hs_color:
+      - 29.549
+      - 81.478
+      rgb_color:
+      - 255
+      - 149
+      - 47
+      xy_color:
+      - 0.572
+      - 0.388
+      state: 'on'
+    light.lampe_pixar:
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      mode: normal
+      dynamics: none
+      icon: mdi:desk-lamp
+      friendly_name: Lampe Pixar
+      supported_features: 40
+      color_mode: color_temp
+      brightness: 51
+      color_temp: 440
+      hs_color:
+      - 29.549
+      - 81.478
+      rgb_color:
+      - 255
+      - 149
+      - 47
+      xy_color:
+      - 0.572
+      - 0.388
+      state: 'on'
+    light.on_off_plug_1:
+      supported_color_modes: []
+      mode: normal
+      dynamics: none
+      friendly_name: Lumière du bar
+      supported_features: 0
+      state: 'off'
+  icon: mdi:theater
+  metadata: {}
+- id: '1660471202607'
+  name: Test
+  entities: {}
+  icon: mdi:air-conditioner
+  metadata: {}

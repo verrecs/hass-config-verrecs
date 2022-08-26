@@ -48,7 +48,7 @@ template:
   - select:
       - name: conditional_media
         state: >
-          {% set recently_added = 'Senast tillagt' %}
+          {% set recently_added = 'Dernier téléchargement' %}
           {% set paused_timeout_minutes = 15 %}
           {% set media_players = [
             states.media_player.vardagsrum,

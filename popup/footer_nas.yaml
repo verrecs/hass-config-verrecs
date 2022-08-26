@@ -76,8 +76,8 @@ browser_mod:
         card_mod:
           class: header
         entities:
-          - entity: sensor.current_down_bandwidth
-          
+          # - entity: sensor.current_down_bandwidth
+
           # - entity: sensor.template_hass_version
 
           # - entity: switch.docker_watchtower
@@ -100,106 +100,111 @@ browser_mod:
           #   name: Senast omstart
           #   icon: mdi:update
 
-          # - type: custom:mini-graph-card
-          #   font_size: 70
-          #   height: 30
-          #   hours_to_show: 168
-          #   icon: mdi:pulse
-          #   line_color: var(--primary-color)
-          #   line_width: 2
-          #   name: Ping
-          #   points_per_hour: 1
-          #   show:
-          #     fill: true
-          #     graph: bar
-          #   entities:
-          #     - sensor.speedtest_ping
+          - type: custom:mini-graph-card
+            font_size: 70
+            height: 30
+            hours_to_show: 48
+            icon: mdi:pulse
+            line_color: var(--primary-color)
+            line_width: 0.25
+            name: Ping
+            points_per_hour: 1
+            show:
+              fill: true
+              graph: bar
+            entities:
+              - sensor.speedtest_ping
 
-          # - type: custom:mini-graph-card
-          #   font_size: 70
-          #   height: 30
-          #   hours_to_show: 168
-          #   icon: mdi:arrow-down-bold
-          #   line_color: var(--primary-color)
-          #   line_width: 2
-          #   name: Download
-          #   points_per_hour: 1
-          #   show:
-          #     extrema: true
-          #     labels: false
-          #   entities:
-          #     - sensor.speedtest_download
-          #     - sensor.speedtest_upload
-          #       # show_points: false
-
-
-          - type: custom:apexcharts-card
-            layout: minimal
-            graph_span: 2h
-            # update_delay: 1s
-            # update_interval: 1s
-            locale: fr
-            apex_config:
-              # chart:
-              #   fontFamily: var(--primary-font-family)
-              #   height: 300px
-              # tooltip:
-              #   style:
-              #     fontSize: 14px
-              #   x:
-              #     show: true
-              #     format: dddd HH:mm
-              # xaxis:
-              #   crosshairs:
-              #     show: false
-              # legend:
-              #   fontSize: 9px
-              #   fontWeight: 500
-              #   itemMargin:
-              #     horizontal: 25
-              #   markers:
-              #     width: 26
-              #     height: 23
-              #     # customHTML:
-              #     #   - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-              #     #   - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-              #     # fillColors:
-              #     #   - none
-              #     #   - none
-              # fill:
-              #   type: gradient
-              #   gradient:
-              #     type: vertical
-              #     opacityFrom: 0.8
-              #     opacityTo: 0
-              #     stops:
-              #       - 0
-              #       - 99
-              #       - 100
-              stroke:
-                width: 1
-            series:
+          - type: custom:mini-graph-card
+            font_size: 70
+            height: 50
+            hours_to_show: 48
+            points_per_hour: 0.25
+            icon: mdi:web
+            line_width: 1
+            name: Débits
+            show:
+              extrema: true
+              labels: false
+            entities:
               - entity: sensor.speedtest_download
-                show:
-                  extremas: true
-                type: area
-                fill_raw: last
-                name: Down
+                name : Download
+                icon: mdi:arrow-down-bold
                 color: '#f030b9'
               - entity: sensor.speedtest_upload
-                show:
-                  extremas: true
-                type: area
-                fill_raw: last
-                name: Up
+                name : Upload
+                icon: mdi:arrow-up-bold
                 color: var(--primary-color)
-              - entity: sensor.speedtest_ping
-                show:
-                  extremas: true
-                type: column
-                fill_raw: last
-                name: Ping
-                color: '#f2befc'
+                # show_points: false
+
+
+          # - type: custom:apexcharts-card
+          #   layout: minimal
+          #   graph_span: 2h
+          #   # update_delay: 1s
+          #   # update_interval: 1s
+          #   locale: fr
+          #   apex_config:
+          #     # chart:
+          #     #   fontFamily: var(--primary-font-family)
+          #     #   height: 300px
+          #     # tooltip:
+          #     #   style:
+          #     #     fontSize: 14px
+          #     #   x:
+          #     #     show: true
+          #     #     format: dddd HH:mm
+          #     # xaxis:
+          #     #   crosshairs:
+          #     #     show: false
+          #     # legend:
+          #     #   fontSize: 9px
+          #     #   fontWeight: 500
+          #     #   itemMargin:
+          #     #     horizontal: 25
+          #     #   markers:
+          #     #     width: 26
+          #     #     height: 23
+          #     #     # customHTML:
+          #     #     #   - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+          #     #     #   - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+          #     #     # fillColors:
+          #     #     #   - none
+          #     #     #   - none
+          #     # fill:
+          #     #   type: gradient
+          #     #   gradient:
+          #     #     type: vertical
+          #     #     opacityFrom: 0.8
+          #     #     opacityTo: 0
+          #     #     stops:
+          #     #       - 0
+          #     #       - 99
+          #     #       - 100
+          #     stroke:
+          #       width: 1
+          #   series:
+          #     - entity: sensor.speedtest_download
+          #       show:
+          #         extremas: true
+          #       type: area
+          #       fill_raw: last
+          #       name: Down
+          #       color: '#f030b9'
+          #     - entity: sensor.speedtest_upload
+          #       show:
+          #         extremas: true
+          #       type: area
+          #       fill_raw: last
+          #       name: Up
+          #       color: var(--primary-color)
+          #     - entity: sensor.speedtest_ping
+          #       show:
+          #         extremas: true
+          #       type: column
+          #       fill_raw: last
+          #       name: Ping
+          #       color: '#f2befc'
 
 
 

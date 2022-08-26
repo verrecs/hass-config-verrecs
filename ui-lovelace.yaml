@@ -12,7 +12,7 @@ views:
       grid-template-rows: 0 repeat(2, fit-content(100%)) 0fr
       grid-template-areas: |
         "sidebar  .           .       .       ."
-        "sidebar  vardagsrum  studio  sovrum  ."
+        "sidebar  salon  studio  sovrum  ."
         "sidebar  media       övrigt  hemma   ."
         "sidebar  footer      footer  footer  ."
       mediaquery:
@@ -24,7 +24,7 @@ views:
           grid-template-areas: |
             ".  .           .        ."
             ".  sidebar     sidebar  ."
-            ".  vardagsrum  sovrum   ."
+            ".  salon  sovrum   ."
             ".  studio      övrigt   ."
             ".  media       hemma    ."
             ".  footer      footer   ."
@@ -36,7 +36,7 @@ views:
           grid-template-rows: 0 repeat(3, fit-content(100%)) 0fr
           grid-template-areas: |
             "sidebar  .           .       ."
-            "sidebar  vardagsrum  sovrum  ."
+            "sidebar  salon  sovrum  ."
             "sidebar  studio      övrigt  ."
             "sidebar  media       hemma   ."
             "sidebar  footer      footer  ."
@@ -63,6 +63,9 @@ views:
 
           - type: custom:weather-card
             entity: weather.paris_10eme_arrondissement
+            details: true
+            forecast: true
+            hourly_forecast: true
             number_of_forecasts: '5'
 
           - type: custom:sun-card
@@ -91,23 +94,90 @@ views:
       - type: grid
         title: Salon
         view_layout:
-          grid-area: vardagsrum
+          grid-area: salon
         columns: 2
         cards:
 
           - type: custom:button-card
             entity: light.salon_group
-            name: Eclairage
+            name: Lumière
             template:
               - light
               - icon_hue
 
+          # Bouton Scene
+          # TODO : a templatiser
           - type: custom:button-card
-            entity: light.vardagsrum_horna
-            name: Hörnlampa
+            name: Films
+            icon: mdi:theater
+            # template:
+            #   - base
+            tap_action:
+                action: call-service
+                service: scene.turn_on
+                service_data:
+                  entity_id: scene.films_hass
+
+
+          # - type: custom:button-card
+          #   entity: light.salon_horna
+          #   name: Hörnlampa
+          #   template:
+          #     - light
+          #     - icon_shade
+
+          # TODO : changer l'icone en fonction du statut + réglage comme les lampes
+          - type: custom:button-card
+            entity: climate.wiser_salon
+            name: T°
+            double_tap_action:
+              !include popup/sovrum_klimat.yaml
             template:
-              - light
-              - icon_shade
+              - base
+              - icon_climate
+              - circle
+            variables:
+              circle_input: >
+                [[[
+                  if (entity) {
+                      return entity.state === 'cool'
+                          ? Math.round(entity.attributes.temperature).toString()
+                          : Math.round(entity.attributes.current_temperature).toString();
+                  }
+                ]]]
+              circle_input_unit: '°C'
+            custom_fields:
+              graph:
+                card:
+                  type: custom:apexcharts-card
+                  layout: minimal
+                  graph_span: 3h
+                  apex_config:
+                    chart:
+                      fontFamily: var(--primary-font-family)
+                      height: 145px
+                    fill:
+                      type: gradient
+                      gradient:
+                        type: vertical
+                        opacityFrom: 1
+                        opacityTo: 0.5
+                    stroke:
+                      width: 1
+                  all_series_config:
+                    type: area
+                    fill_raw: last
+                  entities: 
+                    - entity: sensor.hue_motion_sensor_1_temperature
+                      color: var(--primary-color)
+            styles:
+              custom_fields:
+                graph:
+                  - filter: opacity(50%)
+                  - position: absolute
+                  - left: 0%
+              card:
+                - overflow: false
 
           - type: custom:button-card
             entity: media_player.sony_bravia_tv
@@ -122,7 +192,7 @@ views:
                 }
               ]]]
             double_tap_action:
-              !include popup/vardagsrum_tv.yaml
+              !include popup/salon_tv.yaml
             template:
               - base
               - icon_tv
@@ -132,7 +202,7 @@ views:
             entity: switch.deltaco_sh_p01_socket
             name: Balkong
             double_tap_action:
-              !include popup/vardagsrum_balkong.yaml
+              !include popup/salon_balkong.yaml
             template:
               - base
               - icon_hue
@@ -212,7 +282,7 @@ views:
       #################################################
 
       - type: grid
-        title: Températures
+        title: A définir
         view_layout:
           grid-area: sovrum
         columns: 2
@@ -225,26 +295,7 @@ views:
               - light
               - icon_lamp
 
-          # TODO : voire l'icone
-          - type: custom:button-card
-            entity: climate.wiser_salon
-            name: T°
-            double_tap_action:
-              !include popup/sovrum_klimat.yaml
-            template:
-              - base
-              - icon_climate
-              - circle
-            variables:
-              circle_input: >
-                [[[
-                  if (entity) {
-                      return entity.state === 'cool'
-                          ? Math.round(entity.attributes.temperature).toString()
-                          : Math.round(entity.attributes.current_temperature).toString();
-                  }
-                ]]]
-              circle_input_unit: '°C'
+
 
           - type: custom:button-card
             entity: switch.playstation_5
@@ -292,7 +343,7 @@ views:
                   - type: conditional
                     conditions:
                       - entity: select.conditional_media
-                        state_not: Vardagsrum
+                        state_not: salon
 
                       - entity: select.conditional_media
                         state_not: Sovrum
@@ -315,10 +366,10 @@ views:
                   - type: conditional
                     conditions:
                       - entity: select.conditional_media
-                        state: Vardagsrum
+                        state: salon
                     card:
                       type: custom:button-card
-                      entity: media_player.vardagsrum
+                      entity: media_player.salon
                       template:
                         - conditional_media
                         - icon_apple_tv
@@ -340,7 +391,7 @@ views:
                         state: Spotify
                     card:
                       type: custom:button-card
-                      entity: media_player.spotify
+                      entity: media_player.spotify_stephane_verrecchia
                       template:
                         - conditional_media
                         - icon_spotify
@@ -361,8 +412,8 @@ views:
                 cards:
 
                   - type: custom:button-card
-                    entity: media_player.vardagsrum
-                    name: Vardagsrum
+                    entity: media_player.salon
+                    name: salon
                     template:
                       - media
                       - icon_apple_tv

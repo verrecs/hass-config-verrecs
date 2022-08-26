@@ -17,24 +17,24 @@
             {{ days[now().weekday()] }} {{ strptime(states('sensor.date'), '%Y-%m-%d').day }} {{ months[now().month-1] }}
           {% endif %}
           </b></font>
-        greet: >
-          <b>
-          {% set time = now().hour %}
-          {% if time <= 1 %} Bonne nuit {{'\U0001F611'}}
-          {% elif time <= 3 %} Bonne nuit {{'\U0001F62A'}}
-          {% elif time <= 5 %} Bonne nuit {{'\U0001F634'}}
-          {% elif time <= 7 %} Bonjour {{'\U0001F4A9'}}
-          {% elif time <= 9 %} Bonjour {{'\u2615\uFE0F'}}
-          {% elif time <= 10 %} Bonjour {{'\U0001F642'}}
-          {% elif time <= 13 %} Bonne journée {{'\U0001F60A'}}
-          {% elif time <= 15 %} Bonne journée {{'\U0001F60E'}}
-          {% elif time <= 17 %} Bonne journée {{'\U0001F44B\U0001F3FB'}}
-          {% elif time <= 19 %} Bonsoir {{'\U0001F44B\U0001F3FB'}}
-          {% elif time <= 22 %} Bonsoir {{'\U0001F60C'}}
-          {% elif time <= 23 %} Bonsoir {{'\U0001F974'}}
-          {% else %} Bonsoir {{'\U0001F974'}}
-          {% endif %}
-          </b>
+        # greet: >
+        #   <b>
+        #   {% set time = now().hour %}
+        #   {% if time <= 1 %} Bonne nuit {{'\U0001F611'}}
+        #   {% elif time <= 3 %} Bonne nuit {{'\U0001F62A'}}
+        #   {% elif time <= 5 %} Bonne nuit {{'\U0001F634'}}
+        #   {% elif time <= 7 %} Bonjour {{'\U0001F4A9'}}
+        #   {% elif time <= 9 %} Bonjour {{'\u2615\uFE0F'}}
+        #   {% elif time <= 10 %} Bonjour {{'\U0001F642'}}
+        #   {% elif time <= 13 %} Bonne journée {{'\U0001F60A'}}
+        #   {% elif time <= 15 %} Bonne journée {{'\U0001F60E'}}
+        #   {% elif time <= 17 %} Bonne journée {{'\U0001F44B\U0001F3FB'}}
+        #   {% elif time <= 19 %} Bonsoir {{'\U0001F44B\U0001F3FB'}}
+        #   {% elif time <= 22 %} Bonsoir {{'\U0001F60C'}}
+        #   {% elif time <= 23 %} Bonsoir {{'\U0001F974'}}
+        #   {% else %} Bonsoir {{'\U0001F974'}}
+        #   {% endif %}
+        #   </b>
         active: >
           <b>
           {% set lights = [
