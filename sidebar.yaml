@@ -14,8 +14,7 @@
           {% set days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'] %}
           {% set months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin',
           'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'] %}
-            {{ days[now().weekday()] }}<br>
-            {{ strptime(states('sensor.date'), '%Y-%m-%d').day }} {{ months[now().month-1] }}
+            {{ days[now().weekday()] }} {{ strptime(states('sensor.date'), '%Y-%m-%d').day }} {{ months[now().month-1] }}
           {% endif %}
           </b></font>
         greet: >
@@ -98,52 +97,52 @@
             <font color='#6a7377'>Tout est éteint</font>
           {% endif %}
           </b>
-        mailbox: >
-          {% set mailbox = states('sensor.mailbox') %}
-          {% if mailbox | int(default=0) > 0 %}
-            {{ '\U0001F4EC' }} <font color='#6a7377'><b>Brevlåda ({{ mailbox }})</b></font>
-          {% endif %}
-        vacuum: >
-          {% set entity_id = 'vacuum.morty' %}
-          {% if is_state(entity_id, 'cleaning') %}
-            <b>Morty dammsuger</b>
-          {% elif is_state(entity_id, 'returning') %}
-            <b>Morty är färdig</b>
-          {% endif %}
-        weather: >
-          {% set entity = 'weather.smhi_home' %}
-          {% if not is_state(entity, 'unknown') %}
-            {% set temp = state_attr(entity, 'temperature') | round %}
-            {% set precip = state_attr(entity, 'forecast')[0]['precipitation'] | round %}
-              Känns som {{ temp }}° med {{ 'ingen risk för regn' if precip == 0
-              else precip | string + 'mm regn \u2614\uFE0F' }}
-          {% else %}
-            Kan inte läsa in väder...
-          {% endif %}
-        laundry: >
-          {% set start_time = state_attr('calendar.tvatta', 'start_time') %}
-          {% if start_time != None %}
-            {% set time = as_timestamp(start_time) | timestamp_custom('%H:%M') %}
-            {% set hours = as_timestamp(start_time) | timestamp_custom('%H') | int(default=0) / 24 %}
-            {% set count = (as_timestamp(start_time) - as_timestamp(now())) / 86400 - hours %}
-            {% set day = strptime(start_time, '%Y-%m-%d %H:%M:%S').strftime('%A')
-            | replace('Monday', 'Måndag')
-            | replace('Tuesday', 'Tisdag')
-            | replace('Wednesday', 'Onsdag')
-            | replace('Thursday', 'Torsdag')
-            | replace('Friday', 'Fredag')
-            | replace('Saturday', 'Lördag')
-            | replace('Sunday', 'Söndag') %}
-            {% if count <= 0.0 %}
-              {{'\U0001F4A6'}} Tvätt idag {{ time }}
-            {% elif count <= 1.0 %}
-              Tvätt imorgon klockan {{ time }}
-            {% elif count <= 2.0 %}
-              Tvätt i övermorgon klockan {{ time }}
-            {% else %}
-              Tvätt om {{ (count + hours) | round }} dagar på {{ day }} kl {{ time }}
-            {% endif %}
-          {% endif %}
+        # mailbox: >
+        #   {% set mailbox = states('sensor.mailbox') %}
+        #   {% if mailbox | int(default=0) > 0 %}
+        #     {{ '\U0001F4EC' }} <font color='#6a7377'><b>Brevlåda ({{ mailbox }})</b></font>
+        #   {% endif %}
+        # vacuum: >
+        #   {% set entity_id = 'vacuum.morty' %}
+        #   {% if is_state(entity_id, 'cleaning') %}
+        #     <b>Morty dammsuger</b>
+        #   {% elif is_state(entity_id, 'returning') %}
+        #     <b>Morty är färdig</b>
+        #   {% endif %}
+        # weather: >
+        #   {% set entity = 'weather.smhi_home' %}
+        #   {% if not is_state(entity, 'unknown') %}
+        #     {% set temp = state_attr(entity, 'temperature') | round %}
+        #     {% set precip = state_attr(entity, 'forecast')[0]['precipitation'] | round %}
+        #       Känns som {{ temp }}° med {{ 'ingen risk för regn' if precip == 0
+        #       else precip | string + 'mm regn \u2614\uFE0F' }}
+        #   {% else %}
+        #     Kan inte läsa in väder...
+        #   {% endif %}
+        # laundry: >
+        #   {% set start_time = state_attr('calendar.tvatta', 'start_time') %}
+        #   {% if start_time != None %}
+        #     {% set time = as_timestamp(start_time) | timestamp_custom('%H:%M') %}
+        #     {% set hours = as_timestamp(start_time) | timestamp_custom('%H') | int(default=0) / 24 %}
+        #     {% set count = (as_timestamp(start_time) - as_timestamp(now())) / 86400 - hours %}
+        #     {% set day = strptime(start_time, '%Y-%m-%d %H:%M:%S').strftime('%A')
+        #     | replace('Monday', 'Måndag')
+        #     | replace('Tuesday', 'Tisdag')
+        #     | replace('Wednesday', 'Onsdag')
+        #     | replace('Thursday', 'Torsdag')
+        #     | replace('Friday', 'Fredag')
+        #     | replace('Saturday', 'Lördag')
+        #     | replace('Sunday', 'Söndag') %}
+        #     {% if count <= 0.0 %}
+        #       {{'\U0001F4A6'}} Tvätt idag {{ time }}
+        #     {% elif count <= 1.0 %}
+        #       Tvätt imorgon klockan {{ time }}
+        #     {% elif count <= 2.0 %}
+        #       Tvätt i övermorgon klockan {{ time }}
+        #     {% else %}
+        #       Tvätt om {{ (count + hours) | round }} dagar på {{ day }} kl {{ time }}
+        #     {% endif %}
+        #   {% endif %}
         battery: >
           {% set entities = states.sensor 
             | selectattr('entity_id', 'search', 'battery')
