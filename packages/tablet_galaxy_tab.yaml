@@ -22,8 +22,8 @@ homeassistant:
 # https://github.com/thomasloven/hass-browser_mod
 browser_mod:
   devices:
-    dd239c79-406b9d77:
-      name: browser_dd239c79_406b9d77
+    f8fe94f2-64e2da92:
+      name: f8fe94f2_64e2da92
   disable:
     - all
 
@@ -129,4 +129,4 @@ automation:
             minutes: 15
         - service: browser_mod.close_popup
           data:
-            deviceID: dd239c79-406b9d77
+            deviceID: f8fe94f2-64e2da92

@@ -117,6 +117,7 @@ views:
                 service: scene.turn_on
                 service_data:
                   entity_id: scene.films_hass
+              
 
 
           # - type: custom:button-card
@@ -146,38 +147,67 @@ views:
                   }
                 ]]]
               circle_input_unit: '°C'
+            # TODO : integrer dans le stype 
+            # - changement de couleur du graphe + cercle
             custom_fields:
               graph:
                 card:
-                  type: custom:apexcharts-card
-                  layout: minimal
-                  graph_span: 3h
-                  apex_config:
-                    chart:
-                      fontFamily: var(--primary-font-family)
-                      height: 145px
-                    fill:
-                      type: gradient
-                      gradient:
-                        type: vertical
-                        opacityFrom: 1
-                        opacityTo: 0.5
-                    stroke:
-                      width: 1
-                  all_series_config:
-                    type: area
-                    fill_raw: last
+                  type: custom:mini-graph-card
+                  font_size: 70
+                  height: 50
+                  hours_to_show: 48
+                  points_per_hour: 0.25
+                  line_width: 1
+                  show:
+                    labels: false
+                    icon: false
+                    name: false
+                    state: false
+                    points: false
+                    labels_secondar: false
                   entities: 
                     - entity: sensor.hue_motion_sensor_1_temperature
                       color: var(--primary-color)
+
+                  # type: custom:apexcharts-card
+                  # layout: minimal
+                  # graph_span: 48h
+                  # update_interval: 1h
+                  # show:
+                  #   loading: false
+                  # apex_config:
+                  #   yaxis:
+                  #     min: 15
+                  #     decimals: 0
+                  #   chart:
+                  #     height: 70%
+                  #     widht: 100%
+                  #   fill:
+                  #     type: gradient
+                  #     gradient:
+                  #       type: vertical
+                  #       opacityFrom: 0.7
+                  #       opacityTo: 0.5
+                  #   stroke:
+                  #     width: 1
+                  # all_series_config:
+                  #   type: area
+                  #   fill_raw: last
+                  # series: 
+                  #   - entity: sensor.hue_motion_sensor_1_temperature
+                  #     color: var(--primary-color)
             styles:
               custom_fields:
                 graph:
-                  - filter: opacity(50%)
+                  - z-index: 1
+                  - filter: opacity(90%)
                   - position: absolute
                   - left: 0%
+                  - bottom: 0%
               card:
                 - overflow: false
+            # FIN custo
+            
 
           - type: custom:button-card
             entity: media_player.sony_bravia_tv
@@ -198,15 +228,15 @@ views:
               - icon_tv
               - loader
 
-          - type: custom:button-card
-            entity: switch.deltaco_sh_p01_socket
-            name: Balkong
-            double_tap_action:
-              !include popup/salon_balkong.yaml
-            template:
-              - base
-              - icon_hue
-              - loader
+          # - type: custom:button-card
+          #   entity: switch.deltaco_sh_p01_socket
+          #   name: Balkong
+          #   double_tap_action:
+          #     !include popup/salon_balkong.yaml
+          #   template:
+          #     - base
+          #     - icon_hue
+          #     - loader
 
       #################################################
       #                                               #
@@ -549,25 +579,31 @@ views:
 
           - type: custom:button-card
             name: >
-              <ha-icon icon="mdi:nas"></ha-icon> NUCleide
+              <ha-icon icon="mdi:space-invaders"></ha-icon> Geek Zone
             tap_action:
-              !include popup/footer_nas.yaml
+              !include popup/footer_geekzone.yaml
             triggers_update:
-              - binary_sensor.nas_update_available
-              - sensor.nas_volume_1_status
-              - binary_sensor.nas_security_status
-              - sensor.disk_use_percent
+              # - binary_sensor.template_udm_upgradable
+              - binary_sensor.internet_ping
+              # - binary_sensor.nas_update_available
+              # - sensor.nas_volume_1_status
+              # - binary_sensor.nas_security_status
+              # - sensor.disk_use_percent
             variables:
               notify: >
                 [[[
-                  let id = this._config.triggers_update;
-                  if (id.every(e => states[e]))
-                      return states[id[0]].state === 'on'
-                          ? 1
-                          : states[id[1]].state === 'background_scrubbing' ||
-                            states[id[2]].state === 'on' ||
-                            parseFloat(states[id[3]].state) >= 85;
+                  let id = states['binary_sensor.internet_ping'];
+                  if (id) return id.state === 'off';
                 ]]]
+              #   [[[
+              #     let id = this._config.triggers_update;
+              #     if (id.every(e => states[e]))
+              #         return states[id[0]].state === 'on'
+              #             ? 1
+              #             : states[id[1]].state === 'background_scrubbing' ||
+              #               states[id[2]].state === 'on' ||
+              #               parseFloat(states[id[3]].state) >= 85;
+              #   ]]]
             template: footer
 
           - type: custom:button-card
@@ -597,20 +633,20 @@ views:
                 ]]]
             template: footer
 
-          - type: custom:button-card
-            name: >
-              <ha-icon icon="mdi:robot-vacuum-variant"></ha-icon> Aspirateur
-            tap_action:
-              !include popup/footer_vacuum.yaml
-            triggers_update:
-              - sensor.date
-            variables:
-              notify: >
-                [[[
-                  let id = states['sensor.morty_last_clean_end'];
-                  if (id) return (Date.now() - Date.parse(id.state)) > 6048e5;
-                ]]]
-            template: footer
+          # - type: custom:button-card
+          #   name: >
+          #     <ha-icon icon="mdi:robot-vacuum-variant"></ha-icon> Aspirateur
+          #   tap_action:
+          #     !include popup/footer_vacuum.yaml
+          #   triggers_update:
+          #     - sensor.date
+          #   variables:
+          #     notify: >
+          #       [[[
+          #         let id = states['sensor.morty_last_clean_end'];
+          #         if (id) return (Date.now() - Date.parse(id.state)) > 6048e5;
+          #       ]]]
+          #   template: footer
 
           - type: custom:button-card
             name: >
@@ -621,7 +657,7 @@ views:
 
           - type: custom:button-card
             name: >
-              <ha-icon icon="mdi:tablet"></ha-icon> Platta
+              <ha-icon icon="mdi:tablet"></ha-icon> Tablette
             tap_action:
               !include popup/footer_tablet.yaml
             variables:
@@ -632,34 +668,34 @@ views:
                 ]]]
             template: footer
 
-          - type: custom:button-card
-            name: >
-              <ha-icon icon="mdi:router-wireless"></ha-icon> Routeur
-            tap_action:
-              !include popup/footer_router.yaml
-            triggers_update:
-              - binary_sensor.template_udm_upgradable
-              - binary_sensor.template_udm_internet
-            variables:
-              notify: >
-                [[[
-                  let id = this._config.triggers_update;
-                  if (id.every(e => states[e]))
-                      return states[id[0]].state === 'on'
-                          ? 1
-                          : states[id[1]].state === 'off';
-                ]]]
-            template: footer
+          # - type: custom:button-card
+          #   name: >
+          #     <ha-icon icon="mdi:router-wireless"></ha-icon> Routeur
+          #   tap_action:
+          #     !include popup/footer_router.yaml
+          #   triggers_update:
+          #     - binary_sensor.template_udm_upgradable
+          #     - binary_sensor.template_udm_internet
+          #   variables:
+          #     notify: >
+          #       [[[
+          #         let id = this._config.triggers_update;
+          #         if (id.every(e => states[e]))
+          #             return states[id[0]].state === 'on'
+          #                 ? 1
+          #                 : states[id[1]].state === 'off';
+          #       ]]]
+          #   template: footer
 
-          - type: custom:button-card
-            name: >
-              <ha-icon icon="mdi:raspberry-pi"></ha-icon> RPi
-            tap_action:
-              !include popup/footer_rpi.yaml
-            variables:
-              notify: >
-                [[[
-                  let id = states['binary_sensor.rpi_ping'];
-                  if (id) return id.state === 'off';
-                ]]]
-            template: footer
+          # - type: custom:button-card
+          #   name: >
+          #     <ha-icon icon="mdi:raspberry-pi"></ha-icon> RPi
+          #   tap_action:
+          #     !include popup/footer_rpi.yaml
+          #   variables:
+          #     notify: >
+          #       [[[
+          #         let id = states['binary_sensor.rpi_ping'];
+          #         if (id) return id.state === 'off';
+          #       ]]]
+          #   template: footer
