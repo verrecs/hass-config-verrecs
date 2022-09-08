@@ -43,8 +43,31 @@ views:
             "sidebar  .           .       ."
     cards:
 
-      - type: custom:button-card #extra_styles fix
-        styles: {card: [display: none]}
+      #extra_styles fix, do not remove
+      #also warn if theme is not set
+
+      - type: custom:button-card
+        view_layout:
+          grid-area: 1 / 2 / 2 / 5
+        name: SET THEME TO "tablet" IN PROFILE
+        tap_action:
+          action: navigate
+          navigation_path: /profile
+        styles:
+          card:
+            - display: >
+                [[[
+                  return hass.themes.theme === 'tablet'
+                      ? 'none'
+                      : 'initial';
+                ]]]
+          name:
+            - z-index: 1
+            - overflow: visible
+            - color: red
+            - font-weight: bolder
+            - font-size: xxx-large
+            - background: yellow
 
       #################################################
       #                                               #
@@ -328,7 +351,7 @@ views:
 
 
           - type: custom:button-card
-            entity: switch.playstation_5
+            entity: switch.ps5_635_power
             name: Playstation
             double_tap_action:
               !include popup/sovrum_playstation.yaml
@@ -399,7 +422,8 @@ views:
                         state: salon
                     card:
                       type: custom:button-card
-                      entity: media_player.salon
+                      entity: media_player.vardagsrum
+                      triggers_update: sensor.youtube_watching
                       template:
                         - conditional_media
                         - icon_apple_tv
@@ -411,6 +435,7 @@ views:
                     card:
                       type: custom:button-card
                       entity: media_player.sovrum
+                      triggers_update: sensor.youtube_watching
                       template:
                         - conditional_media
                         - icon_apple_tv
@@ -442,14 +467,16 @@ views:
                 cards:
 
                   - type: custom:button-card
-                    entity: media_player.salon
-                    name: salon
+                    entity: media_player.vardagsrum
+                    triggers_update: sensor.youtube_watching
+                    name: Vardagsrum
                     template:
                       - media
                       - icon_apple_tv
 
                   - type: custom:button-card
                     entity: media_player.sovrum
+                    triggers_update: sensor.youtube_watching
                     name: Sovrum
                     template:
                       - media
@@ -615,19 +642,21 @@ views:
               - sensor.hacs
               - sensor.docker_hub_beta
               - sensor.docker_hub
+              - sensor.template_updates
             variables:
               notify: >
                 [[[
                   let id = this._config.triggers_update;
                   if (id.every(e => states[e])) {
                       let hacs = parseInt(states[id[0]].state),
+                          other = parseInt(states[id[3]].state),
                           installed = hass.config.version,
                           latest = installed.includes('b')
                               ? states[id[1]].state
                               : states[id[2]].state;
 
                       if (latest.includes('.') && Number.isInteger(hacs))
-                          return hacs + (installed !== latest ? 1 : 0);
+                          return hacs + other + (installed !== latest ? 1 : 0);
                   }
                   return 0;
                 ]]]

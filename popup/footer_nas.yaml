@@ -208,21 +208,21 @@ browser_mod:
 
 
 
-          - type: custom:bar-card
-            width: 55%
-            height: 2em
-            decimal: 0
-            unit_of_measurement: '%'
-            positions: &bar_card_positions
-              icon: outside
-              indicator: 'off'
-              name: outside
-            severity: &bar_card_severity
-              - color: '#6d2525'
-                from: 85
-                to: 999
-            entity_row: true
-            entities:
+            - type: custom:bar-card
+              width: 55%
+              height: 2em
+              decimal: 0
+              unit_of_measurement: '%'
+              positions: &bar_card_positions
+                icon: outside
+                indicator: 'off'
+                name: outside
+              severity: &bar_card_severity
+                - color: '#6d2525'
+                  from: 85
+                  to: 999
+              entity_row: true
+              entities:
 
           #     - entity: sensor.docker_home_assistant
           #       attribute: cpu_percentage
@@ -277,15 +277,15 @@ browser_mod:
           class: header
         entities:
 
-          # - type: custom:bar-card
-          #   width: 55%
-          #   height: 2em
-          #   decimal: 0
-          #   unit_of_measurement: '%'
-          #   positions: *bar_card_positions
-          #   severity: *bar_card_severity
-          #   entity_row: true
-          #   entities:
+            # - type: custom:bar-card
+            #   width: 55%
+            #   height: 2em
+            #   decimal: 0
+            #   unit_of_measurement: '%'
+            #   positions: *bar_card_positions
+            #   severity: *bar_card_severity
+            #   entity_row: true
+            #   entities:
 
           #     - entity: sensor.docker_1cpu
           #       name: Processor

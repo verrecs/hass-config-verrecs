@@ -29,7 +29,6 @@ lovelace:
       { url: /hacsfiles/bar-card/bar-card.js,                                       type: module },
       { url: /hacsfiles/button-card/button-card.js,                                 type: module },
       { url: /hacsfiles/custom-icons/custom-icons.js,                               type: module },
-      { url: /hacsfiles/kiosk-mode/kiosk-mode.js,                                   type: module },
       { url: /hacsfiles/lovelace-layout-card/layout-card.js,                        type: module },
       { url: /hacsfiles/lovelace-more-info-card/more-info-card.js,                  type: module },
       { url: /hacsfiles/lovelace-mushroom/mushroom.js,                              type: module },
@@ -41,7 +40,7 @@ lovelace:
       
       { url: /hacsfiles/home-assistant-sun-card/home-assistant-sun-card.js,         type: module },
 
-      { url: '/local/marked.min.js?v=4.0.18',                                       type: module },
+      { url: '/local/marked.min.js?v=4.1.0',                                        type: module },
       { url: '/local/vanilla-tilt.min.js?v=1.7.2',                                  type: module },
       { url: '/local/fonts.css?v=2.1',                                              type: css }
     ]

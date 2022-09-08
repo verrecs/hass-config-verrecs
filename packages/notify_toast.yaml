@@ -23,7 +23,7 @@ input_datetime:
 
 automation:
   - alias: toast
-    id: '3900676590344'
+    id: '3161036041566'
     mode: parallel
     trigger:
       platform: state
@@ -34,14 +34,14 @@ automation:
       from: 'off'
       to: 'on'
     action:
-      service: browser_mod.toast
+      service: browser_mod.notification
       data:
         duration: 3000
         message: >
           Rörelse detekterat i {{ trigger.to_state.name }}
 
   - alias: dismiss_lovelace_updated
-    id: '4635035739118'
+    id: '1309195316329'
     mode: restart
     trigger:
       platform: event
@@ -51,12 +51,13 @@ automation:
         count: 5
         sequence:
           - delay: 0.5
-          - service: browser_mod.toast
+          - service: browser_mod.notification
             data:
               duration: 1
               message: ' '
 
   - alias: waste_collection
+    initial_state: false
     id: '5611101897022'
     mode: single
     max_exceeded: silent

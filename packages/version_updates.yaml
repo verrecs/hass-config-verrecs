@@ -9,13 +9,6 @@ rest:
         {{ value_json.tag_name }}
     scan_interval: 86400
 
-  - resource: https://api.github.com/repos/dhleong/playactor/releases/latest
-    sensor:
-      name: updates_playactor_latest
-      value_template: >
-        {{ value_json.tag_name }}
-    scan_interval: 86400
-
   - resource: https://api.github.com/repos/home-assistant/core/releases/latest
     sensor:
       name: hass_release_notes
@@ -54,7 +47,12 @@ template:
           device_class: timestamp
 
       - unique_id: updates
-        state: template
+        state: >
+          {% set ns = namespace() %}
+          {% for k, v in this.attributes | dictsort(by='value') %}
+            {% set ns.list = ns.list + [v] if v != '' else [] %}
+          {% endfor %}
+          {{ ns.list | count }}
         attributes:
           esphome: >
             {% macro f(e) %}
@@ -66,13 +64,6 @@ template:
             {% set url = 'https://github.com/esphome/esphome/releases/latest' %}
             {% if installed != latest %}
               <b><a href="#" onclick="window.open('{{ url }}');">ESPHome</a></b> {{ installed + ' <b>&rarr;</b> ' + latest }}
-            {% endif %}
-          playactor: >
-            {% set installed = states('sensor.updates_playactor_installed') %}
-            {% set latest = states('sensor.updates_playactor_latest') %}
-            {% set url = 'https://github.com/dhleong/playactor/releases/latest' %}
-            {% if installed != latest %}
-              <b><a href="#" onclick="window.open('{{ url }}');">playactor</a></b> {{ installed + ' <b>&rarr;</b> ' + latest }}
             {% endif %}
           kemperprofiler: >
             {% set installed = state_attr('sensor.updates_kemper', 'profiler_installed') %}
@@ -89,15 +80,16 @@ template:
               <b><a href="#" onclick="window.open('{{ url }}');">Rig Manager</a></b> {{ installed + ' <b>&rarr;</b> ' + latest }}
             {% endif %}
           unifi: >
-            {% set installed = states('sensor.template_udm_version') %}
+            {% set installed = state_attr('update.unifi_dream_machine', 'installed_version') %}
+            {% set latest = state_attr('update.unifi_dream_machine', 'latest_version') %}
             {% set url = 'https://community.ui.com/releases?q=dream+machine' %}
-            {% if is_state('binary_sensor.template_udm_upgradable', 'on') %}
-              <b><a href="#" onclick="window.open('{{ url }}');">UniFi Dream Machine ({{ installed }})</a></b> uppdatering tillgänglig
+            {% if is_state('update.unifi_dream_machine', 'on') %}
+              <b><a href="#" onclick="window.open('{{ url }}');">UniFi Dream Machine {{ installed + ' <b>&rarr;</b> ' + latest }}
             {% endif %}
           synology: >
             {% set installed = state_attr('update.nas_dsm_update', 'installed_version') %}
             {% set latest = state_attr('update.nas_dsm_update', 'latest_version') %}
-            {% set url = 'https://www.synology.com/en-global/releaseNote/DSM' %}
+            {% set url = state_attr('update.nas_dsm_update', 'release_url') %}
             {% if is_state('update.nas_dsm_update', 'on') %}
               <b><a href="#" onclick="window.open('{{ url }}');">Synology DSM</a></b> {{ installed + ' <b>&rarr;</b> ' + latest }}
             {% endif %}
@@ -114,13 +106,6 @@ sensor:
       - profiler_installed
       - rigmanager_latest
       - rigmanager_installed
-    scan_interval: 86400
-
-  - platform: command_line
-    name: updates_playactor_installed
-    command: !secret updates_playactor_installed
-    value_template: >
-      {{ value.split(' ')[1].split('v')[1] }}
     scan_interval: 86400
 
   - platform: command_line
