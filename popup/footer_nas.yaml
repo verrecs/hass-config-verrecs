@@ -72,6 +72,11 @@ browser_mod:
             class: header
           entities:
 
+            - entity: binary_sensor.internet_ping
+              secondary_info: last-changed
+              name: Connexion internet
+              icon: mdi:lan-connect
+
             - type: custom:mini-graph-card
               font_size: 70
               height: 30
@@ -89,7 +94,7 @@ browser_mod:
 
             - type: custom:mini-graph-card
               font_size: 70
-              height: 50
+              height: 100
               hours_to_show: 48
               points_per_hour: 0.25
               icon: mdi:web
@@ -109,6 +114,8 @@ browser_mod:
                   color: var(--primary-color)
 
             - entity: switch.nzbget_download
+            - entity: sensor.nzbget_queue_size
+            - entity: sensor.nzbget_post_processing_jobs
 
         ### VPN
 
@@ -123,6 +130,23 @@ browser_mod:
           entities:
 
             - entity: sensor.ipv4_address_wg0
+              name: Nucleide
+
+            - entity: binary_sensor.vpn_stef_iphone_perso
+              secondary_info: last-changed
+              name: STeF iPhone Perso
+
+            - entity: binary_sensor.vpn_stef_iphone_pro
+              secondary_info: last-changed
+              name: STeF iPhone Pro
+
+            - entity: binary_sensor.vpn_stef_macbook
+              secondary_info: last-changed
+              name: STeF Macbook
+
+            - entity: binary_sensor.vpn_sonia
+              secondary_info: last-changed
+              name: Sonia
 
           footer:
             type: custom:apexcharts-card
@@ -203,7 +227,16 @@ browser_mod:
               decimal: 0
               unit_of_measurement: '%'
               positions: &bar_card_positions
-              severity: &bar_card_severity
+                icon: outside
+                indicator: 'off'
+                name: outside
+              severity:
+                - color: '#6d2525'
+                  from: 76
+                  to: 100
+                - color: '#303435'
+                  from: 0
+                  to: 75
               entity_row: true
               entities:
 

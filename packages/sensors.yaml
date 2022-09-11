@@ -1,9 +1,9 @@
-homeassistant:
-  customize:
-    sensor.nas_volume_1_average_disk_temp:
-      friendly_name: Disktemperatur
-    sensor.processor_use_percent:
-      icon: mdi:chip
+# homeassistant:
+#   customize:
+#     sensor.nas_volume_1_average_disk_temp:
+#       friendly_name: Disktemperatur
+#     sensor.processor_use_percent:
+#       icon: mdi:chip
 
 sensor:
   - platform: systemmonitor
@@ -65,6 +65,32 @@ sensor:
 
 device_tracker:
   - platform: bbox
+
+binary_sensor:
+  - platform: ping
+    name: internet_ping
+    host: !secret internet_ping_test
+    scan_interval: 15
+
+  - platform: ping
+    name: vpn_stef_iphone_perso
+    host: !secret network_vpn_stef_iphone_xr
+    scan_interval: 15
+
+  - platform: ping
+    name: vpn_stef_iphone_pro
+    host: !secret network_vpn_stef_iphone_pro
+    scan_interval: 15
+
+  - platform: ping
+    name: vpn_stef_macbook
+    host: !secret network_vpn_stef_macbook
+    scan_interval: 15
+
+  - platform: ping
+    name: vpn_sonia
+    host: !secret network_vpn_sonia
+    scan_interval: 15
 
 # template:
 #   - sensor:
