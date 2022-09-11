@@ -1,127 +1,175 @@
 action: fire-dom-event
 browser_mod:
-  command: popup
-  title: Température & chauffage
-  style:
-    hui-vertical-stack-card:
-      $hui-entities-card$ : |
-        #states {
-          padding-top: 0.5em;
-          padding-bottom: 0em;
-        }
-      $more-info-card:
-        .: |
-          more-info-card {
-            padding: 1.2em 1.2em 0 1.1em;
-          }
-        $ha-card:
-          .: |
-            h1 {
-              display: none;
-            }
-          state-card-climate$: |
-            div {
-              display: none !important;
-            }
-          more-info-climate$: |
-            div.container-temperature > div > div {
-              display: none;
-            }
-  card:
-    type: vertical-stack
-    cards:
+  service: browser_mod.popup
+  data:
+    title: Chauffage & températures
+    style: >
+      --popup-max-width: calc(385px + 385px + 385px);
+      --ha-card-border-radius: 0;
+    card_mod:
+      style:
+        layout-card:
+          $grid-layout$:
+            # card divider border
+            .: |
+              #root {
+                  margin: -24px 0 !important;
+              }
+            hui-entities-card:
+              $: |
+                .card-content {
+                  padding: var(--tablet-popup-content-padding);
+                  padding-bottom: 0.8em;
+                }
+                ha-card {
+                  border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+                  border-radius: 0;
+                  transition: none;
+                }
+                /* portrait */
+                @media screen and (max-width: 1200px) {
+                  ha-card {
+                    border-right: none;
+                    border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+                  }
+                }
+              $hui-horizontal-stack-card:
+                # horizontal bottom buttons
+                $: |
+                  #root {
+                    justify-content: space-evenly;
+                    margin-top: 1.7em;
+                    max-width: 82vw; /* iphonex */
+                  }
+    content:
+      type: custom:layout-card
+      layout_type: custom:grid-layout
+      layout:
+        margin: 0
+        grid-template-columns: 385px 385px 385px
+        grid-template-rows: 1fr
+        grid-template-areas: |
+          "temp thermo plannif"
+        mediaquery:
+          #portrait
+          "(max-width: 1200px)":
+            grid-template-columns: 1fr
+            grid-template-rows: repeat(3, 1fr)
+            grid-template-areas: |
+              "temp"
+              "thermo"
+              "plannif"
+      cards:
 
-      # - type: custom:more-info-card
-      #   entity: climate.wiser_salon
+        ### Temperatures
 
-      - type: thermostat
-        entity: climate.wiser_salon
-      - type: history-graph
-        entities:
-          - entity: climate.wiser_salon
+        - type: entities
+          view_layout:
+            grid-area: temp
+          title: Températures
+          show_header_toggle: false
+          card_mod:
+            class: header
+          entities:
 
-      # - type: entities
-      #   card_mod:
-      #     class: content
-      #   entities:
-      #     - entity: automation.climate_safeguard
-      #       name: Ventilateur uniquement si la fenêtre est fermée
-      #       icon: mdi:robot
-      #     - entity: binary_sensor.sovrum_contact_contact
-      #       name: Sovrumsfönster
-      #       icon: mdi:window-closed
-      #     - entity: switch.climate_timer
-      #       name: Timer
-      #     - type: custom:slider-entity-row
-      #       entity: input_number.climate_timer
-      #       hide_state: false
-      #     - entity: timer.climate
+            - type: custom:apexcharts-card
+              apex_config:
+                chart:
+                  height: 500px
+                  width: 100%
+              experimental:
+                color_threshold: true
+                brush: true
+              show:
+                last_updated: true
+              graph_span: 1d
+              all_series_config:
+                stroke_width: 1
+              header:
+                show: true
+                title: des dernières 24h
+                show_states: true
+                colorize_states: true
+              brush:
+                selection_span: 30m
+              series:
 
-      #     - entity: sensor.broadlink_temperature
-      #       name: Rumstemperatur
-      #     - entity: sensor.broadlink_humidity
-      #       name: Luftfuktighet
+                - entity: sensor.paris_10eme_arrondissement_temperature
+                  name: Extérieure
+                  type: area
+                  opacity: 0.2
+                  show:
+                    header_color_threshold: true
+                  color_threshold:
+                    - value: 18
+                      color: steelblue
+                    - value: 21
+                      color: green
+                    - value: 23
+                      color: orange
+                    - value: 25
+                      color: orangered
+                    - value: 27
+                      color: red
+                  group_by:
+                    duration: 60min
+                    func: avg
 
-      - type: custom:apexcharts-card
-        apex_config:
-          chart:
-            height: 350px
-        experimental:
-          color_threshold: true
-          brush: true
-        show:
-          last_updated: true
-        graph_span: 1d
-        all_series_config:
-          stroke_width: 1
-        header:
-          show: true
-          title: Températures de l'appartement
-          show_states: true
-          colorize_states: true
-        brush:
-          selection_span: 30m
-        series:
-          - entity: sensor.paris_10eme_arrondissement_temperature
-            name: Extérieure
-            type: area
-            opacity: 0.2
-            show:
-              header_color_threshold: true
-            color_threshold:
-              - value: 18
-                color: steelblue
-              - value: 21
-                color: green
-              - value: 23
-                color: orange
-              - value: 25
-                color: orangered
-              - value: 27
-                color: red
-            group_by:
-              duration: 60min
-              func: avg
-          - entity: sensor.hue_motion_sensor_1_temperature
-            name: Entrée
-            curve: smooth
-            type: line
-            group_by:
-              duration: 30min
-              func: avg
-          # - entity: sensor.hue_motion_sensor_1_temperature
-          #   name: Entrée
-          #   offset: '-1d'
-          #   type: line
-          #   opacity: 0.5
-          #   group_by:
-          #     duration: 30min
-          #     func: avg
-          - entity: sensor.hue_motion_sensor_1_temperature_2
-            name: Bureau
-            curve: smooth
-            type: line
-            group_by:
-              duration: 30min
-              func: avg
+                - entity: sensor.hue_motion_sensor_1_temperature
+                  name: Entrée
+                  curve: smooth
+                  type: line
+                  group_by:
+                    duration: 30min
+                    func: avg
 
+                - entity: sensor.hue_motion_sensor_1_temperature_2
+                  name: Bureau
+                  curve: smooth
+                  type: line
+                  group_by:
+                    duration: 30min
+                    func: avg
+            
+
+        ### Thermostat
+
+        - type: entities
+          view_layout:
+            grid-area: thermo
+          title: Thermostat
+          state_color: true
+          show_header_toggle: false
+          card_mod:
+            class: header
+          entities:
+
+            - type: thermostat
+              entity: climate.wiser_salon
+              
+            - type: history-graph
+              entities:
+                - entity: climate.wiser_salon
+            
+        ### Plannificateur
+
+        - type: entities
+          view_layout:
+            grid-area: plannif
+          title: Plannification
+          show_header_toggle: false
+          card_mod:
+            class: header
+            # no border on last card
+            style: |
+              ha-card {
+                border: none !important;
+              }
+          entities:
+
+            - type: custom:wiser-schedule-card
+              theme_colors: true
+              display_only: false
+              admin_only: false
+              show_badges: true
+            

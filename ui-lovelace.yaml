@@ -191,34 +191,6 @@ views:
                   entities: 
                     - entity: sensor.hue_motion_sensor_1_temperature
                       color: var(--primary-color)
-
-                  # type: custom:apexcharts-card
-                  # layout: minimal
-                  # graph_span: 48h
-                  # update_interval: 1h
-                  # show:
-                  #   loading: false
-                  # apex_config:
-                  #   yaxis:
-                  #     min: 15
-                  #     decimals: 0
-                  #   chart:
-                  #     height: 70%
-                  #     widht: 100%
-                  #   fill:
-                  #     type: gradient
-                  #     gradient:
-                  #       type: vertical
-                  #       opacityFrom: 0.7
-                  #       opacityTo: 0.5
-                  #   stroke:
-                  #     width: 1
-                  # all_series_config:
-                  #   type: area
-                  #   fill_raw: last
-                  # series: 
-                  #   - entity: sensor.hue_motion_sensor_1_temperature
-                  #     color: var(--primary-color)
             styles:
               custom_fields:
                 graph:
@@ -250,16 +222,6 @@ views:
               - base
               - icon_tv
               - loader
-
-          # - type: custom:button-card
-          #   entity: switch.deltaco_sh_p01_socket
-          #   name: Balkong
-          #   double_tap_action:
-          #     !include popup/salon_balkong.yaml
-          #   template:
-          #     - base
-          #     - icon_hue
-          #     - loader
 
       #################################################
       #                                               #
