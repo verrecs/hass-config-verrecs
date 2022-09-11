@@ -608,7 +608,7 @@ views:
             name: >
               <ha-icon icon="mdi:space-invaders"></ha-icon> Geek Zone
             tap_action:
-              !include popup/footer_geekzone.yaml
+              !include popup/footer_nas.yaml
             triggers_update:
               # - binary_sensor.template_udm_upgradable
               - binary_sensor.internet_ping

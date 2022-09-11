@@ -1,212 +1,201 @@
 action: fire-dom-event
 browser_mod:
-  command: popup
-  title: Geek Zone
-  style:
-    .: |
-      :host {
-        --ha-card-border-radius: 0;
-      }
-      @media screen and (min-width: 1200px) {
-        :host .content {
-          width: calc(385px + 385px + 385px);
-          max-width: 90vw;
-        }
-      }
-    layout-card:
-      $grid-layout:
-        $:
-          hui-entities-card:
-            $: |
-              .card-content {
-                padding: var(--card-content-padding);
-                padding-bottom: 0.8em;
+  service: browser_mod.popup
+  data:
+    title: Geek Zone
+    style: >
+      --popup-max-width: calc(385px + 385px + 385px);
+      --ha-card-border-radius: 0;
+    card_mod:
+      style:
+        layout-card:
+          $grid-layout$:
+            # card divider border
+            .: |
+              #root {
+                  margin: -24px 0 !important;
               }
-              ha-card {
-                border-right: 1.5px solid rgba(0, 0, 0, 0.2);
-                border-radius: 0;
-                transition: none;
-                letter-spacing: normal;
-              }
-              /* portrait */
-              @media screen and (max-width: 1200px) {
-                ha-card {
-                  border-right: none;
-                  border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
-                }
-              }
-            $hui-horizontal-stack-card:
+            hui-entities-card:
               $: |
-                #root {
-                  justify-content: space-evenly;
-                  margin-top: 1.7em;
-                  max-width: 82vw; /* iphonex */
+                .card-content {
+                  padding: var(--tablet-popup-content-padding);
+                  padding-bottom: 0.8em;
                 }
-  card:
-    type: custom:layout-card
-    layout_type: custom:grid-layout
-    layout:
-      margin: 0
-      grid-template-columns: 385px 385px 385px
-      grid-template-rows: 1fr
-      grid-template-areas: |
-        "hass tablet nas"
-      mediaquery:
-        #portrait
-        "(max-width: 1200px)":
-          grid-template-columns: 1fr
-          grid-template-rows: repeat(3, 1fr)
-          grid-template-areas: |
-            "hass"
-            "tablet"
-            "nas"
-    cards:
+                ha-card {
+                  border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+                  border-radius: 0;
+                  transition: none;
+                }
+                /* portrait */
+                @media screen and (max-width: 1200px) {
+                  ha-card {
+                    border-right: none;
+                    border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+                  }
+                }
+              $hui-horizontal-stack-card:
+                # horizontal bottom buttons
+                $: |
+                  #root {
+                    justify-content: space-evenly;
+                    margin-top: 1.7em;
+                    max-width: 82vw; /* iphonex */
+                  }
+    content:
+      type: custom:layout-card
+      layout_type: custom:grid-layout
+      layout:
+        margin: 0
+        grid-template-columns: 385px 385px 385px
+        grid-template-rows: 1fr
+        grid-template-areas: |
+          "internet vpn nuc"
+        mediaquery:
+          #portrait
+          "(max-width: 1200px)":
+            grid-template-columns: 1fr
+            grid-template-rows: repeat(3, 1fr)
+            grid-template-areas: |
+              "internet"
+              "vpn"
+              "nuc"
+      cards:
 
-      #################################################
-      #                                               #
-      #                BOX Internet                   #
-      #              SpeedTest / NMAP...              #
-      #################################################
+        ### Internet
 
-      - type: entities
-        view_layout:
-          grid-area: hass
-        title: Internet
-        show_header_toggle: false
-        card_mod:
-          class: header
-        entities:
-          # - entity: sensor.current_down_bandwidth
+        - type: entities
+          view_layout:
+            grid-area: internet
+          title: Internet
+          show_header_toggle: false
+          card_mod:
+            class: header
+          entities:
 
-          # - entity: sensor.template_hass_version
+            - type: custom:mini-graph-card
+              font_size: 70
+              height: 30
+              hours_to_show: 48
+              icon: mdi:pulse
+              line_color: var(--primary-color)
+              line_width: 0.25
+              name: Ping
+              points_per_hour: 1
+              show:
+                fill: true
+                graph: bar
+              entities:
+                - sensor.speedtest_ping
 
-          # - entity: switch.docker_watchtower
-          #   name: Watchtower
-          #   icon: custom:docker-watchtower
+            - type: custom:mini-graph-card
+              font_size: 70
+              height: 50
+              hours_to_show: 48
+              points_per_hour: 0.25
+              icon: mdi:web
+              line_width: 1
+              name: Débits
+              show:
+                extrema: true
+                labels: false
+              entities:
+                - entity: sensor.speedtest_download
+                  name : Download
+                  icon: mdi:arrow-down-bold
+                  color: '#f030b9'
+                - entity: sensor.speedtest_upload
+                  name : Upload
+                  icon: mdi:arrow-up-bold
+                  color: var(--primary-color)
 
-          # - entity: sensor.template_hass_dev_release
+            - entity: switch.nzbget_download
 
-          # - entity: sensor.databas
-          #   icon: mdi:database
+        ### VPN
 
-          # - entity: sensor.home_assistant_log_size
-          #   name: Loggfil
-          #   icon: mdi:file-document
+        - type: entities
+          view_layout:
+            grid-area: vpn
+          title: VPN
+          state_color: true
+          show_header_toggle: false
+          card_mod:
+            class: header
+          entities:
 
-          # - type: attribute
-          #   entity: sensor.docker_home_assistant
-          #   attribute: uptime
-          #   format: relative
-          #   name: Senast omstart
-          #   icon: mdi:update
+            - entity: sensor.ipv4_address_wg0
 
-          - type: custom:mini-graph-card
-            font_size: 70
-            height: 30
-            hours_to_show: 48
-            icon: mdi:pulse
-            line_color: var(--primary-color)
-            line_width: 0.25
-            name: Ping
-            points_per_hour: 1
-            show:
-              fill: true
-              graph: bar
-            entities:
-              - sensor.speedtest_ping
-
-          - type: custom:mini-graph-card
-            font_size: 70
-            height: 50
-            hours_to_show: 48
-            points_per_hour: 0.25
-            icon: mdi:web
-            line_width: 1
-            name: Débits
-            show:
-              extrema: true
-              labels: false
-            entities:
-              - entity: sensor.speedtest_download
-                name : Download
-                icon: mdi:arrow-down-bold
+          footer:
+            type: custom:apexcharts-card
+            layout: minimal
+            graph_span: 6h
+            # update_delay: 1s
+            # update_interval: 1s
+            locale: fr
+            apex_config:
+              chart:
+                fontFamily: var(--primary-font-family)
+                height: 300px
+              tooltip:
+                style:
+                  fontSize: 14px
+                x:
+                  show: true
+                  format: dddd HH:mm
+              xaxis:
+                crosshairs:
+                  show: false
+              legend:
+                fontSize: 14px
+                fontWeight: 500
+                itemMargin:
+                  horizontal: 25
+                markers:
+                  width: 26
+                  height: 23
+                  customHTML:
+                    - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+                    - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+                  fillColors:
+                    - none
+                    - none
+              fill:
+                type: gradient
+                gradient:
+                  type: vertical
+                  opacityFrom: 0.8
+                  opacityTo: 0
+                  stops:
+                    - 0
+                    - 99
+                    - 100
+              stroke:
+                width: 1
+            all_series_config:
+              type: area
+              fill_raw: last
+            series:
+              - entity: sensor.network_throughput_in_wg0
+                name: Down
                 color: '#f030b9'
-              - entity: sensor.speedtest_upload
-                name : Upload
-                icon: mdi:arrow-up-bold
+              - entity: sensor.network_throughput_out_wg0
+                name: Up
                 color: var(--primary-color)
-                # show_points: false
 
+        ### NUCleide
 
-          # - type: custom:apexcharts-card
-          #   layout: minimal
-          #   graph_span: 2h
-          #   # update_delay: 1s
-          #   # update_interval: 1s
-          #   locale: fr
-          #   apex_config:
-          #     # chart:
-          #     #   fontFamily: var(--primary-font-family)
-          #     #   height: 300px
-          #     # tooltip:
-          #     #   style:
-          #     #     fontSize: 14px
-          #     #   x:
-          #     #     show: true
-          #     #     format: dddd HH:mm
-          #     # xaxis:
-          #     #   crosshairs:
-          #     #     show: false
-          #     # legend:
-          #     #   fontSize: 9px
-          #     #   fontWeight: 500
-          #     #   itemMargin:
-          #     #     horizontal: 25
-          #     #   markers:
-          #     #     width: 26
-          #     #     height: 23
-          #     #     # customHTML:
-          #     #     #   - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-          #     #     #   - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-          #     #     # fillColors:
-          #     #     #   - none
-          #     #     #   - none
-          #     # fill:
-          #     #   type: gradient
-          #     #   gradient:
-          #     #     type: vertical
-          #     #     opacityFrom: 0.8
-          #     #     opacityTo: 0
-          #     #     stops:
-          #     #       - 0
-          #     #       - 99
-          #     #       - 100
-          #     stroke:
-          #       width: 1
-          #   series:
-          #     - entity: sensor.speedtest_download
-          #       show:
-          #         extremas: true
-          #       type: area
-          #       fill_raw: last
-          #       name: Down
-          #       color: '#f030b9'
-          #     - entity: sensor.speedtest_upload
-          #       show:
-          #         extremas: true
-          #       type: area
-          #       fill_raw: last
-          #       name: Up
-          #       color: var(--primary-color)
-          #     - entity: sensor.speedtest_ping
-          #       show:
-          #         extremas: true
-          #       type: column
-          #       fill_raw: last
-          #       name: Ping
-          #       color: '#f2befc'
-
-
+        - type: entities
+          view_layout:
+            grid-area: nuc
+          title: NUCleide
+          show_header_toggle: false
+          card_mod:
+            class: header
+            # no border on last card
+            style: |
+              ha-card {
+                border: none !important;
+              }
+          entities:
 
             - type: custom:bar-card
               width: 55%
@@ -214,275 +203,99 @@ browser_mod:
               decimal: 0
               unit_of_measurement: '%'
               positions: &bar_card_positions
-                icon: outside
-                indicator: 'off'
-                name: outside
               severity: &bar_card_severity
-                - color: '#6d2525'
-                  from: 85
-                  to: 999
               entity_row: true
               entities:
 
-          #     - entity: sensor.docker_home_assistant
-          #       attribute: cpu_percentage
-          #       name: Processor
-          #       icon: mdi:chip
+                - entity: sensor.processor_use
+                  name: CPU
+                  tap_action:
+                    action: call-service
+                    service: homeassistant.update_entity
+                    service_data:
+                      entity_id: sensor.processor_use_percent
 
-          #     - entity: sensor.docker_home_assistant
-          #       attribute: memory_percentage
-          #       name: Minne
-          #       icon: mdi:memory
+                - entity: sensor.memory_use_percent
+                  name: RAM (8Go)
+                  tap_action:
+                    action: call-service
+                    service: homeassistant.update_entity
+                    service_data:
+                      entity_id: sensor.memory_use_percent
 
-          # - type: custom:hui-horizontal-stack-card
-          #   cards:  
-          #     - type: custom:button-card
-          #       name: Serveromstart
-          #       icon: mdi:reload
-          #       tap_action:
-          #         services: |
-          #           [[[
-          #             return `[[[
-          #               hass.callService('browser_mod', 'toast', {
-          #                 message: 'Startar om Home Assistant...'
-          #               });
-          #               hass.callService('homeassistant', 'restart');
-          #             ]]]`
-          #           ]]]
-          #       template: icon_name
+                - entity: sensor.disk_use_percent
+                  name: / (30Go)
+                  tap_action:
+                    action: call-service
+                    service: homeassistant.update_entity
+                    service_data:
+                      entity_id: sensor.disk_use_percent
 
-          #     - type: custom:button-card
-          #       name: Container
-          #       icon: mdi:reload
-          #       tap_action:
-          #         action: call-service
-          #         service: script.turn_on
-          #         service_data:
-          #           entity_id: script.homeassistant_restart
-          #       template: icon_name
+                - entity: sensor.disk_use_percent_filer
+                  name: /filer (3.6To)
+                  tap_action:
+                    action: call-service
+                    service: homeassistant.update_entity
+                    service_data:
+                      entity_id: sensor.disk_use_percent_filer
 
-      #################################################
-      #                                               #
-      #                 VPN etc....                   #
-      #                                               #
-      #################################################
+            - entity: sensor.processor_temperature
+            - entity: sensor.last_boot
+            - entity: sensor.ipv4_address_eno1
 
-      - type: entities
-        view_layout:
-          grid-area: tablet
-        title: VPN
-        state_color: true
-        show_header_toggle: false
-        card_mod:
-          class: header
-        entities:
-
-            # - type: custom:bar-card
-            #   width: 55%
-            #   height: 2em
-            #   decimal: 0
-            #   unit_of_measurement: '%'
-            #   positions: *bar_card_positions
-            #   severity: *bar_card_severity
-            #   entity_row: true
-            #   entities:
-
-          #     - entity: sensor.docker_1cpu
-          #       name: Processor
-
-          #     - entity: sensor.docker_memory_percent
-          #       name: Minne
-
-          # - entity: sensor.docker_containers_total
-          #   name: Containrar Totalt
-
-          # - entity: sensor.docker_containers_running
-          #   name: Containrar Körs
-
-          # - entity: sensor.docker_containers_paused
-          #   name: Containrar Pausade
-
-          # - entity: sensor.docker_containers_stopped
-          #   name: Containrar Stoppade
-
-          # - entity: switch.docker_transmission_seed
-          - entity: sensor.ipv4_address_wg0
-
-        footer:
-          type: custom:apexcharts-card
-          layout: minimal
-          graph_span: 6h
-          # update_delay: 1s
-          # update_interval: 1s
-          locale: fr
-          apex_config:
-            chart:
-              fontFamily: var(--primary-font-family)
-              height: 300px
-            tooltip:
-              style:
+          footer:
+            type: custom:apexcharts-card
+            layout: minimal
+            graph_span: 2h
+            # update_delay: 1s
+            # update_interval: 1s
+            locale: fr
+            apex_config:
+              chart:
+                fontFamily: var(--primary-font-family)
+                height: 300px
+              tooltip:
+                style:
+                  fontSize: 14px
+                x:
+                  show: true
+                  format: dddd HH:mm
+              xaxis:
+                crosshairs:
+                  show: false
+              legend:
                 fontSize: 14px
-              x:
-                show: true
-                format: dddd HH:mm
-            xaxis:
-              crosshairs:
-                show: false
-            legend:
-              fontSize: 14px
-              fontWeight: 500
-              itemMargin:
-                horizontal: 25
-              markers:
-                width: 26
-                height: 23
-                customHTML:
-                  - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-                  - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-                fillColors:
-                  - none
-                  - none
-            fill:
-              type: gradient
-              gradient:
-                type: vertical
-                opacityFrom: 0.8
-                opacityTo: 0
-                stops:
-                  - 0
-                  - 99
-                  - 100
-            stroke:
-              width: 1
-          all_series_config:
-            type: area
-            fill_raw: last
-          series:
-            - entity: sensor.network_throughput_in_wg0
-              name: Down
-              color: '#f030b9'
-            - entity: sensor.network_throughput_out_wg0
-              name: Up
-              color: var(--primary-color)
-
-      #################################################
-      #                                               #
-      #                      NUC                      #
-      #                                               #
-      #################################################
-
-      - type: entities
-        view_layout:
-          grid-area: nas
-        title: NUCleide
-        show_header_toggle: false
-        card_mod:
-          class: header
-          style: |
-            ha-card {
-              border: none !important;
-            }
-        entities:
-
-          - type: custom:bar-card
-            width: 55%
-            height: 2em
-            decimal: 0
-            unit_of_measurement: '%'
-            positions: *bar_card_positions
-            severity: *bar_card_severity
-            entity_row: true
-            entities:
-
-              - entity: sensor.processor_use
-                name: CPU
-                tap_action:
-                  action: call-service
-                  service: homeassistant.update_entity
-                  service_data:
-                    entity_id: sensor.processor_use_percent
-
-              - entity: sensor.memory_use_percent
-                name: RAM (8Go)
-                tap_action:
-                  action: call-service
-                  service: homeassistant.update_entity
-                  service_data:
-                    entity_id: sensor.memory_use_percent
-
-              - entity: sensor.disk_use_percent
-                name: / (30Go)
-                tap_action:
-                  action: call-service
-                  service: homeassistant.update_entity
-                  service_data:
-                    entity_id: sensor.disk_use_percent
-
-              - entity: sensor.disk_use_percent_filer
-                name: /filer (3.6To)
-                tap_action:
-                  action: call-service
-                  service: homeassistant.update_entity
-                  service_data:
-                    entity_id: sensor.disk_use_percent_filer
-
-          - entity: sensor.processor_temperature
-          - entity: sensor.last_boot
-          - entity: sensor.ipv4_address_eno1
-
-        footer:
-          type: custom:apexcharts-card
-          layout: minimal
-          graph_span: 2h
-          # update_delay: 1s
-          # update_interval: 1s
-          locale: fr
-          apex_config:
-            chart:
-              fontFamily: var(--primary-font-family)
-              height: 300px
-            tooltip:
-              style:
-                fontSize: 14px
-              x:
-                show: true
-                format: dddd HH:mm
-            xaxis:
-              crosshairs:
-                show: false
-            legend:
-              fontSize: 14px
-              fontWeight: 500
-              itemMargin:
-                horizontal: 25
-              markers:
-                width: 26
-                height: 23
-                customHTML:
-                  - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-                  - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-                fillColors:
-                  - none
-                  - none
-            fill:
-              type: gradient
-              gradient:
-                type: vertical
-                opacityFrom: 0.8
-                opacityTo: 0
-                stops:
-                  - 0
-                  - 99
-                  - 100
-            stroke:
-              width: 1
-          all_series_config:
-            type: area
-            fill_raw: last
-          series:
-            - entity: sensor.network_throughput_in_eno1
-              name: Down
-              color: '#f030b9'
-            - entity: sensor.network_throughput_out_eno1
-              name: Up
-              color: var(--primary-color)
+                fontWeight: 500
+                itemMargin:
+                  horizontal: 25
+                markers:
+                  width: 26
+                  height: 23
+                  customHTML:
+                    - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+                    - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+                  fillColors:
+                    - none
+                    - none
+              fill:
+                type: gradient
+                gradient:
+                  type: vertical
+                  opacityFrom: 0.8
+                  opacityTo: 0
+                  stops:
+                    - 0
+                    - 99
+                    - 100
+              stroke:
+                width: 1
+            all_series_config:
+              type: area
+              fill_raw: last
+            series:
+              - entity: sensor.network_throughput_in_eno1
+                name: Down
+                color: '#f030b9'
+              - entity: sensor.network_throughput_out_eno1
+                name: Up
+                color: var(--primary-color)
