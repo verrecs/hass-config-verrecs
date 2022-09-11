@@ -2,7 +2,7 @@ action: fire-dom-event
 browser_mod:
   service: browser_mod.popup
   data:
-    title: Platta
+    title: Tablette
     content:
       type: vertical-stack
       cards:
@@ -12,24 +12,12 @@ browser_mod:
             class: content
           entities:
 
-            - entity: switch.galaxy_tab_a_screen
-              secondary_info: last-changed
-
+            - entity: light.galaxy_tab_a_screen
             - type: custom:slider-entity-row
-              entity: number.galaxy_tab_a_screen_brightness
-              name: Ljusstyrka
-              icon: mdi:brightness-6
-              hide_state: false
-              card_mod:
-                style:
-                  # full width slider
-                  hui-generic-entity-row$: |
-                    div {
-                      flex: auto !important;
-                    }
+              entity: number.galaxy_tab_a_screen_off_timer
 
+            - entity: switch.galaxy_tab_a_motion_detection
             - entity: switch.galaxy_tab_a_screensaver
-
             - entity: binary_sensor.galaxy_tab_a_plugged_in
 
             - type: custom:bar-card
@@ -44,51 +32,23 @@ browser_mod:
               severity:
                 - color: '#6d2525'
                   from: 0
-                  to: 89
+                  to: 9
                 - color: '#303435'
-                  from: 90
-                  to: 999
+                  from: 10
+                  to: 100
               entity_row: true
               entities:
 
-                - entity: sensor.galaxy_tab_a_battery
-                  icon: mdi:battery
-                  tap_action:
-                    action: call-service
-                    service: homeassistant.update_entity
-                    service_data:
-                      entity_id: sensor.galaxy_tab_a_battery_level
-
-            - type: custom:bar-card
-              width: 55%
-              height: 2em
-              decimal: 0
-              unit_of_measurement: '%'
-              positions: *bar_card_positions
-              severity:
-                - color: '#6d2525'
-                  from: 90
-                  to: 999
-              entity_row: true
-              entities:
-
+                - entity: sensor.galaxy_tab_a_battery_level
                 - entity: sensor.template_fullykiosk_memory
-                  name: Minne - 2GB
-                  icon: mdi:memory
-                  tap_action:
-                    action: call-service
-                    service: homeassistant.update_entity
-                    service_data:
-                      entity_id: sensor.template_fullykiosk_memory
-
                 - entity: sensor.template_fullykiosk_storage
-                  name: Lagring - 32GB
-                  icon: mdi:sd
-                  tap_action:
-                    action: call-service
-                    service: homeassistant.update_entity
-                    service_data:
-                      entity_id: sensor.template_fullykiosk_storage
+
+
+
+            - entity: sensor.galaxy_tab_a_ram_free_memory
+            - entity: sensor.galaxy_tab_a_internal_storage_free_space
+            
+
 
         - type: custom:mod-card
           card_mod:
@@ -102,8 +62,7 @@ browser_mod:
             type: horizontal-stack
             cards:
               - type: custom:button-card
-                name: Startsidan
-                icon: mdi:reload
+                name: Recharger Dashboard
                 tap_action:
                   action: call-service
                   service: browser_mod.sequence
@@ -111,15 +70,14 @@ browser_mod:
                     sequence:
                       - service: browser_mod.notification
                         data:
-                          message: Laddar om startsidan...
+                          message: Rechargement du dashboard...
                       - service: button.press
                         data:
                           entity_id: button.galaxy_tab_a_load_start_url
                 template: icon_name
 
               - type: custom:button-card
-                name: Hela appen
-                icon: mdi:reload
+                name: Recharger Kiosk
                 tap_action:
                   action: call-service
                   service: browser_mod.sequence
@@ -127,7 +85,7 @@ browser_mod:
                     sequence:
                       - service: browser_mod.notification
                         data:
-                          message: Startar om Fully Kiosk Browser...
+                          message: Rechargement de Kiosk Browser...
                       - service: button.press
                         data:
                           entity_id: button.galaxy_tab_a_restart_browser

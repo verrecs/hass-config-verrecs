@@ -1,22 +1,22 @@
-homeassistant:
-  customize:
-    switch.galaxy_tab_a_screensaver:
-      friendly_name: Skärmsläckare
-      icon: mdi:power-sleep
-    number.galaxy_tab_a_screen_brightness:
-      friendly_name: Display
-      icon: mdi:tablet
-    switch.galaxy_tab_a_screen:
-      friendly_name: Display
-      icon: mdi:tablet
-    binary_sensor.galaxy_tab_a_plugged_in:
-      friendly_name: Strömtillförsel
-      icon: mdi:power-plug
-    sensor.galaxy_tab_a_last_app_start:
-      friendly_name: Senast omstart
-      icon: mdi:update
-    sensor.galaxy_tab_a_battery:
-      friendly_name: Batteri
+# homeassistant:
+#   customize:
+#     switch.galaxy_tab_a_screensaver:
+#       friendly_name: Skärmsläckare
+#       icon: mdi:power-sleep
+#     number.galaxy_tab_a_screen_brightness:
+#       friendly_name: Display
+#       icon: mdi:tablet
+#     switch.galaxy_tab_a_screen:
+#       friendly_name: Display
+#       icon: mdi:tablet
+#     binary_sensor.galaxy_tab_a_plugged_in:
+#       friendly_name: Strömtillförsel
+#       icon: mdi:power-plug
+#     sensor.galaxy_tab_a_last_app_start:
+#       friendly_name: Senast omstart
+#       icon: mdi:update
+#     sensor.galaxy_tab_a_battery:
+#       friendly_name: Batteri
 
 template:
   - sensor:
