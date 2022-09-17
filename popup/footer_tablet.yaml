@@ -15,6 +15,8 @@ browser_mod:
             - entity: light.galaxy_tab_a_screen
             - type: custom:slider-entity-row
               entity: number.galaxy_tab_a_screen_off_timer
+              min: 2
+              max: 30
 
             - entity: switch.galaxy_tab_a_motion_detection
             - entity: switch.galaxy_tab_a_screensaver

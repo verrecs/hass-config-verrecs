@@ -76,7 +76,7 @@ browser_mod:
               apex_config:
                 chart:
                   height: 500px
-                  width: 100%
+                  width: 380px
               experimental:
                 color_threshold: true
                 brush: true
@@ -146,7 +146,7 @@ browser_mod:
 
             - type: thermostat
               entity: climate.wiser_salon
-              
+
             - type: history-graph
               entities:
                 - entity: climate.wiser_salon

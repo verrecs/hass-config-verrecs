@@ -6,6 +6,11 @@
 #       icon: mdi:chip
 
 sensor:
+  - platform: time_date
+    display_options:
+      - time
+      - date
+
   - platform: systemmonitor
     resources:
       - type: disk_use_percent
@@ -43,7 +48,6 @@ sensor:
         arg: eno1
       - type: ipv4_address
         arg: wg0
-#    scan_interval: 120
 
   - platform: bbox
     monitored_variables:
@@ -62,6 +66,39 @@ sensor:
     max: 1
     img_dir: /
     image_resolution: 800
+
+media_player:
+  - platform: samsungtv_tizen
+    name: TV
+    device_id: 47f56a24-c389-4ea4-84d0-01c4af42abd8
+    host: 192.168.1.97
+    mac: 84:c0:ef:39:70:30
+    api_key: 4c8ba490-fe54-4362-aeeb-cae76327d808
+    update_method: smartthings
+    app_list:
+     '{"Plex": "kIciSQlYEM.plex","Netflix": "11101200001", "YouTubeTV": " PvWgqxV3Xa.YouTubeTV"}'
+
+switch:
+  - platform: wake_on_lan
+    mac: !secret tv_mac
+
+  # - platform: template
+  #   switches:
+  #     netflix:
+  #       friendly_name: "Netflix"
+  #       value_template: >-
+  #         "{{ is_state_attr('media_player.samsung_6_series_43', 'source', 'Netflix') }}"
+  #       icon_template: mdi:netflix
+  #       turn_on:
+  #         service: media_player.select_source
+  #         data:
+  #           entity_id: media_player.samsung_6_series_43
+  #           source: "Netflix"
+  #       turn_off:
+  #         service: media_player.select_source
+  #         data:
+  #           entity_id: media_player.samsung_6_series_43
+  #           source: "TV"
 
 device_tracker:
   - platform: bbox

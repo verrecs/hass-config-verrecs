@@ -115,7 +115,7 @@ views:
       #################################################
 
       - type: grid
-        title: Salon
+        title: Lumières
         view_layout:
           grid-area: salon
         columns: 2
@@ -123,7 +123,7 @@ views:
 
           - type: custom:button-card
             entity: light.salon_group
-            name: Lumière
+            name: Salon
             template:
               - light
               - icon_hue
@@ -141,8 +141,6 @@ views:
                 service_data:
                   entity_id: scene.films_hass
               
-
-
           # - type: custom:button-card
           #   entity: light.salon_horna
           #   name: Hörnlampa
@@ -312,25 +310,51 @@ views:
 
 
 
+          # - type: custom:button-card
+          #   entity: switch.netflix
+          #   name: Netflix
+          #   double_tap_action:
+          #     !include popup/sovrum_playstation.yaml
+          #   template:
+          #     - base
+          #     - icon_ps5
+          #     - loader
+
           - type: custom:button-card
-            entity: switch.ps5_635_power
-            name: Playstation
-            double_tap_action:
-              !include popup/sovrum_playstation.yaml
+            entity: media_player.samsung_6_series_43
+            name: "Netflix"
+            turn_on_action: 
+              - service: media_player.play_media
+                data:
+                  media_content_id: Netflix
+                  # media_content_type: app_list
+                target:
+                  entity_id: media_player.samsung_6_series_43
+              # - service: media_player.select_source
+              #   data:
+              #     entity_id: media_player.samsung_6_series_43
+              #     source: "RN1MCdNq8t.Netflix" # Todo : a voir ici "11101200001"
+              
             template:
               - base
-              - icon_ps5
+              - icon_tv
               - loader
 
           - type: custom:button-card
-            entity: media_player.samsung
-            name: "Tv\u00B2"
+            entity: media_player.samsung_6_series_43
+            name: "TV Salon"
+            turn_on_action: 
+              - service: wake_on_lan.send_magic_packet
+                data:
+                  mac: !secret tv_mac
             double_tap_action:
               !include popup/sovrum_tv2.yaml
             template:
               - base
               - icon_tv
               - loader
+
+          
 
       #################################################
       #                                               #
@@ -641,7 +665,7 @@ views:
 
           - type: custom:button-card
             name: >
-              <ha-icon icon="mdi:chart-line-variant"></ha-icon> Historique
+              <ha-icon icon="mdi:lightning-bolt"></ha-icon> Energie
             tap_action:
               !include popup/footer_history.yaml
             template: footer

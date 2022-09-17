@@ -15,6 +15,8 @@ homeassistant:
   #   - /config
 
 default_config:
+zeroconf:
+wake_on_lan:
 
 frontend: !include themes.yaml
 template: !include sidebar.yaml
@@ -38,6 +40,7 @@ lovelace:
       { url: /hacsfiles/weather-card/weather-card.js,                               type: module },
       # { url: https://cdn.jsdelivr.net/gh/Imbuzi/meteo-france-weather-card/dist/meteo-france-weather-card.js,     type: module },
       { url: /hacsfiles/home-assistant-sun-card/home-assistant-sun-card.js,         type: module },
+      { url: /hacsfiles/content-card-linky/content-card-linky.js,                   type: module },
       { url: /hacsfiles/wiser/wiser-schedule-card.js,                               type: module },
       { url: /hacsfiles/wiser/wiser-zigbee-card.js,                                 type: module },
       { url: '/local/marked.min.js?v=4.1.0',                                        type: module },
@@ -45,34 +48,15 @@ lovelace:
       { url: '/local/fonts.css?v=2.1',                                              type: css }
     ]
 
+
 # recorder:
 #   db_url: !secret recorder_db_url
 #   exclude:
 #     entity_globs:
 #       - sensor.browser_*
 
-logger:
-  default: warning
-  logs:
-    homeassistant.components.websocket_api: fatal
-    custom_components.monitor_docker.helpers: fatal
-
-sensor:
-  - platform: time_date
-    display_options:
-      - time
-      - date
-
-# TESTING AREA
-
-
-media_player:
-  - platform: samsungtv_tizen
-    host: 192.168.1.97
-    mac: 84:c0:ef:39:70:30
-
-wake_on_lan:
-
-switch:
-  - platform: wake_on_lan
-    mac: 84:c0:ef:39:70:30
+# logger:
+#   default: warning
+#   logs:
+#     homeassistant.components.websocket_api: fatal
+#     custom_components.monitor_docker.helpers: fatal

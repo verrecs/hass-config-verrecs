@@ -2,7 +2,7 @@ action: fire-dom-event
 browser_mod:
   service: browser_mod.popup
   data:
-    title: Sovrum Tv
+    title: Télévision du salon
     content:
       type: vertical-stack
       cards:
@@ -13,8 +13,8 @@ browser_mod:
             class: content
           entities:
 
-            - entity: media_player.samsung
-              name: Samsung TV
+            - entity: media_player.samsung_6_series_43
+              name: TV
               secondary_info: last-changed
 
             - entity: script.samsung_tv_energy_saving
@@ -22,7 +22,7 @@ browser_mod:
             - entity: script.bedroom_tv_night
 
             - type: custom:more-info-card
-              entity: media_player.samsung
+              entity: media_player.samsung_6_series_43
               card_mod:
                 style:
                   # hide everything but ha-select
@@ -57,7 +57,7 @@ browser_mod:
             type: horizontal-stack
             cards:
               - type: custom:button-card
-                entity: media_player.samsung
+                entity: media_player.samsung_6_series_43
                 icon: mdi:volume-mute
                 tap_action:
                   action: call-service
@@ -70,7 +70,7 @@ browser_mod:
                 template: icon_only
 
               - type: custom:button-card
-                entity: media_player.samsung
+                entity: media_player.samsung_6_series_43
                 icon: mdi:volume-minus
                 tap_action:
                   action: call-service
@@ -81,7 +81,7 @@ browser_mod:
                 template: icon_only
 
               - type: custom:button-card
-                entity: media_player.samsung
+                entity: media_player.samsung_6_series_43
                 icon: mdi:volume-plus
                 tap_action:
                   action: call-service
