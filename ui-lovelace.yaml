@@ -323,18 +323,12 @@ views:
           - type: custom:button-card
             entity: media_player.samsung_6_series_43
             name: "Netflix"
-            turn_on_action: 
-              - service: media_player.play_media
-                data:
-                  media_content_id: Netflix
-                  # media_content_type: app_list
-                target:
-                  entity_id: media_player.samsung_6_series_43
-              # - service: media_player.select_source
-              #   data:
-              #     entity_id: media_player.samsung_6_series_43
-              #     source: "RN1MCdNq8t.Netflix" # Todo : a voir ici "11101200001"
-              
+            tap_action:
+              action: call-service
+              service: media_player.select_source
+              service_data:
+                source: Netflix
+                entity_id: media_player.samsung_6_series_43
             template:
               - base
               - icon_tv
@@ -343,10 +337,10 @@ views:
           - type: custom:button-card
             entity: media_player.samsung_6_series_43
             name: "TV Salon"
-            turn_on_action: 
-              - service: wake_on_lan.send_magic_packet
-                data:
-                  mac: !secret tv_mac
+            # turn_on_action: 
+            #   - service: wake_on_lan.send_magic_packet
+            #     data:
+            #       mac: 9c:8c:6e:29:3a:30
             double_tap_action:
               !include popup/sovrum_tv2.yaml
             template:

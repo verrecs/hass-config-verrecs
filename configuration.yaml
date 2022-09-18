@@ -16,7 +16,6 @@ homeassistant:
 
 default_config:
 zeroconf:
-wake_on_lan:
 
 frontend: !include themes.yaml
 template: !include sidebar.yaml
@@ -48,6 +47,12 @@ lovelace:
       { url: '/local/fonts.css?v=2.1',                                              type: css }
     ]
 
+
+wake_on_lan:
+
+switch:
+  - platform: wake_on_lan
+    mac: 9c:8c:6e:29:3a:30
 
 # recorder:
 #   db_url: !secret recorder_db_url
