@@ -68,11 +68,11 @@ sensor:
     image_resolution: 800
 
 samsungtv:
-  - host: 192.168.1.57
+  - host: !secret tv_ip
     turn_on_action:
       - service: wake_on_lan.send_magic_packet
         data:
-          mac: 9c:8c:6e:29:3a:30
+          mac: !secret tv_mac
     app_list:
      '{"Plex": "kIciSQlYEM.plex","Netflix": "11101200001", "YouTubeTV": " PvWgqxV3Xa.YouTubeTV"}'
 

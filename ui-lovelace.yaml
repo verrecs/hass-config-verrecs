@@ -478,47 +478,95 @@ views:
 
       #################################################
       #                                               #
-      #                    ÖVRIGT                     #
+      #                 Multimédia                    #
       #                                               #
       #################################################
 
       - type: grid
-        title: Övrigt
+        title: Multimédia
         view_layout:
           grid-area: övrigt
         columns: 2
         cards:
 
           - type: custom:button-card
-            entity: light.badrum_group
-            name: Badrum
-            template:
-              - light
-              - icon_bathroom
-
-          - type: custom:button-card
-            entity: switch.gosund_fan_switch
-            name: "Fläkt\u00B2"
+            entity: media_player.samsung_6_series_43
+            name: "TV Salon"
             double_tap_action:
-              !include popup/studio_flakt.yaml
+              !include popup/sovrum_tv2.yaml
             template:
               - base
-              - icon_fan2
+              - icon_tv
               - loader
 
           - type: custom:button-card
-            entity: light.garderob_lampa
-            name: Garderob
+            entity: media_player.samsung_6_series_43
+            name: "Netflix"
+            tap_action:
+              action: call-service
+              service: media_player.select_source
+              service_data:
+                source: Netflix
+                entity_id: media_player.samsung_6_series_43
             template:
-              - light
-              - icon_closet
+              - base
+              - icon_tv
+              - loader
 
           - type: custom:button-card
-            entity: light.hall_group
-            name: Hall
+            entity: media_player.samsung_6_series_43
+            name: "Prime Video"
+            tap_action:
+              action: call-service
+              service: media_player.select_source
+              service_data:
+                source: Netflix
+                entity_id: media_player.samsung_6_series_43
             template:
-              - light
-              - icon_spot
+              - base
+              - icon_tv
+              - loader
+
+          # TV bouygues = apple TV
+          # Disney+
+          # Prime 
+          # Plex
+          # Youtube
+          # Spotify
+          # Radio
+          # Apple TV
+          # Barre de son...
+
+          # - type: custom:button-card
+          #   entity: light.badrum_group
+          #   name: Badrum
+          #   template:
+          #     - light
+          #     - icon_bathroom
+
+          # - type: custom:button-card
+          #   entity: switch.gosund_fan_switch
+          #   name: "Fläkt\u00B2"
+          #   double_tap_action:
+          #     !include popup/studio_flakt.yaml
+          #   template:
+          #     - base
+          #     - icon_fan2
+          #     - loader
+
+          # - type: custom:button-card
+          #   entity: light.garderob_lampa
+          #   name: Garderob
+          #   template:
+          #     - light
+          #     - icon_closet
+
+          # - type: custom:button-card
+          #   entity: light.hall_group
+          #   name: Hall
+          #   template:
+          #     - light
+          #     - icon_spot
 
       #################################################
       #                                               #
