@@ -520,7 +520,22 @@ views:
               action: call-service
               service: media_player.select_source
               service_data:
-                source: Netflix
+                source: Prime Video
+                entity_id: media_player.samsung_6_series_43
+            template:
+              - base
+              - icon_tv
+              - loader
+
+          - type: custom:button-card
+            entity: media_player.samsung_6_series_43
+            name: "Disney+"
+            tap_action:
+              action: call-service
+              service: media_player.select_source
+              service_data:
+              
+                source: Disney+
                 entity_id: media_player.samsung_6_series_43
             template:
               - base
