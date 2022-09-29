@@ -2,7 +2,7 @@ action: fire-dom-event
 browser_mod:
   service: browser_mod.popup
   data:
-    title: Dammsugare
+    title: Philippo, l'aspiro déglingo
     timeout: 300000
     style: |
       --popup-max-width: calc(385px + 495px);
@@ -52,7 +52,7 @@ browser_mod:
             grid-area: info
           cards:
           - type: entities
-            title: Översikt
+            title: Informations
             card_mod:
               class: header
               style: |
@@ -62,8 +62,8 @@ browser_mod:
                 }
             entities:
 
-            - entity: vacuum.morty
-            - entity: sensor.morty_last_clean_end
+            - entity: vacuum.roberto
+            - entity: sensor.roberto_last_clean_end
 
             - type: custom:bar-card
               width: 55%
@@ -83,9 +83,9 @@ browser_mod:
                   to: 10
               entity_row: true
               entities:
-                - entity: vacuum.morty
+                - entity: vacuum.roberto
                   attribute: battery_level
-                  name: Batteri
+                  name: Batterie
                   icon: mdi:battery
                 - entity: sensor.template_vacuum_filter
                 - entity: sensor.template_vacuum_mainbrush
@@ -93,7 +93,7 @@ browser_mod:
                 - entity: sensor.template_vacuum_sensors
 
             - type: custom:more-info-card
-              entity: vacuum.morty
+              entity: vacuum.roberto
               card_mod:
                 style:
                   # hide everything but ha-select
@@ -138,7 +138,7 @@ browser_mod:
               type: horizontal-stack
               cards:
                 - type: custom:button-card
-                  entity: vacuum.morty
+                  entity: vacuum.roberto
                   icon: mdi:play-pause
                   tap_action:
                     action: call-service
@@ -151,17 +151,17 @@ browser_mod:
                         ]]]`
                       ]]]
                     service_data:
-                      entity_id: vacuum.morty
+                      entity_id: vacuum.roberto
                   template: icon_only
 
                 - type: custom:button-card
-                  entity: vacuum.morty
+                  entity: vacuum.roberto
                   icon: mdi:battery-charging
                   tap_action:
                     action: call-service
                     service: vacuum.return_to_base
                     service_data:
-                      entity_id: vacuum.morty
+                      entity_id: vacuum.roberto
                   template: icon_only
 
                 - type: custom:button-card
@@ -170,7 +170,7 @@ browser_mod:
                     action: call-service
                     service: vacuum.send_command
                     service_data:
-                      entity_id: vacuum.morty
+                      entity_id: vacuum.roberto
                       command: app_goto_target
                       params: [16821,23105]
                   template: icon_only
@@ -178,7 +178,7 @@ browser_mod:
         ### KARTLÄGGNING
 
         - type: custom:xiaomi-vacuum-map-card
-          title: Kartläggning
+          title: Carte
           view_layout:
             grid-area: map
           card_mod:
@@ -213,8 +213,8 @@ browser_mod:
                 color: #9da0a2 !important;
                 padding: 0.42em;
               }
-          language: sv
-          entity: vacuum.morty
+          language: fr
+          entity: vacuum.roberto
           map_source:
             camera: camera.vacuum_map
           calibration_source:
@@ -222,32 +222,32 @@ browser_mod:
           map_locked: true
           map_modes:
             - template: vacuum_clean_zone
-            - template: vacuum_clean_zone_predefined
-              predefined_selections:
-                - zones: [[14895, 20640, 18409, 24058]]
-                  icon:
-                    name: mdi:silverware-fork-knife
-                    x: 16708
-                    y: 22291
-                - zones: [[15208, 17278, 20204, 20980]]
-                  icon:
-                    name: mdi:bed
-                    x: 17706
-                    y: 19043
-                - zones: [[18170, 20925, 23138, 25026]]
-                  icon:
-                    name: mdi:door
-                    x: 22293
-                    y: 21864
-                - zones: [[21474, 24942, 27269, 28873]]
-                  icon:
-                    name: mdi:sofa
-                    x: 24401
-                    y: 26736
-                - zones: [[17687, 24885, 21487, 28816]]
-                  icon:
-                    name: mdi:speaker
-                    x: 19757
-                    y: 26622
+            # - template: vacuum_clean_zone_predefined
+            #   predefined_selections:
+            #     - zones: [[14895, 20640, 18409, 24058]]
+            #       icon:
+            #         name: mdi:silverware-fork-knife
+            #         x: 16708
+            #         y: 22291
+            #     - zones: [[15208, 17278, 20204, 20980]]
+            #       icon:
+            #         name: mdi:bed
+            #         x: 17706
+            #         y: 19043
+            #     - zones: [[18170, 20925, 23138, 25026]]
+            #       icon:
+            #         name: mdi:door
+            #         x: 22293
+            #         y: 21864
+            #     - zones: [[21474, 24942, 27269, 28873]]
+            #       icon:
+            #         name: mdi:sofa
+            #         x: 24401
+            #         y: 26736
+            #     - zones: [[17687, 24885, 21487, 28816]]
+            #       icon:
+            #         name: mdi:speaker
+            #         x: 19757
+            #         y: 26622
             - template: vacuum_goto
             - template: vacuum_follow_path
