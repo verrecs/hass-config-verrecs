@@ -320,33 +320,33 @@ views:
           #     - icon_ps5
           #     - loader
 
-          - type: custom:button-card
-            entity: media_player.samsung_6_series_43
-            name: "Netflix"
-            tap_action:
-              action: call-service
-              service: media_player.select_source
-              service_data:
-                source: Netflix
-                entity_id: media_player.samsung_6_series_43
-            template:
-              - base
-              - icon_tv
-              - loader
+          # - type: custom:button-card
+          #   entity: media_player.samsung_6_series_43
+          #   name: "Netflix"
+          #   turn_on_action: 
+          #     - service: wake_on_lan.send_magic_packet
+          #       data:
+          #         mac: !secret tv_mac
+          #   tap_action:
+          #     action: call-service
+          #     service: media_player.select_source
+          #     service_data:
+          #       source: Netflix
+          #       entity_id: media_player.samsung_6_series_43
+          #   template:
+          #     - base
+          #     - icon_tv
+          #     - loader
 
-          - type: custom:button-card
-            entity: media_player.samsung_6_series_43
-            name: "TV Salon"
-            # turn_on_action: 
-            #   - service: wake_on_lan.send_magic_packet
-            #     data:
-            #       mac: 9c:8c:6e:29:3a:30
-            double_tap_action:
-              !include popup/sovrum_tv2.yaml
-            template:
-              - base
-              - icon_tv
-              - loader
+          # - type: custom:button-card
+          #   entity: media_player.samsung_6_series_43
+          #   name: "TV Salon"
+          #   double_tap_action:
+          #     !include popup/sovrum_tv2.yaml
+          #   template:
+          #     - base
+          #     - icon_tv
+          #     - loader
 
           
 
@@ -391,7 +391,11 @@ views:
                       entity: sensor.plex_recently_added
                       name: Dernier téléchargement
                       tap_action:
-                        action: none
+                        action: call-service
+                        service: media_player.select_source
+                        service_data:
+                          source: Plex
+                          entity_id: media_player.samsung_6_series_43
                       template:
                         - conditional_media
                         - icon_plex
@@ -502,6 +506,10 @@ views:
           - type: custom:button-card
             entity: media_player.samsung_6_series_43
             name: "Netflix"
+            turn_on_action: 
+              - service: wake_on_lan.send_magic_packet
+                data:
+                  mac: !secret tv_mac
             tap_action:
               action: call-service
               service: media_player.select_source
@@ -534,7 +542,7 @@ views:
               action: call-service
               service: media_player.select_source
               service_data:
-              
+
                 source: Disney+
                 entity_id: media_player.samsung_6_series_43
             template:
