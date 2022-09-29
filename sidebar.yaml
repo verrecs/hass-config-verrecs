@@ -103,11 +103,11 @@
         #     {{ '\U0001F4EC' }} <font color='#6a7377'><b>Brevlåda ({{ mailbox }})</b></font>
         #   {% endif %}
         # vacuum: >
-        #   {% set entity_id = 'vacuum.morty' %}
+        #   {% set entity_id = 'vacuum.roberto' %}
         #   {% if is_state(entity_id, 'cleaning') %}
-        #     <b>Morty dammsuger</b>
+        #     <b>roberto dammsuger</b>
         #   {% elif is_state(entity_id, 'returning') %}
-        #     <b>Morty är färdig</b>
+        #     <b>roberto är färdig</b>
         #   {% endif %}
         # weather: >
         #   {% set entity = 'weather.smhi_home' %}

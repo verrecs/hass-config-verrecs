@@ -126,20 +126,42 @@ views:
             name: Salon
             template:
               - light
+              - icon_couch
+              # - icon_shade
+
+          - type: custom:button-card
+            entity: light.chambre
+            name: Chambre
+            template:
+              - light
+              - icon_lamp
+
+          - type: custom:button-card
+            entity: light.cuisine
+            name: Cuisine
+            template:
+              - light
+              - icon_hue
+
+          - type: custom:button-card
+            entity: light.hue_filament_bulb_1
+            name: Bureau
+            template:
+              - light
               - icon_hue
 
           # Bouton Scene
           # TODO : a templatiser
-          - type: custom:button-card
-            name: Films
-            icon: mdi:theater
-            # template:
-            #   - base
-            tap_action:
-                action: call-service
-                service: scene.turn_on
-                service_data:
-                  entity_id: scene.films_hass
+          # - type: custom:button-card
+          #   name: Films
+          #   icon: mdi:theater
+          #   # template:
+          #   #   - base
+          #   tap_action:
+          #       action: call-service
+          #       service: scene.turn_on
+          #       service_data:
+          #         entity_id: scene.films_hass
               
           # - type: custom:button-card
           #   entity: light.salon_horna
@@ -147,6 +169,105 @@ views:
           #   template:
           #     - light
           #     - icon_shade
+          
+          # - type: custom:button-card
+          #   entity: media_player.sony_bravia_tv
+          #   name: Tv
+          #   state_display: >
+          #     [[[
+          #       if (variables.state === 'playing') {
+          #           return 'På';
+          #       }
+          #       if (variables.state === true) {
+          #           return variables.translate_unknown;
+          #       }
+          #     ]]]
+          #   double_tap_action:
+          #     !include popup/salon_tv.yaml
+          #   template:
+          #     - base
+          #     - icon_tv
+          #     - loader
+
+      #################################################
+      #                                               #
+      #                    Autres                     #
+      #                                               #
+      #################################################
+
+      - type: grid
+        title: Automatiques
+        view_layout:
+          grid-area: studio
+        columns: 2
+        cards:
+
+          - type: custom:button-card
+            entity: light.lumiere_de_l_entree
+            name: Entrée
+            template:
+              - light
+              - icon_closet
+
+          - type: custom:button-card
+            entity: light.lumiere_du_couloir
+            name: Couloir
+            template:
+              - light
+              - icon_spot
+
+          # - type: custom:button-card
+          #   entity: switch.imac
+          #   name: Dator
+          #   double_tap_action:
+          #     !include popup/studio_dator.yaml
+          #   template:
+          #     - base
+          #     - icon_imac
+          #     - loader
+          #     - lock
+          #   variables:
+          #     lock: >
+          #       [[[
+          #         let lock = states['input_boolean.imac_lock'];
+          #         return !lock || lock.state;
+          #       ]]]
+          #     trigger: >
+          #       [[[
+          #         let trigger = states['script.home_leave'];
+          #         return !trigger || trigger;
+          #       ]]]
+
+          # - type: custom:button-card
+          #   entity: switch.gosund_monitors_switch
+          #   name: Monitorer
+          #   double_tap_action:
+          #     !include popup/studio_monitorer.yaml
+          #   template:
+          #     - base
+          #     - icon_monitors
+          #     - circle
+          #     - loader
+          #   variables:
+          #     circle_input: >
+          #       [[[
+          #         let volume = states['sensor.monitors_volume'];
+          #         if (volume) return parseInt(volume.state);
+          #       ]]]
+          #     circle_input_unit: '%'
+
+      #################################################
+      #                                               #
+      #                    SOVRUM                     #
+      #                                               #
+      #################################################
+
+      - type: grid
+        title: Autres
+        view_layout:
+          grid-area: sovrum
+        columns: 2
+        cards:
 
           # TODO : changer l'icone en fonction du statut + réglage comme les lampes
           - type: custom:button-card
@@ -200,113 +321,12 @@ views:
               card:
                 - overflow: false
             # FIN custo
-            
-
-          - type: custom:button-card
-            entity: media_player.sony_bravia_tv
-            name: Tv
-            state_display: >
-              [[[
-                if (variables.state === 'playing') {
-                    return 'På';
-                }
-                if (variables.state === true) {
-                    return variables.translate_unknown;
-                }
-              ]]]
-            double_tap_action:
-              !include popup/salon_tv.yaml
-            template:
-              - base
-              - icon_tv
-              - loader
-
-      #################################################
-      #                                               #
-      #                    STUDIO                     #
-      #                                               #
-      #################################################
-
-      - type: grid
-        title: Studio
-        view_layout:
-          grid-area: studio
-        columns: 2
-        cards:
-
-          - type: custom:button-card
-            entity: light.studio_dator
-            name: Datorlampa
-            template:
-              - light
-              - icon_hue
-
-          - type: custom:button-card
-            entity: light.studio_group
-            name: Taklampor
-            template:
-              - light
-              - icon_spot
-
-          - type: custom:button-card
-            entity: switch.imac
-            name: Dator
-            double_tap_action:
-              !include popup/studio_dator.yaml
-            template:
-              - base
-              - icon_imac
-              - loader
-              - lock
-            variables:
-              lock: >
-                [[[
-                  let lock = states['input_boolean.imac_lock'];
-                  return !lock || lock.state;
-                ]]]
-              trigger: >
-                [[[
-                  let trigger = states['script.home_leave'];
-                  return !trigger || trigger;
-                ]]]
-
-          - type: custom:button-card
-            entity: switch.gosund_monitors_switch
-            name: Monitorer
-            double_tap_action:
-              !include popup/studio_monitorer.yaml
-            template:
-              - base
-              - icon_monitors
-              - circle
-              - loader
-            variables:
-              circle_input: >
-                [[[
-                  let volume = states['sensor.monitors_volume'];
-                  if (volume) return parseInt(volume.state);
-                ]]]
-              circle_input_unit: '%'
-
-      #################################################
-      #                                               #
-      #                    SOVRUM                     #
-      #                                               #
-      #################################################
-
-      - type: grid
-        title: A définir
-        view_layout:
-          grid-area: sovrum
-        columns: 2
-        cards:
-
-          - type: custom:button-card
-            entity: light.sovrum_group
-            name: Sänglampor
-            template:
-              - light
-              - icon_lamp
+      #     - type: custom:button-card
+      #       entity: light.sovrum_group
+      #       name: Sänglampor
+      #       template:
+      #         - light
+      #         - icon_lamp
 
 
 
@@ -518,7 +538,7 @@ views:
                 entity_id: media_player.samsung_6_series_43
             template:
               - base
-              - icon_tv
+              - icon_netflix
               - loader
 
           - type: custom:button-card
@@ -542,14 +562,13 @@ views:
               action: call-service
               service: media_player.select_source
               service_data:
-
                 source: Disney+
                 entity_id: media_player.samsung_6_series_43
             template:
               - base
               - icon_tv
               - loader
-
+                     
           # TV bouygues = apple TV
           # Disney+
           # Prime 
@@ -598,51 +617,93 @@ views:
       #################################################
 
       - type: grid
-        title: Hemma
+        title: Musique
         view_layout:
           grid-area: hemma
         columns: 2
         cards:
 
-          - type: custom:button-card
-            entity: person.matte
-            name: Mattias
-            triggers_update:
-              - sensor.matte_last_changed
-            double_tap_action:
-              !include popup/hemma_mattias.yaml
-            variables:
-              retain: sensor.matte_last_changed
-            template:
-              - person
-              - circle
+            - type: custom:button-card
+              entity: media_player.samsung_6_series_43
+              name: "Disney+"
+              tap_action:
+                action: call-service
+                service: media_player.select_source
+                service_data:
+                  source: Disney+
+                  entity_id: media_player.samsung_6_series_43
+              template:
+                - base
+                - icon_tv
+                - loader
+                
+            - type: custom:button-card
+              entity: media_player.samsung_6_series_43
+              name: "Disney+"
+              tap_action:
+                action: call-service
+                service: media_player.select_source
+                service_data:
+                  source: Disney+
+                  entity_id: media_player.samsung_6_series_43
+              template:
+                - base
+                - icon_tv
+                - loader
 
-          - type: custom:button-card
-            entity: person.sanja
-            name: Sanja
-            triggers_update:
-              - sensor.sanja_last_changed
-            double_tap_action:
-              !include popup/hemma_sanja.yaml
-            variables:
-              retain: sensor.sanja_last_changed
-            template:
-              - person
-              - circle
+            - type: custom:button-card
+              entity: media_player.samsung_6_series_43
+              name: "Disney+"
+              tap_action:
+                action: call-service
+                service: media_player.select_source
+                service_data:
+                  source: Disney+
+                  entity_id: media_player.samsung_6_series_43
+              template:
+                - base
+                - icon_tv
+                - loader
+      
+      #     - type: custom:button-card
+      #       entity: person.matte
+      #       name: Mattias
+      #       triggers_update:
+      #         - sensor.matte_last_changed
+      #       double_tap_action:
+      #         !include popup/hemma_mattias.yaml
+      #       variables:
+      #         retain: sensor.matte_last_changed
+      #       template:
+      #         - person
+      #         - circle
 
-          - type: custom:button-card
-            entity: script.home_leave
-            name: Stäng allt
-            template:
-              - base
-              - icon_away
+      #     - type: custom:button-card
+      #       entity: person.sanja
+      #       name: Sanja
+      #       triggers_update:
+      #         - sensor.sanja_last_changed
+      #       double_tap_action:
+      #         !include popup/hemma_sanja.yaml
+      #       variables:
+      #         retain: sensor.sanja_last_changed
+      #       template:
+      #         - person
+      #         - circle
 
-          - type: custom:button-card
-            entity: script.home_arrive
-            name: Hemma
-            template:
-              - base
-              - icon_home
+      #     - type: custom:button-card
+      #       entity: script.home_leave
+      #       name: Stäng allt
+      #       template:
+      #         - base
+      #         - icon_away
+
+      #     - type: custom:button-card
+      #       entity: script.home_arrive
+      #       name: Hemma
+      #       template:
+      #         - base
+      #         - icon_home
 
       #################################################
       #                                               #
@@ -713,20 +774,20 @@ views:
                 ]]]
             template: footer
 
-          # - type: custom:button-card
-          #   name: >
-          #     <ha-icon icon="mdi:robot-vacuum-variant"></ha-icon> Aspirateur
-          #   tap_action:
-          #     !include popup/footer_vacuum.yaml
-          #   triggers_update:
-          #     - sensor.date
-          #   variables:
-          #     notify: >
-          #       [[[
-          #         let id = states['sensor.morty_last_clean_end'];
-          #         if (id) return (Date.now() - Date.parse(id.state)) > 6048e5;
-          #       ]]]
-          #   template: footer
+          - type: custom:button-card
+            name: >
+              <ha-icon icon="mdi:robot-vacuum-variant"></ha-icon> Aspirateur
+            tap_action:
+              !include popup/footer_vacuum.yaml
+            triggers_update:
+              - sensor.date
+            variables:
+              notify: >
+                [[[
+                  let id = states['sensor.roberto_last_clean_end'];
+                  if (id) return (Date.now() - Date.parse(id.state)) > 6048e5;
+                ]]]
+            template: footer
 
           - type: custom:button-card
             name: >

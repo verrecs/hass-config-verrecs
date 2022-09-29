@@ -1,46 +1,46 @@
 homeassistant:
   customize:
-    vacuum.morty:
+    vacuum.roberto:
       icon: cil:roborock-vacuum
-    sensor.morty_last_clean_end:
-      friendly_name: Senast städat
+    sensor.roberto_last_clean_end:
+      friendly_name: Dernier nettoyage
       icon: mdi:calendar-clock
 
 template:
   - sensor:
       - unique_id: vacuum_filter
         state: >
-          {% set entity_id = 'sensor.morty_filter_left' %}
+          {% set entity_id = 'sensor.roberto_filter_left' %}
           {{ (states(entity_id) | int(default=0) / 5400) | int(default=0) }}
         attributes:
-          friendly_name: Filter
+          friendly_name: Filtre
           icon: cil:roborock-filter
           unit_of_measurement: '%'
 
       - unique_id: vacuum_mainbrush
         state: >
-          {% set entity_id = 'sensor.morty_main_brush_left' %}
+          {% set entity_id = 'sensor.roberto_main_brush_left' %}
           {{ (states(entity_id) | int(default=0) / 10800) | int(default=0) }}
         attributes:
-          friendly_name: Huvudborste
+          friendly_name: Brosse principale
           icon: cil:roborock-mainbrush
           unit_of_measurement: '%'
 
       - unique_id: vacuum_sensors
         state: >
-          {% set entity_id = 'sensor.morty_sensor_dirty_left' %}
+          {% set entity_id = 'sensor.roberto_sensor_dirty_left' %}
           {{ (states(entity_id) | int(default=0) / 1080) | int(default=0) }}
         attributes:
-          friendly_name: Sensorer
+          friendly_name: Capteur
           icon: cil:roborock-sensor
           unit_of_measurement: '%'
 
       - unique_id: vacuum_sidebrush
         state: >
-          {% set entity_id = 'sensor.morty_side_brush_left' %}
+          {% set entity_id = 'sensor.roberto_side_brush_left' %}
           {{ (states(entity_id) | int(default=0) / 7200) | int(default=0) }}
         attributes:
-          friendly_name: Sidoborste
+          friendly_name: Brosse de coté
           icon: cil:roborock-sidebrush
           unit_of_measurement: '%'
 
@@ -48,10 +48,10 @@ automation:
   - alias: vacuum_empty_bin
     id: '5443599527378'
     variables:
-      vacuum: vacuum.morty
+      vacuum: vacuum.roberto
     trigger:
       platform: state
-      entity_id: sensor.morty_total_clean_count
+      entity_id: sensor.roberto_total_clean_count
     condition: >
       {{ not is_state(vacuum, 'docked') }}
     action:
