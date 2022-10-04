@@ -1,0 +1,76 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Températures
+    timeout: 300000
+    style: >
+      --popup-max-width: 1200px;
+      --ha-card-border-radius: 0;
+    content:
+      type: vertical-stack
+      cards:
+        - type: entities
+          state_color: true
+          card_mod:
+            class: content
+          entities:
+
+            - type: custom:apexcharts-card
+              apex_config:
+                chart:
+                  height: 550px
+                  width: 1100px
+              experimental:
+                color_threshold: true
+                brush: true
+              show:
+                last_updated: true
+              graph_span: 7d
+              all_series_config:
+                stroke_width: 1
+              header:
+                show: true
+                title: des 7 derniers jours
+                show_states: true
+                colorize_states: true
+              brush:
+                selection_span: 30m
+              series:
+
+                - entity: sensor.paris_10eme_arrondissement_temperature
+                  name: Extérieure
+                  type: area
+                  opacity: 0.2
+                  show:
+                    header_color_threshold: true
+                  color_threshold:
+                    - value: 18
+                      color: steelblue
+                    - value: 21
+                      color: green
+                    - value: 23
+                      color: orange
+                    - value: 25
+                      color: orangered
+                    - value: 27
+                      color: red
+                  group_by:
+                    duration: 60min
+                    func: avg
+
+                - entity: sensor.hue_motion_sensor_1_temperature
+                  name: Entrée
+                  curve: smooth
+                  type: line
+                  group_by:
+                    duration: 30min
+                    func: avg
+
+                - entity: sensor.hue_motion_sensor_1_temperature_2
+                  name: Bureau
+                  curve: smooth
+                  type: line
+                  group_by:
+                    duration: 30min
+                    func: avg

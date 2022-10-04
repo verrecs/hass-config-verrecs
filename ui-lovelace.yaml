@@ -272,8 +272,10 @@ views:
           # TODO : changer l'icone en fonction du statut + réglage comme les lampes
           - type: custom:button-card
             entity: climate.wiser_salon
-            name: T°
+            name: Chauffrage
             double_tap_action:
+              !include popup/sovrum_klimat.yaml
+            tap_action:
               !include popup/sovrum_klimat.yaml
             template:
               - base
@@ -367,8 +369,6 @@ views:
           #     - base
           #     - icon_tv
           #     - loader
-
-          
 
       #################################################
       #                                               #
@@ -612,7 +612,7 @@ views:
 
       #################################################
       #                                               #
-      #                     HEMMA                     #
+      #                     MUSIQ                     #
       #                                               #
       #################################################
 
@@ -624,47 +624,33 @@ views:
         cards:
 
             - type: custom:button-card
-              entity: media_player.samsung_6_series_43
-              name: "Disney+"
-              tap_action:
-                action: call-service
-                service: media_player.select_source
-                service_data:
-                  source: Disney+
-                  entity_id: media_player.samsung_6_series_43
+              entity: media_player.spotify
+              name: Spotify
               template:
-                - base
-                - icon_tv
-                - loader
+                - media
+                - icon_spotify
                 
             - type: custom:button-card
-              entity: media_player.samsung_6_series_43
-              name: "Disney+"
-              tap_action:
-                action: call-service
-                service: media_player.select_source
-                service_data:
-                  source: Disney+
-                  entity_id: media_player.samsung_6_series_43
+              entity: media_player.spotify
+              name: Radio
               template:
-                - base
-                - icon_tv
-                - loader
+                - media
+                - icon_spotify
 
             - type: custom:button-card
-              entity: media_player.samsung_6_series_43
-              name: "Disney+"
-              tap_action:
-                action: call-service
-                service: media_player.select_source
-                service_data:
-                  source: Disney+
-                  entity_id: media_player.samsung_6_series_43
+              entity: media_player.spotify
+              name: Karaoke
               template:
-                - base
-                - icon_tv
-                - loader
-      
+                - media
+                - icon_spotify
+
+            - type: custom:button-card
+              entity: media_player.spotify
+              name: Audible
+              template:
+                - media
+                - icon_spotify
+
       #     - type: custom:button-card
       #       entity: person.matte
       #       name: Mattias
@@ -794,6 +780,13 @@ views:
               <ha-icon icon="mdi:lightning-bolt"></ha-icon> Energie
             tap_action:
               !include popup/footer_history.yaml
+            template: footer
+
+          - type: custom:button-card
+            name: >
+              <ha-icon icon="mdi:sun-thermometer"></ha-icon> Météo
+            tap_action:
+              !include popup/footer_meteo.yaml
             template: footer
 
           - type: custom:button-card

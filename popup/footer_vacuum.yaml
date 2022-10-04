@@ -5,8 +5,9 @@ browser_mod:
     title: Philippo, l'aspiro déglingo
     timeout: 300000
     style: |
-      --popup-max-width: calc(385px + 495px);
-      --primary-color: transparent; /* hide timeout progress */
+      --popup-max-width: calc(385px + 800px);
+# 
+      # --primary-color: transparent; /* hide timeout progress */
     card_mod:
       style:
         # card divider border
@@ -20,7 +21,7 @@ browser_mod:
             transition: none;
           }
           /* phone */
-          @media screen and (max-width: 800px) {
+          @media screen and (max-width: 1200px) {
             hui-vertical-stack-card {
               border-right: none;
               border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
@@ -31,21 +32,19 @@ browser_mod:
       layout_type: custom:grid-layout
       layout:
         margin: 0
-        grid-template-columns: 385px 495px
+        grid-template-columns: 385px 800px
         grid-template-rows: 1fr
         grid-template-areas: |
           "info map"
         mediaquery:
           #phone
-          "(max-width: 800px)":
+          "(max-width: 1000px)":
             grid-template-columns: 1fr
             grid-template-rows: repeat(2, 1fr)
             grid-template-areas: |
               "info"
               "map"
       cards:
-
-        ### ÖVERSIKT
 
         - type: vertical-stack
           view_layout:
@@ -140,6 +139,7 @@ browser_mod:
                 - type: custom:button-card
                   entity: vacuum.roberto
                   icon: mdi:play-pause
+                  name: "GO / Pause"
                   tap_action:
                     action: call-service
                     service: >
@@ -152,28 +152,29 @@ browser_mod:
                       ]]]
                     service_data:
                       entity_id: vacuum.roberto
-                  template: icon_only
+                  template: icon_name
 
                 - type: custom:button-card
                   entity: vacuum.roberto
-                  icon: mdi:battery-charging
+                  icon: mdi:home-battery-outline
+                  name: "Retour station"
                   tap_action:
                     action: call-service
                     service: vacuum.return_to_base
                     service_data:
                       entity_id: vacuum.roberto
-                  template: icon_only
+                  template: icon_name
 
-                - type: custom:button-card
-                  icon: mdi:delete-empty
-                  tap_action:
-                    action: call-service
-                    service: vacuum.send_command
-                    service_data:
-                      entity_id: vacuum.roberto
-                      command: app_goto_target
-                      params: [16821,23105]
-                  template: icon_only
+                # - type: custom:button-card
+                #   icon: mdi:delete-empty
+                #   tap_action:
+                #     action: call-service
+                #     service: vacuum.send_command
+                #     service_data:
+                #       entity_id: vacuum.roberto
+                #       command: app_goto_target
+                #       params: [16821,23105]
+                #   template: icon_only
 
         ### KARTLÄGGNING
 
@@ -221,7 +222,31 @@ browser_mod:
             camera: true
           map_locked: true
           map_modes:
-            - template: vacuum_clean_zone
+            # - template: vacuum_clean_segment
+            #   predefined_selections:
+            #     - id: 14
+            #       outline: [[ 21458, 32131 ], [ 24235, 32152 ], [ 24194, 27409 ], [ 23181, 27409 ]]
+            #       label:
+            #         text: "Chambre"
+            #         x: 22932
+            #         y: 30339
+            #         offset_y: 35
+            #       icon:
+            #         name: "mdi:bed"
+            #         x: 22932
+            #         y: 30339
+            #     - id: 19
+            #       outline: [[ 21478, 27237 ], [ 23048, 27250 ], [ 23061, 25655 ], [ 21478, 25680 ]]
+            #       label:
+            #         text: "Salle de bain"
+            #         x: 22282
+            #         y: 26496
+            #         offset_y: 35
+            #       icon:
+            #         name: "mdi:shower"
+            #         x: 22282
+            #         y: 26496
+            # - template: vacuum_clean_zone
             # - template: vacuum_clean_zone_predefined
             #   predefined_selections:
             #     - zones: [[14895, 20640, 18409, 24058]]
@@ -249,5 +274,5 @@ browser_mod:
             #         name: mdi:speaker
             #         x: 19757
             #         y: 26622
-            - template: vacuum_goto
-            - template: vacuum_follow_path
+            # - template: vacuum_goto
+            # - template: vacuum_follow_path
