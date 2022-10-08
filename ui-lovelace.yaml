@@ -390,115 +390,36 @@ views:
               threshold: 5
             cards:
 
-              - type: horizontal-stack
-                cards:
+              # - type: horizontal-stack
+              #   cards:
 
-                  - type: conditional
-                    conditions:
-                      - entity: select.conditional_media
-                        state_not: salon
+              - type: custom:button-card
+                entity: sensor.plex_recently_added
+                name: Dernier téléchargement
+                tap_action:
+                  action: call-service
+                  service: media_player.select_source
+                  service_data:
+                    source: Plex
+                    entity_id: media_player.samsung_6_series_43
+                template:
+                  - conditional_media
+                  - icon_plex
 
-                      - entity: select.conditional_media
-                        state_not: Sovrum
+              # - type: horizontal-stack
+              #   cards:
 
-                      - entity: select.conditional_media
-                        state_not: Spotify
-
-                      - entity: select.conditional_media
-                        state_not: Kök
-                    card:
-                      type: custom:button-card
-                      entity: sensor.plex_recently_added
-                      name: Dernier téléchargement
-                      tap_action:
-                        action: call-service
-                        service: media_player.select_source
-                        service_data:
-                          source: Plex
-                          entity_id: media_player.samsung_6_series_43
-                      template:
-                        - conditional_media
-                        - icon_plex
-
-                  - type: conditional
-                    conditions:
-                      - entity: select.conditional_media
-                        state: salon
-                    card:
-                      type: custom:button-card
-                      entity: media_player.vardagsrum
-                      triggers_update: sensor.youtube_watching
-                      template:
-                        - conditional_media
-                        - icon_apple_tv
-
-                  - type: conditional
-                    conditions:
-                      - entity: select.conditional_media
-                        state: Sovrum
-                    card:
-                      type: custom:button-card
-                      entity: media_player.sovrum
-                      triggers_update: sensor.youtube_watching
-                      template:
-                        - conditional_media
-                        - icon_apple_tv
-
-                  - type: conditional
-                    conditions:
-                      - entity: select.conditional_media
-                        state: Spotify
-                    card:
-                      type: custom:button-card
-                      entity: media_player.spotify_stephane_verrecchia
-                      template:
-                        - conditional_media
-                        - icon_spotify
-
-                  - type: conditional
-                    conditions:
-                      - entity: select.conditional_media
-                        state: Kök
-                    card:
-                      type: custom:button-card
-                      entity: media_player.kok
-                      template:
-                        - conditional_media
-                        - icon_nest_mini
-
-              - type: grid
-                columns: 2
-                cards:
-
-                  - type: custom:button-card
-                    entity: media_player.vardagsrum
-                    triggers_update: sensor.youtube_watching
-                    name: Vardagsrum
-                    template:
-                      - media
-                      - icon_apple_tv
-
-                  - type: custom:button-card
-                    entity: media_player.sovrum
-                    triggers_update: sensor.youtube_watching
-                    name: Sovrum
-                    template:
-                      - media
-                      - icon_apple_tv
-
-                  - type: custom:button-card
-                    entity: media_player.spotify
-                    name: Spotify
-                    template:
-                      - media
-                      - icon_spotify
-
-                  - type: custom:button-card
-                    entity: media_player.kok
-                    name: Nest Mini
-                    template:
-                      - media
-                      - icon_nest_mini
+              - type: custom:upcoming-media-card
+                entity: sensor.plex_recently_added
+                title: Plus de téléchargement
+                date: ddmm
+                clock: 24
+                max: 3
+                image_style: fanart
+                hide_empty: true
+                hide_unflagged: true
+                title_size: medium
+                line_size: small
 
       #################################################
       #                                               #
@@ -526,19 +447,24 @@ views:
           - type: custom:button-card
             entity: media_player.samsung_6_series_43
             name: "Netflix"
-            turn_on_action: 
-              - service: wake_on_lan.send_magic_packet
-                data:
-                  mac: !secret tv_mac
             tap_action:
               action: call-service
-              service: media_player.select_source
+              service: browser_mod.sequence
               service_data:
-                source: Netflix
-                entity_id: media_player.samsung_6_series_43
+                sequence:
+                  - service: browser_mod.notification
+                    data:
+                      message: Lancement de Netflix...
+                  - service: media_player.turn_on
+                    data:
+                      entity_id: media_player.samsung_6_series_43
+                  - service: media_player.select_source
+                    data:
+                      source: Netflix
+                      entity_id: media_player.samsung_6_series_43
             template:
               - base
-              - icon_netflix
+              - icon_monitors
               - loader
 
           - type: custom:button-card
@@ -546,10 +472,19 @@ views:
             name: "Prime Video"
             tap_action:
               action: call-service
-              service: media_player.select_source
+              service: browser_mod.sequence
               service_data:
-                source: Prime Video
-                entity_id: media_player.samsung_6_series_43
+                sequence:
+                  - service: browser_mod.notification
+                    data:
+                      message: Lancement de Prime Video...
+                  - service: media_player.turn_on
+                    data:
+                      entity_id: media_player.samsung_6_series_43
+                  - service: media_player.select_source
+                    data:
+                      source: Prime Video
+                      entity_id: media_player.samsung_6_series_43
             template:
               - base
               - icon_tv
@@ -560,10 +495,19 @@ views:
             name: "Disney+"
             tap_action:
               action: call-service
-              service: media_player.select_source
+              service: browser_mod.sequence
               service_data:
-                source: Disney+
-                entity_id: media_player.samsung_6_series_43
+                sequence:
+                  - service: browser_mod.notification
+                    data:
+                      message: Lancement de Disney+...
+                  - service: media_player.turn_on
+                    data:
+                      entity_id: media_player.samsung_6_series_43
+                  - service: media_player.select_source
+                    data:
+                      source: Disney+
+                      entity_id: media_player.samsung_6_series_43
             template:
               - base
               - icon_tv
@@ -578,37 +522,6 @@ views:
           # Radio
           # Apple TV
           # Barre de son...
-
-          # - type: custom:button-card
-          #   entity: light.badrum_group
-          #   name: Badrum
-          #   template:
-          #     - light
-          #     - icon_bathroom
-
-          # - type: custom:button-card
-          #   entity: switch.gosund_fan_switch
-          #   name: "Fläkt\u00B2"
-          #   double_tap_action:
-          #     !include popup/studio_flakt.yaml
-          #   template:
-          #     - base
-          #     - icon_fan2
-          #     - loader
-
-          # - type: custom:button-card
-          #   entity: light.garderob_lampa
-          #   name: Garderob
-          #   template:
-          #     - light
-          #     - icon_closet
-
-          # - type: custom:button-card
-          #   entity: light.hall_group
-          #   name: Hall
-          #   template:
-          #     - light
-          #     - icon_spot
 
       #################################################
       #                                               #
@@ -650,46 +563,6 @@ views:
               template:
                 - media
                 - icon_spotify
-
-      #     - type: custom:button-card
-      #       entity: person.matte
-      #       name: Mattias
-      #       triggers_update:
-      #         - sensor.matte_last_changed
-      #       double_tap_action:
-      #         !include popup/hemma_mattias.yaml
-      #       variables:
-      #         retain: sensor.matte_last_changed
-      #       template:
-      #         - person
-      #         - circle
-
-      #     - type: custom:button-card
-      #       entity: person.sanja
-      #       name: Sanja
-      #       triggers_update:
-      #         - sensor.sanja_last_changed
-      #       double_tap_action:
-      #         !include popup/hemma_sanja.yaml
-      #       variables:
-      #         retain: sensor.sanja_last_changed
-      #       template:
-      #         - person
-      #         - circle
-
-      #     - type: custom:button-card
-      #       entity: script.home_leave
-      #       name: Stäng allt
-      #       template:
-      #         - base
-      #         - icon_away
-
-      #     - type: custom:button-card
-      #       entity: script.home_arrive
-      #       name: Hemma
-      #       template:
-      #         - base
-      #         - icon_home
 
       #################################################
       #                                               #

@@ -13,7 +13,75 @@ browser_mod:
           - type: thermostat
             entity: climate.wiser_salon
 
+          - type: custom:mod-card
+            card_mod:
+              style:
+                hui-horizontal-stack-card$: |
+                  #root {
+                    justify-content: space-evenly !important;
+                    padding: var(--tablet-popup-button-padding);
+                  }
+            card:
+              type: horizontal-stack
+              cards:
+                - type: custom:button-card
+                  name: Boost
+                  icon: mdi:fire
+                  tap_action:
+                    action: call-service
+                    service: browser_mod.sequence
+                    service_data:
+                      sequence:
+                        - service: browser_mod.notification
+                          data:
+                            message: Boost 2h...
+                        - service: button.press
+                          data:
+                            entity_id: button.wiser_boost_all_heating
+                  template: icon_name
+
+                - type: custom:button-card
+                  name: Away Mode
+                  icon: mdi:beach
+                  tap_action:
+                    action: call-service
+                    service: browser_mod.sequence
+                    service_data:
+                      sequence:
+                        - service: browser_mod.notification
+                          data:
+                            message: Mode absence...
+                        - service: button.press
+                          data:
+                            entity_id: switch.wiser_away_mode_2
+                  template: icon_name
+
+                - type: custom:button-card
+                  name: Eco Mode
+                  icon: mdi:leaf
+                  tap_action:
+                    action: call-service
+                    service: browser_mod.sequence
+                    service_data:
+                      sequence:
+                        - service: browser_mod.notification
+                          data:
+                            message: Activation du mode eco...
+                        - service: button.press
+                          data:
+                            entity_id: switch.wiser_eco_mode_2
+                  template: icon_name
+
+                # - type: custom:button-card
+                #   name: Ouverture de fenètre
+                #   icon: mdi:window-open
+                #   tap_action:
+                #     action: call-service
+                #     service: switch.wiser_salon_window_detection
+                #   template: icon_name
+
           - type: history-graph
+            hours_to_show: 48
             entities:
               - entity: climate.wiser_salon
 
