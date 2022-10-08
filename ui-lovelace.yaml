@@ -411,13 +411,13 @@ views:
 
               - type: custom:upcoming-media-card
                 entity: sensor.plex_recently_added
-                title: Plus de téléchargement
+                # title: Plus de téléchargement
                 date: ddmm
                 clock: 24
                 max: 3
                 image_style: fanart
-                hide_empty: true
-                hide_unflagged: true
+                # hide_empty: true
+                # hide_unflagged: true
                 title_size: medium
                 line_size: small
 
