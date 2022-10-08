@@ -390,9 +390,6 @@ views:
               threshold: 5
             cards:
 
-              # - type: horizontal-stack
-              #   cards:
-
               - type: custom:button-card
                 entity: sensor.plex_recently_added
                 name: Dernier téléchargement
@@ -406,18 +403,27 @@ views:
                   - conditional_media
                   - icon_plex
 
-              # - type: horizontal-stack
-              #   cards:
-
               - type: custom:upcoming-media-card
-                entity: sensor.plex_recently_added
-                # title: Plus de téléchargement
+                entity: sensor.plex_recently_show_added
+                title: Derniers épisodes
                 date: ddmm
                 clock: 24
-                max: 3
+                max: 2
                 image_style: fanart
-                # hide_empty: true
-                # hide_unflagged: true
+                hide_empty: true
+                hide_unflagged: true
+                title_size: medium
+                line_size: small
+
+              - type: custom:upcoming-media-card
+                entity: sensor.plex_recently_movie_added
+                title: Derniers Films
+                date: ddmm
+                clock: 24
+                max: 2
+                image_style: fanart
+                hide_empty: true
+                hide_unflagged: true
                 title_size: medium
                 line_size: small
 

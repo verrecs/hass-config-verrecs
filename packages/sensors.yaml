@@ -1,10 +1,3 @@
-# homeassistant:
-#   customize:
-#     sensor.nas_volume_1_average_disk_temp:
-#       friendly_name: Disktemperatur
-#     sensor.processor_use_percent:
-#       icon: mdi:chip
-
 sensor:
   - platform: time_date
     display_options:
@@ -63,9 +56,29 @@ sensor:
     host: !secret plex_host
     port: !secret plex_port
     token: !secret plex_token
-    max: 1
+    img_dir: /
+    # on_deck: true
+    image_resolution: 800
+
+  - platform: plex_recently_added
+    name: Plex Recently Show Added
+    host: !secret plex_host
+    port: !secret plex_port
+    token: !secret plex_token
     img_dir: /
     image_resolution: 800
+    section_types:
+      - show
+
+  - platform: plex_recently_added
+    name: Plex Recently Movie Added
+    host: !secret plex_host
+    port: !secret plex_port
+    token: !secret plex_token
+    img_dir: /
+    image_resolution: 800
+    section_types:
+      - movie
 
 samsungtv:
   - host: !secret tv_ip
