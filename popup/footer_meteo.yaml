@@ -68,7 +68,7 @@ browser_mod:
                     func: avg
 
                 - entity: sensor.hue_motion_sensor_1_temperature_2
-                  name: Bureau
+                  name: Couloir
                   curve: smooth
                   type: line
                   group_by:

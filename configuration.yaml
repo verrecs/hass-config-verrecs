@@ -20,9 +20,10 @@ zeroconf:
 frontend: !include themes.yaml
 template: !include sidebar.yaml
 scene: !include scenes.yaml
+script: !include scripts.yaml
 
 lovelace:
-  mode: yaml
+  # mode: yaml
   resources:
     [
       { url: /hacsfiles/apexcharts-card/apexcharts-card.js,                             type: module },
@@ -40,12 +41,13 @@ lovelace:
       { url: /hacsfiles/upcoming-media-card/upcoming-media-card.js?v=0.1.2,             type: js },
       # { url: https://cdn.jsdelivr.net/gh/Imbuzi/meteo-france-weather-card/dist/meteo-france-weather-card.js,     type: module },
       { url: /hacsfiles/home-assistant-sun-card/home-assistant-sun-card.js,             type: module },
+      { url: /hacsfiles/simple-thermostat/simple-thermostat.js,                         type: module },
       { url: /hacsfiles/content-card-linky/content-card-linky.js,                       type: module },
       { url: /hacsfiles/wiser/wiser-schedule-card.js,                                   type: module },
       { url: /hacsfiles/wiser/wiser-zigbee-card.js,                                     type: module },
-      { url: '/local/marked.min.js?v=4.1.0',                                            type: module },
-      { url: '/local/vanilla-tilt.min.js?v=1.7.2',                                      type: module },
-      { url: '/local/fonts.css?v=2.1',                                                  type: css }
+      { url: /local/marked.min.js?v=4.1.0,                                              type: module },
+      { url: /local/vanilla-tilt.min.js?v=1.7.2,                                        type: module },
+      { url: /local/fonts.css?v=2.1,                                                    type: css }
     ]
 
 

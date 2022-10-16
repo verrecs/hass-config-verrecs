@@ -3,6 +3,10 @@ browser_mod:
   service: browser_mod.popup
   data:
     title: Tablette
+    timeout: 30000
+    style: >
+      --popup-max-width: 1200px;
+      --ha-card-border-radius: 0;
     content:
       type: vertical-stack
       cards:
@@ -12,14 +16,14 @@ browser_mod:
             class: content
           entities:
 
-            - entity: light.galaxy_tab_a_screen
             - type: custom:slider-entity-row
               entity: number.galaxy_tab_a_screen_off_timer
               min: 2
               max: 30
 
+            - entity: number.galaxy_tab_a_screen_brightness
             - entity: switch.galaxy_tab_a_motion_detection
-            - entity: switch.galaxy_tab_a_screensaver
+            # - entity: switch.galaxy_tab_a_screensaver
             - entity: binary_sensor.galaxy_tab_a_plugged_in
 
             - type: custom:bar-card
@@ -41,13 +45,13 @@ browser_mod:
               entity_row: true
               entities:
 
-                - entity: sensor.galaxy_tab_a_battery_level
+                - entity: sensor.galaxy_tab_a_battery
                 - entity: sensor.template_fullykiosk_memory
                 - entity: sensor.template_fullykiosk_storage
 
 
 
-            - entity: sensor.galaxy_tab_a_ram_free_memory
+            - entity: sensor.galaxy_tab_a_free_memory
             - entity: sensor.galaxy_tab_a_internal_storage_free_space
             
 

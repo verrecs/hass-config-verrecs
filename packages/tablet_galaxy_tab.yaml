@@ -18,40 +18,40 @@
 #     sensor.galaxy_tab_a_battery:
 #       friendly_name: Batteri
 
-template:
-  - sensor:
-      - unique_id: fullykiosk_last_app_start
-        state: >
-          {% set entity = 'sensor.galaxy_tab_a_last_app_start' %}
-          {{ as_timestamp(states(entity), default='unknown') | timestamp_local(default='unknown') }}
-        attributes:
-          friendly_name: Senast omstart
-          icon: mdi:update
-          device_class: timestamp
+# template:
+#   - sensor:
+#       - unique_id: fullykiosk_last_app_start
+#         state: >
+#           {% set entity = 'sensor.galaxy_tab_a_last_app_start' %}
+#           {{ as_timestamp(states(entity), default='unknown') | timestamp_local(default='unknown') }}
+#         attributes:
+#           friendly_name: Senast omstart
+#           icon: mdi:update
+#           device_class: timestamp
 
-      - unique_id: fullykiosk_storage
-        state: >
-          {% set FreeSpace = states('sensor.galaxy_tab_a_internal_storage_free_space') | float(default=0) %}
-          {% set TotalSpace = states('sensor.galaxy_tab_a_internal_storage_total_space') | float(default=0) %}
-          {% if not (FreeSpace == 0.0 or TotalSpace == 0.0) %}
-            {{ 100 - (FreeSpace / TotalSpace * 100) | int(default=0) }}
-          {% endif %}
-        attributes:
-          friendly_name: Lagring
-          icon: mdi:sd
-          unit_of_measurement: '%'
+#       - unique_id: fullykiosk_storage
+#         state: >
+#           {% set FreeSpace = states('sensor.galaxy_tab_a_internal_storage_free_space') | float(default=0) %}
+#           {% set TotalSpace = states('sensor.galaxy_tab_a_internal_storage_total_space') | float(default=0) %}
+#           {% if not (FreeSpace == 0.0 or TotalSpace == 0.0) %}
+#             {{ 100 - (FreeSpace / TotalSpace * 100) | int(default=0) }}
+#           {% endif %}
+#         attributes:
+#           friendly_name: Lagring
+#           icon: mdi:sd
+#           unit_of_measurement: '%'
 
-      - unique_id: fullykiosk_memory
-        state: >
-          {% set FreeMemory = states('sensor.galaxy_tab_a_free_memory') | float(default=0) %}
-          {% set TotalMemory = states('sensor.galaxy_tab_a_total_memory') | float(default=0) %}
-          {% if not (FreeMemory == 0.0 or TotalMemory == 0.0) %}
-            {{ 100 - (FreeMemory / TotalMemory * 100) | int(default=0) }}
-          {% endif %}
-        attributes:
-          friendly_name: Minne
-          icon: mdi:memory
-          unit_of_measurement: '%'
+#       - unique_id: fullykiosk_memory
+#         state: >
+#           {% set FreeMemory = states('sensor.galaxy_tab_a_free_memory') | float(default=0) %}
+#           {% set TotalMemory = states('sensor.galaxy_tab_a_total_memory') | float(default=0) %}
+#           {% if not (FreeMemory == 0.0 or TotalMemory == 0.0) %}
+#             {{ 100 - (FreeMemory / TotalMemory * 100) | int(default=0) }}
+#           {% endif %}
+#         attributes:
+#           friendly_name: Minne
+#           icon: mdi:memory
+#           unit_of_measurement: '%'
 
 automation:
   - alias: homeassistant_start

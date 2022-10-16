@@ -1,0 +1,35 @@
+spotify_stef:
+  alias: Spotify STeF
+  sequence:
+  - service: browser_mod.notification
+    data:
+      message: Lancement de Spotify de STeF...
+  - service: media_player.turn_on
+    data: {}
+    target:
+      entity_id: media_player.apple_tv_salon
+  - service: media_player.select_source
+    data:
+      source: Spotify
+    target:
+      entity_id: media_player.apple_tv_salon
+  - service: media_player.media_play_pause
+    data: {}
+    target:
+      entity_id: media_player.apple_tv_salon
+  mode: single
+  icon: mdi:spotify
+netflix:
+  alias: Netflix
+  sequence:
+  - service: media_player.turn_on
+    data: {}
+    target:
+      entity_id: media_player.samsung_6_series_43
+  - service: media_player.select_source
+    data:
+      source: Netflix
+    target:
+      entity_id: media_player.samsung_6_series_43
+  mode: single
+  icon: mdi:netflix

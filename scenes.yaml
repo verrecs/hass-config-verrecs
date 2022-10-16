@@ -58,8 +58,3 @@
       state: 'off'
   icon: mdi:theater
   metadata: {}
-- id: '1660471202607'
-  name: Test
-  entities: {}
-  icon: mdi:air-conditioner
-  metadata: {}

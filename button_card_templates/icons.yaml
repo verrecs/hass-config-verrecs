@@ -597,10 +597,6 @@ icon_couch:
         `;
       ]]]
 
-
-
-
-
 icon_climate:
   styles:
     custom_fields:

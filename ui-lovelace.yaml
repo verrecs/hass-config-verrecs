@@ -542,19 +542,80 @@ views:
         columns: 2
         cards:
 
-            - type: custom:button-card
-              entity: media_player.spotify
-              name: Spotify
+            # - type: custom:button-card
+            #   entity: media_player.spotify_stephane_verrecchia
+            #   name: Spotify STeF
+            #   template:
+            #     - media
+            #     - icon_spotify
+
+            
+
+            - type: custom:button-card  
+              name: "STeF"
+              show_state: true
+              tap_action:
+                action: call-service
+                service: script.spotify_stef
+                data:
+                  entity_id: script.spotify_stef
               template:
                 - media
                 - icon_spotify
                 
             - type: custom:button-card
-              entity: media_player.spotify
-              name: Radio
+              entity: media_player.samsung_6_series_43
+              name: "Jo"
+              tap_action:
+                action: call-service
+                service: browser_mod.sequence
+                service_data:
+                  sequence:
+                    - service: browser_mod.notification
+                      data:
+                        message: Lancement de Spotify de Jo...
+                    - service: media_player.turn_on
+                      data:
+                        entity_id: media_player.samsung_6_series_43
+                    - service: media_player.select_source
+                      data:
+                        source: Spotify
+                        entity_id: media_player.samsung_6_series_43
               template:
                 - media
                 - icon_spotify
+
+            - type: custom:button-card
+              entity: media_player.salon
+              name: "TV"
+              tap_action:
+                action: call-service
+                service: browser_mod.sequence
+                service_data:
+                  sequence:
+                    - service: browser_mod.notification
+                      data:
+                        message: Lancement de la TV...
+                    - service: media_player.turn_on
+                      target:
+                        entity_id: media_player.salon
+                    - service: media_player.select_source
+                      data:
+                        source: B.tv
+                        entity_id: media_player.salon
+              double_tap_action:
+                !include popup/sovrum_tv2.yaml
+              template:
+                - base
+                - icon_tv
+                - loader
+
+            # - type: custom:button-card
+            #   entity: media_player.spotify
+            #   name: Radio
+            #   template:
+            #     - media
+            #     - icon_spotify
 
             - type: custom:button-card
               entity: media_player.spotify
@@ -563,12 +624,12 @@ views:
                 - media
                 - icon_spotify
 
-            - type: custom:button-card
-              entity: media_player.spotify
-              name: Audible
-              template:
-                - media
-                - icon_spotify
+            # - type: custom:button-card
+            #   entity: media_player.spotify
+            #   name: Audible
+            #   template:
+            #     - media
+            #     - icon_spotify
 
       #################################################
       #                                               #
@@ -654,12 +715,12 @@ views:
                 ]]]
             template: footer
 
-          - type: custom:button-card
-            name: >
-              <ha-icon icon="mdi:lightning-bolt"></ha-icon> Energie
-            tap_action:
-              !include popup/footer_history.yaml
-            template: footer
+          # - type: custom:button-card
+          #   name: >
+          #     <ha-icon icon="mdi:lightning-bolt"></ha-icon> Energie
+          #   tap_action:
+          #     !include popup/footer_history.yaml
+          #   template: footer
 
           - type: custom:button-card
             name: >
