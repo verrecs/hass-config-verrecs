@@ -8,19 +8,20 @@ homeassistant:
   time_zone: Europe/Paris
   currency: EUR
   packages: !include_dir_named packages
-  customize_domain:
-    automation:
-      initial_state: true
+  # customize_domain:
+      # initial_state: true
   # allowlist_external_dirs:
   #   - /config
 
 default_config:
 zeroconf:
+wake_on_lan:
 
 frontend: !include themes.yaml
 template: !include sidebar.yaml
 scene: !include scenes.yaml
 script: !include scripts.yaml
+automation: !include automations.yaml
 
 lovelace:
   mode: yaml
@@ -49,9 +50,6 @@ lovelace:
       { url: /local/vanilla-tilt.min.js?v=1.7.2,                                        type: module },
       { url: /local/fonts.css?v=2.1,                                                    type: css }
     ]
-
-
-wake_on_lan:
 
 # switch:
 #   - platform: wake_on_lan

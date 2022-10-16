@@ -323,52 +323,6 @@ views:
               card:
                 - overflow: false
             # FIN custo
-      #     - type: custom:button-card
-      #       entity: light.sovrum_group
-      #       name: Sänglampor
-      #       template:
-      #         - light
-      #         - icon_lamp
-
-
-
-          # - type: custom:button-card
-          #   entity: switch.netflix
-          #   name: Netflix
-          #   double_tap_action:
-          #     !include popup/sovrum_playstation.yaml
-          #   template:
-          #     - base
-          #     - icon_ps5
-          #     - loader
-
-          # - type: custom:button-card
-          #   entity: media_player.samsung_6_series_43
-          #   name: "Netflix"
-          #   turn_on_action: 
-          #     - service: wake_on_lan.send_magic_packet
-          #       data:
-          #         mac: !secret tv_mac
-          #   tap_action:
-          #     action: call-service
-          #     service: media_player.select_source
-          #     service_data:
-          #       source: Netflix
-          #       entity_id: media_player.samsung_6_series_43
-          #   template:
-          #     - base
-          #     - icon_tv
-          #     - loader
-
-          # - type: custom:button-card
-          #   entity: media_player.samsung_6_series_43
-          #   name: "TV Salon"
-          #   double_tap_action:
-          #     !include popup/sovrum_tv2.yaml
-          #   template:
-          #     - base
-          #     - icon_tv
-          #     - loader
 
       #################################################
       #                                               #
@@ -437,77 +391,101 @@ views:
         title: Multimédia
         view_layout:
           grid-area: övrigt
-        columns: 2
+        columns: 1
         cards:
 
-          - type: custom:button-card
-            entity: input_boolean.tv_state
-            # entity: media_player.samsung_6_series_43
-            name: "TV"
-            show_state: true
-            tap_action:
-              action: call-service
-              service: script.tv
-              data:
-                entity_id: script.tv
-            # double_tap_action:
-            #   !include popup/sovrum_tv2.yaml
-            template:
-              - base
-              - icon_tv
-              - loader
+          - type: custom:swipe-card
+            parameters:
+              speed: 550
+              spaceBetween: 40
+              threshold: 5
+            cards:
 
-          - type: custom:button-card
-            entity: input_boolean.netflix_state
-            name: "Netflix"
-            show_state: true
-            tap_action:
-              action: call-service
-              service: script.netflix
-              data:
-                entity_id: script.netflix
-            template:
-              - base
-              - icon_netflix
-              - loader
+              - type: grid
+                columns: 2
+                cards:
 
-          - type: custom:button-card
-            entity: input_boolean.prime_state
-            name: "Prime"
-            show_state: true
-            tap_action:
-              action: call-service
-              service: script.prime
-              data:
-                entity_id: script.prime
-            template:
-              - base
-              - icon_netflix
-              - loader
+                  - type: custom:button-card
+                    entity: input_boolean.tv_state
+                    # entity: media_player.samsung_6_series_43
+                    name: "TV Salto"
+                    show_state: true
+                    tap_action:
+                      action: call-service
+                      service: script.tv
+                      data:
+                        entity_id: script.tv
+                    # double_tap_action:
+                    #   !include popup/sovrum_tv2.yaml
+                    template:
+                      - base
+                      - icon_tv
+                      - loader
 
-          - type: custom:button-card
-            entity: input_boolean.disney_state
-            name: "Disney+"
-            show_state: true
-            tap_action:
-              action: call-service
-              service: script.disney
-              data:
-                entity_id: script.disney
-            template:
-              - base
-              - icon_netflix
-              - loader
+                  - type: custom:button-card
+                    entity: input_boolean.netflix_state
+                    name: "Netflix"
+                    show_state: true
+                    tap_action:
+                      action: call-service
+                      service: script.netflix
+                      data:
+                        entity_id: script.netflix
+                    template:
+                      - base
+                      - icon_netflix
+                      - loader
 
-          - type: custom:button-card
-            entity: media_player.samsung_6_series_43
-            name: "TV"
-            double_tap_action:
-              !include popup/sovrum_tv2.yaml
-            template:
-              - base
-              - icon_tv
-              - loader
+                  - type: custom:button-card
+                    entity: input_boolean.prime_state
+                    name: "Prime"
+                    show_state: true
+                    tap_action:
+                      action: call-service
+                      service: script.prime
+                      data:
+                        entity_id: script.prime
+                    template:
+                      - base
+                      - icon_netflix
+                      - loader
+
+                  - type: custom:button-card
+                    entity: input_boolean.disney_state
+                    name: "Disney+"
+                    show_state: true
+                    tap_action:
+                      action: call-service
+                      service: script.disney
+                      data:
+                        entity_id: script.disney
+                    template:
+                      - base
+                      - icon_netflix
+                      - loader
+
+              - type: grid
+                columns: 2
+                cards:
+
+                  - type: custom:button-card
+                    entity: media_player.samsung_6_series_43
+                    name: "Samsung TV"
+                    double_tap_action:
+                      !include popup/sovrum_tv2.yaml
+                    template:
+                      - base
+                      - icon_tv
+                      - loader
+
+                  - type: custom:button-card
+                    entity: media_player.apple_tv_salon
+                    name: "Apple TV"
+                    # double_tap_action:
+                    #   !include popup/sovrum_tv2.yaml
+                    template:
+                      - media
+                      - icon_apple_tv
 
       #################################################
       #                                               #
@@ -548,7 +526,8 @@ views:
                 - media
                 - icon_spotify
 
-            - type: custom:button-card  
+            - type: custom:button-card
+              entity: input_boolean.radio_state
               name: "Radio"
               show_state: true
               tap_action:

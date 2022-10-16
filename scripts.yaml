@@ -1,10 +1,7 @@
 spotify_stef:
   alias: Spotify STeF
   sequence:
-  - service: browser_mod.notification
-    data:
-      message: Lancement de Spotify de STeF...
-  - service: media_player.turn_on
+  - service: media_player.toggle
     data: {}
     target:
       entity_id: media_player.apple_tv_salon
@@ -17,12 +14,16 @@ spotify_stef:
     data: {}
     target:
       entity_id: media_player.apple_tv_salon
+  - service: input_boolean.toggle
+    data: {}
+    target:
+      entity_id: input_boolean.spotify_stef_state
   mode: single
   icon: mdi:spotify
 netflix:
   alias: Netflix
   sequence:
-  - service: media_player.turn_on
+  - service: media_player.toggle
     data: {}
     target:
       entity_id: media_player.samsung_6_series_43
@@ -31,12 +32,16 @@ netflix:
       source: Netflix
     target:
       entity_id: media_player.samsung_6_series_43
+  - service: input_boolean.toggle
+    data: {}
+    target:
+      entity_id: input_boolean.netflix_state
   mode: single
   icon: mdi:netflix
 prime:
   alias: Prime
   sequence:
-  - service: media_player.turn_on
+  - service: media_player.toggle
     data: {}
     target:
       entity_id: media_player.samsung_6_series_43
@@ -45,12 +50,16 @@ prime:
       source: Prime Video
     target:
       entity_id: media_player.samsung_6_series_43
+  - service: input_boolean.toggle
+    data: {}
+    target:
+      entity_id: input_boolean.prime_state
   mode: single
   icon: mdi:video-image
 spotify_jo:
   alias: Spotify Jo
   sequence:
-  - service: media_player.turn_on
+  - service: media_player.toggle
     data: {}
     target:
       entity_id: media_player.samsung_6_series_43
@@ -59,6 +68,10 @@ spotify_jo:
       source: Spotify - Musique et podcasts
     target:
       entity_id: media_player.samsung_6_series_43
+  - service: input_boolean.toggle
+    data: {}
+    target:
+      entity_id: input_boolean.spotify_jo_state
   mode: single
   icon: mdi:spotify
 tv:
@@ -66,15 +79,13 @@ tv:
   sequence:
   - service: media_player.toggle
     data: {}
+    target:
+      entity_id: media_player.apple_tv_salon
   - service: media_player.select_source
     data:
       source: Salto
     target:
       entity_id: media_player.apple_tv_salon
-  # - service: media_player.media_play_pause
-  #   data: {}
-  #   target:
-  #     entity_id: media_player.apple_tv_salon
   - service: input_boolean.toggle
     data: {}
     target:
@@ -93,6 +104,10 @@ disney:
       source: Disney+
     target:
       entity_id: media_player.samsung_6_series_43
+  - service: input_boolean.toggle
+    data: {}
+    target:
+      entity_id: input_boolean.disney_state
   mode: single
   icon: mdi:rodent
 radio:
@@ -101,7 +116,7 @@ radio:
   - service: browser_mod.notification
     data:
       message: Lancement de Spotify de STeF...
-  - service: media_player.turn_on
+  - service: media_player.toggle
     data: {}
     target:
       entity_id: media_player.apple_tv_salon
@@ -114,5 +129,9 @@ radio:
     data: {}
     target:
       entity_id: media_player.apple_tv_salon
+  - service: input_boolean.toggle
+    data: {}
+    target:
+      entity_id: input_boolean.radio_state
   mode: single
   icon: mdi:radio

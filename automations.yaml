@@ -1,0 +1,86 @@
+- id: '1664484856141'
+  alias: Détecteur de l'entrée
+  description: ''
+  use_blueprint:
+    path: freakshock88/motion_illuminance_activated_entity.yaml
+    input:
+      motion_sensor: binary_sensor.hue_motion_sensor_1_motion
+      target_entity: light.lumiere_de_l_entree
+      illuminance_sensor: sensor.hue_motion_sensor_1_illuminance
+      blocker_entity: '1'
+      illuminance_cutoff: '1'
+      no_motion_wait: '1'
+- id: '1665936755713'
+  alias: appli_sync_tv_on
+  description: synchronisation des états des boutons liés à la TV
+  trigger:
+  - platform: state
+    entity_id: media_player.samsung_6_series_43
+    from: 'off'
+    to: 'on'
+  action:
+  - if:
+    - condition: state
+      entity_id: media_player.samsung_6_series_43
+      attribute: source
+      state: Disney+
+    then:
+    - service: input_boolean.turn_on
+      data: {}
+      target:
+        entity_id: input_boolean.disney_state
+  - if:
+    - condition: state
+      entity_id: media_player.samsung_6_series_43
+      attribute: source
+      state: Netflix
+    then:
+    - service: input_boolean.turn_on
+      data: {}
+      target:
+        entity_id: input_boolean.netflix_state
+  - if:
+    - condition: state
+      entity_id: media_player.samsung_6_series_43
+      attribute: source
+      state: Prime Video
+    then:
+    - service: input_boolean.turn_on
+      data: {}
+      target:
+        entity_id: input_boolean.prime_state
+  - if:
+    - condition: state
+      entity_id: media_player.samsung_6_series_43
+      attribute: source
+      state: Spotify - Musique et podcasts
+    then:
+    - service: input_boolean.turn_on
+      data: {}
+      target:
+        entity_id: input_boolean.spotify_jo_state
+- id: '1665937366979'
+  alias: appli_sync_tv_off
+  description: synchronisation des états des boutons liés à la TV
+  trigger:
+  - platform: state
+    entity_id: media_player.samsung_6_series_43
+    from: 'on'
+    to: of
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.disney_state
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.netflix_state
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.prime_state
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.spotify_jo_state
