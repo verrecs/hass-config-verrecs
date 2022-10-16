@@ -23,7 +23,7 @@ scene: !include scenes.yaml
 script: !include scripts.yaml
 
 lovelace:
-  # mode: yaml
+  mode: yaml
   resources:
     [
       { url: /hacsfiles/apexcharts-card/apexcharts-card.js,                             type: module },

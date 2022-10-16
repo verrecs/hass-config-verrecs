@@ -10,8 +10,8 @@ browser_mod:
       type: vertical-stack
       cards:
 
-          # - type: thermostat
-          #   entity: climate.wiser_salon
+          - type: thermostat
+            entity: climate.wiser_salon
 
           - type: custom:simple-thermostat
             entity: climate.wiser_salon
