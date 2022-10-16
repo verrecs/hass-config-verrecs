@@ -33,3 +33,86 @@ netflix:
       entity_id: media_player.samsung_6_series_43
   mode: single
   icon: mdi:netflix
+prime:
+  alias: Prime
+  sequence:
+  - service: media_player.turn_on
+    data: {}
+    target:
+      entity_id: media_player.samsung_6_series_43
+  - service: media_player.select_source
+    data:
+      source: Prime Video
+    target:
+      entity_id: media_player.samsung_6_series_43
+  mode: single
+  icon: mdi:video-image
+spotify_jo:
+  alias: Spotify Jo
+  sequence:
+  - service: media_player.turn_on
+    data: {}
+    target:
+      entity_id: media_player.samsung_6_series_43
+  - service: media_player.select_source
+    data:
+      source: Spotify - Musique et podcasts
+    target:
+      entity_id: media_player.samsung_6_series_43
+  mode: single
+  icon: mdi:spotify
+tv:
+  alias: TV
+  sequence:
+  - service: media_player.toggle
+    data: {}
+  - service: media_player.select_source
+    data:
+      source: Salto
+    target:
+      entity_id: media_player.apple_tv_salon
+  # - service: media_player.media_play_pause
+  #   data: {}
+  #   target:
+  #     entity_id: media_player.apple_tv_salon
+  - service: input_boolean.toggle
+    data: {}
+    target:
+      entity_id: input_boolean.tv_state
+  mode: single
+  icon: mdi:television-classic
+disney:
+  alias: Disney+
+  sequence:
+  - service: media_player.turn_on
+    data: {}
+    target:
+      entity_id: media_player.samsung_6_series_43
+  - service: media_player.select_source
+    data:
+      source: Disney+
+    target:
+      entity_id: media_player.samsung_6_series_43
+  mode: single
+  icon: mdi:rodent
+radio:
+  alias: Radio
+  sequence:
+  - service: browser_mod.notification
+    data:
+      message: Lancement de Spotify de STeF...
+  - service: media_player.turn_on
+    data: {}
+    target:
+      entity_id: media_player.apple_tv_salon
+  - service: media_player.select_source
+    data:
+      source: Musique
+    target:
+      entity_id: media_player.apple_tv_salon
+  - service: media_player.media_play_pause
+    data: {}
+    target:
+      entity_id: media_player.apple_tv_salon
+  mode: single
+  icon: mdi:radio
