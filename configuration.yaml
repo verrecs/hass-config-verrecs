@@ -53,9 +53,9 @@ lovelace:
 
 wake_on_lan:
 
-switch:
-  - platform: wake_on_lan
-    mac: !secret tv_mac
+# switch:
+#   - platform: wake_on_lan
+#     mac: !secret tv_mac
 
 # recorder:
 #   db_url: !secret recorder_db_url

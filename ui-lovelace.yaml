@@ -508,16 +508,6 @@ views:
               - base
               - icon_tv
               - loader
-                     
-          # TV bouygues = apple TV
-          # Disney+
-          # Prime 
-          # Plex
-          # Youtube
-          # Spotify
-          # Radio
-          # Apple TV
-          # Barre de son...
 
       #################################################
       #                                               #
@@ -533,6 +523,7 @@ views:
         cards:
 
             - type: custom:button-card  
+              entity: input_boolean.spotify_stef_state
               name: "STeF"
               show_state: true
               tap_action:
@@ -544,7 +535,8 @@ views:
                 - media
                 - icon_spotify
                 
-            - type: custom:button-card  
+            - type: custom:button-card
+              entity: input_boolean.spotify_jo_state
               name: "Jo"
               show_state: true
               tap_action:
