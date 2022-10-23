@@ -537,6 +537,7 @@ views:
                   entity_id: script.radio
               template:
                 - media
+                # - icon_apple_tv
 
             # - type: custom:button-card
             #   entity: media_player.spotify
@@ -655,6 +656,13 @@ views:
               <ha-icon icon="mdi:sun-thermometer"></ha-icon> Météo
             tap_action:
               !include popup/footer_meteo.yaml
+            template: footer
+
+          - type: custom:button-card
+            name: >
+              <ha-icon icon="mdi:calendar-clock-outline"></ha-icon> Planificateur
+            tap_action:
+              !include popup/footer_planif.yaml
             template: footer
 
           - type: custom:button-card
