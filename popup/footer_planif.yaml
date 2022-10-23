@@ -17,3 +17,27 @@ browser_mod:
           entities:
 
             - type: custom:scheduler-card
+              include:
+                - vacuum.roberto
+                - climate.wiser_salon
+                - light
+              customize:
+                vacuum.roberto:
+                  # name: "Aspiration & lavage"
+                  # icon: "hass:ceiling-light"
+                  actions:
+                    - service: turn_on
+                      service_data:
+                        brightness: 100 # note that brightness is from 0-255 so 100 = 40%
+                      name: "Aspiration & lavage"
+                      icon: "hass:lightbulb-on-outline"
+                    - service: turn_on
+                      service_data:
+                        brightness: 100 # note that brightness is from 0-255 so 100 = 40%
+                      name: "Aspiration"
+                      icon: "hass:lightbulb-on-outline"
+              groups:
+                - name: "Lumières"
+                  icon: "hass:ceiling-light"
+                  include:
+                    - light
