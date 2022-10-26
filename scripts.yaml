@@ -1,7 +1,7 @@
 spotify_stef:
   alias: Spotify STeF
   sequence:
-  - service: media_player.toggle
+  - service: media_player.turn_on
     data: {}
     target:
       entity_id: media_player.apple_tv_salon
@@ -75,21 +75,27 @@ spotify_jo:
   mode: single
   icon: mdi:spotify
 tv:
-  alias: TV
+  alias: TV (Salto)
   sequence:
-  - service: media_player.toggle
-    data: {}
-    target:
-      entity_id: media_player.apple_tv_salon
-  - service: media_player.select_source
-    data:
-      source: Salto
-    target:
-      entity_id: media_player.apple_tv_salon
-  - service: input_boolean.toggle
-    data: {}
-    target:
+  - if:
+    - condition: state
       entity_id: input_boolean.tv_state
+      state: 'off'
+    then:
+    - service: media_player.turn_on
+      data: {}
+      target:
+        entity_id: media_player.apple_tv_salon
+    - service: media_player.select_source
+      data:
+        source: Salto
+      target:
+        entity_id: media_player.apple_tv_salon
+    else:
+    - service: media_player.turn_off
+      data: {}
+      target:
+        entity_id: media_player.apple_tv_salon
   mode: single
   icon: mdi:television-classic
 disney:
@@ -113,25 +119,38 @@ disney:
 radio:
   alias: Radio
   sequence:
-  - service: browser_mod.notification
-    data:
-      message: Lancement de Spotify de STeF...
-  - service: media_player.toggle
-    data: {}
-    target:
-      entity_id: media_player.apple_tv_salon
-  - service: media_player.select_source
-    data:
-      source: Musique
-    target:
-      entity_id: media_player.apple_tv_salon
-  - service: media_player.media_play_pause
-    data: {}
-    target:
-      entity_id: media_player.apple_tv_salon
-  - service: input_boolean.toggle
-    data: {}
-    target:
+  - if:
+    - condition: state
       entity_id: input_boolean.radio_state
+      state: 'off'
+    then:
+    - service: media_player.turn_on
+      data: {}
+      target:
+        entity_id: media_player.apple_tv_salon
+    - service: media_player.select_source
+      data:
+        source: Musique
+      target:
+        entity_id: media_player.apple_tv_salon
+    - service: media_player.play_media
+      data:
+        media_content_type: music
+        media_title: France Inter
+        extra:
+          title: France Inter
+    - service: input_boolean.turn_on
+      data: {}
+      target:
+        entity_id: input_boolean.radio_state
+    else:
+    - service: media_player.turn_off
+      data: {}
+      target:
+        entity_id: media_player.apple_tv_salon
+    - service: input_boolean.turn_off
+      data: {}
+      target:
+        entity_id: input_boolean.radio_state
   mode: single
   icon: mdi:radio

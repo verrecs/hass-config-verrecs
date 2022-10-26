@@ -1,0 +1,94 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Conso électrique
+    size: fullscreen
+    content:
+      type: grid
+      columns: 2
+      square: false
+      cards:
+
+        - type: custom:apexcharts-card
+          # layout: minimal
+          graph_span: 6h
+          # update_delay: 1s
+          # update_interval: 1s
+          stacked : true
+          locale: fr
+          # experimental:
+          #   brush : true
+          # brush:
+          #   selection_span: 10m
+          apex_config:
+            chart:
+              fontFamily: var(--primary-font-family)
+              height: 600px
+            tooltip:
+              style:
+                fontSize: 14px
+              x:
+                show: true
+                format: dddd HH:mm
+            # xaxis:
+            #   crosshairs:
+            #     show: false
+            # legend:
+            #   fontSize: 14px
+            #   fontWeight: 500
+            #   itemMargin:
+            #     horizontal: 25
+            #   markers:
+            #     width: 26
+            #     height: 23
+            #     # customHTML:
+            #     #   - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+            #     #   - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+            #     fillColors:
+            #       - none
+            #       - none
+            fill:
+              type: gradient
+              gradient:
+                type: vertical
+                opacityFrom: 0.8
+                opacityTo: 0
+                stops:
+                  - 0
+                  - 99
+                  - 100
+            stroke:
+              width: 1
+          all_series_config:
+            type: area
+            fill_raw: last
+          series:
+            - entity: sensor.plug1_power
+              name: Prise Salon
+              # color: '#f030b9'
+            - entity: sensor.plug2_power
+              name: PC Bureau
+              # color: var(--primary-color)
+            - entity: sensor.wiser_lts_power_salon
+              name: Chauffage (convecteur)
+            - entity: sensor.wiser_lts_power_salon_2
+              name: Chauffage (inertie)
+
+
+        - type: custom:apexcharts-card
+          header:
+            show: true
+            title: Repartition
+            show_states: true
+            colorize_states: true
+          chart_type: donut
+          series:
+            - entity: sensor.plug1_power
+              name: Prise Salon
+            - entity: sensor.plug2_power
+              name: PC Bureau
+            - entity: sensor.wiser_lts_power_salon
+              name: Chauffage (convecteur)
+            - entity: sensor.wiser_lts_power_salon_2
+              name: Chauffage (inertie)
