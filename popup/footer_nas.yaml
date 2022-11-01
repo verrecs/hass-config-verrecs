@@ -108,7 +108,7 @@ browser_mod:
                 - entity: sensor.speedtest_download
                   name : Download
                   icon: mdi:arrow-down-bold
-                  color: '#f030b9'
+                  color: var(--secondary-color)
                 - entity: sensor.speedtest_upload
                   name : Upload
                   icon: mdi:arrow-up-bold
@@ -135,11 +135,11 @@ browser_mod:
 
             - entity: binary_sensor.vpn_stef_iphone_perso
               secondary_info: last-changed
-              name: STeF iPhone Perso
+              name: STeF iPhone
 
-            - entity: binary_sensor.vpn_stef_iphone_pro
-              secondary_info: last-changed
-              name: STeF iPhone Pro
+            # - entity: binary_sensor.vpn_stef_iphone_pro
+            #   secondary_info: last-changed
+            #   name: STeF iPhone Pro
 
             - entity: binary_sensor.vpn_stef_macbook
               secondary_info: last-changed
@@ -201,7 +201,7 @@ browser_mod:
             series:
               - entity: sensor.network_throughput_in_wg0
                 name: Down
-                color: '#f030b9'
+                color: var(--secondary-color)
               - entity: sensor.network_throughput_out_wg0
                 name: Up
                 color: var(--primary-color)
@@ -232,7 +232,7 @@ browser_mod:
                 indicator: 'off'
                 name: outside
               severity:
-                - color: '#f030b9'
+                - color: var(--secondary-color)
                   from: 76
                   to: 100
                 - color: '#303435'
@@ -329,7 +329,7 @@ browser_mod:
             series:
               - entity: sensor.network_throughput_in_eno1
                 name: Down
-                color: '#f030b9'
+                color: var(--secondary-color)
               - entity: sensor.network_throughput_out_eno1
                 name: Up
                 color: var(--primary-color)

@@ -66,7 +66,7 @@ browser_mod:
           series:
             - entity: sensor.plug1_power
               name: Prise Salon
-              # color: '#f030b9'
+              # color: var(--secondary-color)
             - entity: sensor.plug2_power
               name: PC Bureau
               # color: var(--primary-color)

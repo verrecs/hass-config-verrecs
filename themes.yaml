@@ -6,6 +6,8 @@ themes:
     #enable mode
     modes: {dark: {.: .}}
 
+    secondary-color: '#f030b9'
+
     #edited default dark mode
     ha-card-box-shadow: none
     ha-card-background: none
