@@ -16,6 +16,7 @@ homeassistant:
 default_config:
 zeroconf:
 wake_on_lan:
+zha_toolkit:
 
 frontend: !include themes.yaml
 template: !include sidebar.yaml
@@ -41,6 +42,7 @@ lovelace:
       { url: /hacsfiles/weather-card/weather-card.js,                                   type: module },
       { url: /hacsfiles/upcoming-media-card/upcoming-media-card.js?v=0.1.2,             type: js },
       # { url: https://cdn.jsdelivr.net/gh/Imbuzi/meteo-france-weather-card/dist/meteo-france-weather-card.js,     type: module },
+      { url: /hacsfiles/clock-weather-card/clock-weather-card.js,                                          type: module },
       { url: /hacsfiles/home-assistant-sun-card/home-assistant-sun-card.js,             type: module },
       { url: /hacsfiles/simple-thermostat/simple-thermostat.js,                         type: module },
       { url: /hacsfiles/content-card-linky/content-card-linky.js,                       type: module },
@@ -53,18 +55,20 @@ lovelace:
 
     ]
 
-# switch:
-#   - platform: wake_on_lan
-#     mac: !secret tv_mac
+zha:
+  zigpy_config:
+    network:
+      channel: 11
+      channels: [11]
+    ota:
+      otau_directory: /home/homeassistant/.homeassistant/config/zigpy_ota
+      ikea_provider: false
+      ledvance_provider: false
+      salus_provider: false
+      # ikea_update_url: http://fw.test.ota.homesmart.ikea.net/feed/version_info.json
 
-# recorder:
-#   db_url: !secret recorder_db_url
-#   exclude:
-#     entity_globs:
-#       - sensor.browser_*
-
-# logger:
-#   default: warning
-#   logs:
-#     homeassistant.components.websocket_api: fatal
-#     custom_components.monitor_docker.helpers: fatal
+logger:
+  default: info
+  logs:  
+    homeassistant.components.zha: info
+    zigpy: info

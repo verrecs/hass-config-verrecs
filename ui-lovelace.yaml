@@ -91,6 +91,19 @@ views:
             hourly_forecast: true
             number_of_forecasts: '5'
 
+
+          # - type: custom:clock-weather-card
+          #   entity: weather.paris_10eme_arrondissement
+          #   sun_entity: sun.sun
+          #   weather_icon_type: fill
+          #   animated_icon: true
+          #   forecast_days: 8
+          #   locale: fr
+          #   time_format: 24
+          #   date_pattern: d MMMM
+          #   hide_today_section: false
+          #   hide_forecast_section: false
+
           - type: custom:sun-card
             darkMode: true
 
@@ -130,18 +143,25 @@ views:
               # - icon_shade
 
           - type: custom:button-card
+            entity: scene.films_hass
+            name: Film
+            template:
+              - light
+              - icon_film
+
+          - type: custom:button-card
             entity: light.chambre
             name: Chambre
             template:
               - light
               - icon_lamp
 
-          - type: custom:button-card
-            entity: light.cuisine
-            name: Cuisine
-            template:
-              - light
-              - icon_hue
+          # - type: custom:button-card
+          #   entity: light.cuisine
+          #   name: Cuisine
+          #   template:
+          #     - light
+          #     - icon_hue
 
           - type: custom:button-card
             entity: light.hue_filament_bulb_1
@@ -447,7 +467,7 @@ views:
                         entity_id: script.prime
                     template:
                       - base
-                      - icon_netflix
+                      - icon_prime
                       - loader
 
                   - type: custom:button-card
@@ -461,7 +481,7 @@ views:
                         entity_id: script.disney
                     template:
                       - base
-                      - icon_netflix
+                      - icon_disney
                       - loader
 
               - type: grid
@@ -537,6 +557,7 @@ views:
                   entity_id: script.radio
               template:
                 - media
+                - icon_radio
                 # - icon_apple_tv
 
             # - type: custom:button-card
@@ -551,7 +572,7 @@ views:
               name: Karaoke
               template:
                 - media
-                - icon_spotify
+                - icon_disco
 
             # - type: custom:button-card
             #   entity: media_player.spotify
