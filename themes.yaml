@@ -6,6 +6,10 @@ themes:
     #enable mode
     modes: {dark: {.: .}}
 
+    # Désactivation des bordules de carte
+    ha-card-border-radius: 0px ## or whatever radius you want
+    ha-card-border-color: rgba(0,0,0,0) ## transparent
+
     secondary-color: '#f030b9'
     gray-color: '#9da0a2'
 

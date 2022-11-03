@@ -91,21 +91,28 @@ views:
             hourly_forecast: true
             number_of_forecasts: '5'
 
+          # - type: 'custom:buien-rain-forecast'
+          #   long: 2.3692
+          #   lat: 48.8787
+          #   # lineColor: 'rgba(89, 160, 238, 1)'
+          #   # fillColor: 'rgba(89, 160, 238, 0.2)'
+          #   update_interval: 10
+          #   icon: 'mdi:weather-rainy'
 
-          # - type: custom:clock-weather-card
-          #   entity: weather.paris_10eme_arrondissement
-          #   sun_entity: sun.sun
-          #   weather_icon_type: fill
-          #   animated_icon: true
-          #   forecast_days: 8
-          #   locale: fr
-          #   time_format: 24
-          #   date_pattern: d MMMM
-          #   hide_today_section: false
-          #   hide_forecast_section: false
+          - type: custom:clock-weather-card
+            entity: weather.paris_10eme_arrondissement
+            sun_entity: sun.sun
+            weather_icon_type: fill
+            animated_icon: true
+            forecast_days: 8
+            locale: fr
+            time_format: 24
+            date_pattern: d MMMM
+            hide_today_section: true
+            hide_forecast_section: false
 
-          - type: custom:sun-card
-            darkMode: true
+          # - type: custom:sun-card
+          #   darkMode: true
 
           # - type: conditional
           #   conditions:

@@ -15,6 +15,24 @@ browser_mod:
 
           - type: custom:simple-thermostat
             entity: climate.wiser_salon
+            header: false
+            step_size: 0.5
+            control:
+              preset:
+                Advance Schedule: false
+                Cancel Overrides:
+                  name: Annuler boost
+                  icon: mdi:fire-off
+                Boost 30m:
+                  icon: mdi:fire
+                Boost 1h:
+                  icon: mdi:fire
+                Boost 2h:
+                  icon: mdi:fire
+                Boost 3h:
+                  icon: mdi:fire
+
+              
             # layout:
             #   step: row
             # header: false

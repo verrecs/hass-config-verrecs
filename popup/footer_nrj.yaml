@@ -61,9 +61,23 @@ browser_mod:
             stroke:
               width: 1
           all_series_config:
-            type: area
+            type: column
             fill_raw: last
           series:
+            - entity: sensor.plug1_power
+              name: Prise Salon
+              # color: var(--secondary-color)
+            - entity: sensor.plug2_power
+              name: PC Bureau
+              # color: var(--primary-color)
+            - entity: sensor.wiser_lts_power_salon
+              name: Chauffage (convecteur)
+            - entity: sensor.wiser_lts_power_salon_2
+              name: Chauffage (inertie)
+
+        - type: statistics-graph
+          title: 'Histo'
+          entities:
             - entity: sensor.plug1_power
               name: Prise Salon
               # color: var(--secondary-color)
