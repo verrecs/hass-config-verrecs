@@ -42,7 +42,8 @@ lovelace:
       { url: /hacsfiles/weather-card/weather-card.js,                                   type: module },
       { url: /hacsfiles/upcoming-media-card/upcoming-media-card.js?v=0.1.2,             type: js },
       # { url: https://cdn.jsdelivr.net/gh/Imbuzi/meteo-france-weather-card/dist/meteo-france-weather-card.js,     type: module },
-      { url: /hacsfiles/clock-weather-card/clock-weather-card.js,                                          type: module },
+      { url: /hacsfiles/clock-weather-card/clock-weather-card.js,                       type: module },
+      { url: /hacsfiles/history-explorer-card/history-explorer-card.js,                 type: module },
       { url: /hacsfiles/home-assistant-sun-card/home-assistant-sun-card.js,             type: module },
       { url: /hacsfiles/lovelace-buien-rain-card/buien-rain-card.js,                    type: module },
       { url: /hacsfiles/simple-thermostat/simple-thermostat.js,                         type: module },
@@ -51,7 +52,7 @@ lovelace:
       { url: /hacsfiles/wiser/wiser-zigbee-card.js,                                     type: module },
       { url: /local/marked.min.js?v=4.1.0,                                              type: module },
       { url: /local/vanilla-tilt.min.js?v=1.7.2,                                        type: module },
-      { url: /hacsfiles/scheduler-card/scheduler-card.js?v=0,                               type: module },
+      { url: /hacsfiles/scheduler-card/scheduler-card.js?v=0,                           type: module },
       { url: /local/fonts.css?v=2.1,                                                    type: css }
 
     ]

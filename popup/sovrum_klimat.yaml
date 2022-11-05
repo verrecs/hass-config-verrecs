@@ -2,7 +2,8 @@ action: fire-dom-event
 browser_mod:
   service: browser_mod.popup
   data:
-    title: Chauffage
+    title: Chauffage & températures
+    size: fullscreen
     timeout: 300000
     style: >
       --ha-card-border-radius: 0;
@@ -18,6 +19,10 @@ browser_mod:
             header: false
             step_size: 0.5
             control:
+              hvac:
+                auto: false
+                heat: true
+                "off": true
               preset:
                 Advance Schedule: false
                 Cancel Overrides:
@@ -32,86 +37,84 @@ browser_mod:
                 Boost 3h:
                   icon: mdi:fire
 
-              
-            # layout:
-            #   step: row
-            # header: false
-            # control: false
 
-          # - type: custom:mod-card
-          #   card_mod:
-          #     style:
-          #       hui-horizontal-stack-card$: |
-          #         #root {
-          #           justify-content: space-evenly !important;
-          #           padding: var(--tablet-popup-button-padding);
-          #         }
-          #   card:
-          #     type: horizontal-stack
-          #     cards:
-          #       - type: custom:button-card
-          #         name: Boost
-          #         icon: mdi:fire
-          #         tap_action:
-          #           action: call-service
-          #           service: browser_mod.sequence
-          #           service_data:
-          #             sequence:
-          #               - service: browser_mod.notification
-          #                 data:
-          #                   message: Boost 2h...
-          #               - service: button.press
-          #                 data:
-          #                   entity_id: button.wiser_boost_all_heating
-          #         template: icon_name
+          # - type: history-graph
+          #   hours_to_show: 48
+          #   entities:
+          #     - entity: climate.wiser_salon
 
-          #       - type: custom:button-card
-          #         name: Away Mode
-          #         icon: mdi:beach
-          #         tap_action:
-          #           action: call-service
-          #           service: browser_mod.sequence
-          #           service_data:
-          #             sequence:
-          #               - service: browser_mod.notification
-          #                 data:
-          #                   message: Mode absence...
-          #               - service: button.press
-          #                 data:
-          #                   entity_id: switch.wiser_away_mode_2
-          #         template: icon_name
+          # - type: custom:history-explorer-card
+          #   combineSameUnits: true
+          #   graphs:
+          #     - type: line
+          #       entities:
+          #         # - entity: climate.wiser_salon
+          #         - entity: sensor.wiser_lts_temperature_salon
+          #         - entity: sensor.hue_motion_sensor_1_temperature
+          #     - type: bar
+          #       title: Température cible
+          #       entities:
+          #         - entity: sensor.wiser_lts_target_temperature_salon
+          #     - type: timelines
+          #       title: Actif
+          #       entities:
+          #         - entity: sensor.wiser_heating_2
 
-          #       - type: custom:button-card
-          #         name: Eco Mode
-          #         icon: mdi:leaf
-          #         tap_action:
-          #           action: call-service
-          #           service: browser_mod.sequence
-          #           service_data:
-          #             sequence:
-          #               - service: browser_mod.notification
-          #                 data:
-          #                   message: Activation du mode eco...
-          #               - service: button.press
-          #                 data:
-          #                   entity_id: switch.wiser_eco_mode_2
-          #         template: icon_name
-
-                # - type: custom:button-card
-                #   name: Ouverture de fenètre
-                #   icon: mdi:window-open
-                #   tap_action:
-                #     action: call-service
-                #     service: switch.wiser_salon_window_detection
-                #   template: icon_name
-
-          - type: history-graph
-            hours_to_show: 48
-            entities:
-              - entity: climate.wiser_salon
-
-          # - type: custom:wiser-schedule-card
-          #   theme_colors: true
-          #   display_only: false
-          #   admin_only: false
-          #   show_badges: true
+          - type: custom:apexcharts-card
+            apex_config:
+                chart:
+                  height: 375px
+                  fontFamily: var(--primary-font-family)
+                tooltip:
+                  style:
+                    fontSize: 14px
+                  x:
+                    show: true
+                    format: dddd HH:mm
+            graph_span: 2d
+            locale: fr
+            header:
+              show: false
+            all_series_config:
+                stroke_width: 1
+                unit: °C
+            header:
+              show: false
+              title: Historique des températures
+              show_states: true
+              colorize_states: true
+            yaxis:
+              - min : 15
+                decimals: 0
+            experimental:
+                color_threshold: true
+            series:
+              - entity: sensor.wiser_lts_temperature_salon
+                type: line
+                name: Salon
+                group_by:
+                    duration: 30min
+                    func: avg
+              - entity: sensor.hue_motion_sensor_1_temperature
+                type: line
+                name: Entrée
+                group_by:
+                    duration: 30min
+                    func: avg
+              - entity: sensor.hue_motion_sensor_1_temperature_2
+                type: line
+                name: Couloir
+                group_by:
+                    duration: 30min
+                    func: avg
+              - entity: sensor.wiser_lts_target_temperature_salon
+                type: column
+                opacity: 0.2
+                name: Température cible
+                group_by:
+                    duration: 30min
+                    func: avg
+              # - entity: sensor.wiser_heating_2
+              #   type: column
+              #   name: Actif
+              #   transform: "return x === 'on' ? 1 : 0;"
