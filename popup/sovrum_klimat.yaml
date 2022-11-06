@@ -22,6 +22,7 @@ browser_mod:
               hvac:
                 auto: false
                 heat: true
+                  # name: Activé
                 "off": true
               preset:
                 Advance Schedule: false

@@ -150,10 +150,16 @@ views:
               # - icon_shade
 
           - type: custom:button-card
-            entity: scene.films_hass
+            entity: input_boolean.films
             name: Film
+            show_state: true
+            tap_action:
+              action: call-service
+              service: script.films
+              data:
+                entity_id: script.films
             template:
-              - light
+              - base
               - icon_film
 
           - type: custom:button-card
@@ -299,57 +305,16 @@ views:
           # TODO : changer l'icone en fonction du statut + réglage comme les lampes
           - type: custom:button-card
             entity: climate.wiser_salon
-            name: Chauffrage
+            name: Chauffage
+            show_state: true
             double_tap_action:
               !include popup/sovrum_klimat.yaml
             tap_action:
               !include popup/sovrum_klimat.yaml
             template:
-              - base
+              - thermostat
               - icon_climate
               - circle
-            variables:
-              circle_input: >
-                [[[
-                  if (entity) {
-                      return entity.state === 'cool'
-                          ? Math.round(entity.attributes.temperature).toString()
-                          : Math.round(entity.attributes.current_temperature).toString();
-                  }
-                ]]]
-              circle_input_unit: '°C'
-            # TODO : integrer dans le stype 
-            # - changement de couleur du graphe + cercle
-            custom_fields:
-              graph:
-                card:
-                  type: custom:mini-graph-card
-                  font_size: 70
-                  height: 50
-                  hours_to_show: 48
-                  points_per_hour: 0.25
-                  line_width: 1
-                  show:
-                    labels: false
-                    icon: false
-                    name: false
-                    state: false
-                    points: false
-                    labels_secondar: false
-                  entities: 
-                    - entity: sensor.hue_motion_sensor_1_temperature
-                      color: var(--primary-color)
-            styles:
-              custom_fields:
-                graph:
-                  - z-index: 1
-                  - filter: opacity(90%)
-                  - position: absolute
-                  - left: 0%
-                  - bottom: 0%
-              card:
-                - overflow: false
-            # FIN custo
 
       #################################################
       #                                               #

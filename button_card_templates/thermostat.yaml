@@ -1,0 +1,64 @@
+thermostat:
+  template:
+    - base
+    - circle
+  styles:
+    card:
+      # - color: >
+      #     [[[
+      #       if (entity) {
+      #           return entity.state === true
+      #               ? '#4b5254'
+      #               : '#97989c'
+      #       }
+      #     ]]]
+      # - border-radius: 0.7vw
+      - border: >
+          [[[
+            if (entity) {
+                return entity.attributes.is_heating === true
+                    ? '2px solid var(--secondary-color)'
+                    : '0px'
+            }
+          ]]]
+
+  variables:
+    circle_input: >
+      [[[
+        if (entity) {
+            return entity.state === true
+                ? Math.round(entity.attributes.temperature).toString()
+                : Math.round(entity.attributes.current_temperature).toString();
+        }
+      ]]]
+    circle_input_unit: '°C'
+
+  # custom_fields:
+  #   graph:
+  #     card:
+  #       type: custom:mini-graph-card
+  #       font_size: 70
+  #       height: 50
+  #       hours_to_show: 48
+  #       points_per_hour: 0.25
+  #       line_width: 1
+  #       show:
+  #         labels: false
+  #         icon: false
+  #         name: false
+  #         state: false
+  #         points: false
+  #         labels_secondar: false
+  #       entities: 
+  #         - entity: entity.attributes.temperature
+  #           color: var(--primary-color)
+  # styles:
+  #   custom_fields:
+  #     graph:
+  #       - z-index: 1
+  #       - filter: opacity(90%)
+  #       - position: absolute
+  #       - left: 0%
+  #       - bottom: 0%
+  #   card:
+  #     - overflow: false
