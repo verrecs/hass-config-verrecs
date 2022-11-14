@@ -46,11 +46,9 @@ browser_mod:
               entities:
 
                 - entity: sensor.galaxy_tab_a_battery
-                - entity: sensor.template_fullykiosk_memory
-                - entity: sensor.template_fullykiosk_storage
-
-
-
+                
+            - entity: sensor.galaxy_tab_a_total_memory
+            - entity: sensor.galaxy_tab_a_internal_storage_total_space
             - entity: sensor.galaxy_tab_a_free_memory
             - entity: sensor.galaxy_tab_a_internal_storage_free_space
             

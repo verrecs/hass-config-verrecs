@@ -136,7 +136,6 @@ browser_mod:
               #   navigation_path: /lovelace/2
               type: 'custom:mini-media-player'
               
-
             # - type: 'custom:spotify-card'
             #   device: "Apple TV"
             #   default_device: "Apple TV"

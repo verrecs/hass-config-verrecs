@@ -22,6 +22,27 @@ browser_mod:
                 - climate.wiser_salon
                 - light
               customize:
+                climate.wiser_salon:
+                  actions:
+                    - service: set_hvac_mode
+                      variables: 
+                        hvac_mode:
+                          name: Mode
+                          options:
+                            - value: heat
+                              icon: "hass:fire"
+                            - value: "off"
+                              icon: "hass:power"
+                    - service: set_preset_mode
+                      variables: 
+                        preset_mode:
+                          name: Pré-réglage
+                          options:
+                            - value: Cancel Overrides
+                            - value: "Boost 30m"
+                            - value: "Boost 1h"
+                            - value: "Boost 2h"
+                            - value: "Boost 3h"
                 vacuum.roberto:
                   # name: "Aspiration & lavage"
                   # icon: "hass:ceiling-light"
