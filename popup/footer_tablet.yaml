@@ -36,7 +36,7 @@ browser_mod:
                 indicator: 'off'
                 name: outside
               severity:
-                - color: '#6d2525'
+                - color: var(--red-color)
                   from: 0
                   to: 9
                 - color: '#303435'

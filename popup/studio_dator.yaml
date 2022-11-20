@@ -46,7 +46,7 @@ browser_mod:
                       indicator: 'off'
                       name: outside
                     severity:
-                      - color: '#6d2525'
+                      - color: var(--red-color)
                         from: 90
                         to: 999
                     entity_row: true

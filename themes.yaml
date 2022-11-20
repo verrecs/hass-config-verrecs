@@ -10,8 +10,14 @@ themes:
     ha-card-border-radius: 0px ## or whatever radius you want
     ha-card-border-color: rgba(0,0,0,0) ## transparent
 
+    primary-color : '#01a9f4'
     secondary-color: '#f030b9'
+    third-color: '#383F51'
+    fourth-color: '#A5FFD6'
+    fifth-color: '#d6bbc0'
+
     gray-color: '#9da0a2'
+    red-color: '#6d2525'
 
     #edited default dark mode
     ha-card-box-shadow: none

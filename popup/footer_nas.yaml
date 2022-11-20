@@ -232,7 +232,7 @@ browser_mod:
                 indicator: 'off'
                 name: outside
               severity:
-                - color: var(--secondary-color)
+                - color: var(--red-color)
                   from: 76
                   to: 100
                 - color: '#303435'

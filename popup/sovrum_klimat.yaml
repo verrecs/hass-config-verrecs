@@ -72,7 +72,7 @@ browser_mod:
                   x:
                     show: true
                     format: dddd HH:mm
-            graph_span: 2d
+            graph_span: 3d
             locale: fr
             header:
               show: false
@@ -87,34 +87,41 @@ browser_mod:
             yaxis:
               - min : 15
                 decimals: 0
-            experimental:
-                color_threshold: true
+            color_list: [var(--primary-color), var(--secondary-color), var(--third-color), var(--fourth-color), var(--fifth-color)]
             series:
               - entity: sensor.wiser_lts_temperature_salon
                 type: line
                 name: Salon
                 group_by:
-                    duration: 30min
-                    func: avg
+                  duration: 30min
+                  func: avg
               - entity: sensor.hue_motion_sensor_1_temperature
                 type: line
                 name: Entrée
                 group_by:
-                    duration: 30min
-                    func: avg
+                  duration: 30min
+                  func: avg
               - entity: sensor.hue_motion_sensor_1_temperature_2
                 type: line
                 name: Couloir
                 group_by:
-                    duration: 30min
-                    func: avg
+                  duration: 30min
+                  func: avg
               - entity: sensor.wiser_lts_target_temperature_salon
                 type: column
                 opacity: 0.2
                 name: Température cible
                 group_by:
-                    duration: 30min
-                    func: avg
+                  duration: 30min
+                  func: avg
+              # - entity: sensor.paris_10eme_arrondissement_temperature
+              #   name: Extérieure
+              #   type: area
+              #   color: '#eeeeee'
+              #   opacity: 0.2
+              #   group_by:
+              #     duration: 30min
+              #     func: avg
               # - entity: sensor.wiser_heating_2
               #   type: column
               #   name: Actif

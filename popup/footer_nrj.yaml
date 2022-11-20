@@ -2,7 +2,7 @@ action: fire-dom-event
 browser_mod:
   service: browser_mod.popup
   data:
-    title: Conso électrique
+    title: Consommation électrique
     size: fullscreen
     content:
       type: grid
@@ -11,97 +11,118 @@ browser_mod:
       cards:
 
         - type: custom:apexcharts-card
-          # layout: minimal
-          graph_span: 6h
-          # update_delay: 1s
-          # update_interval: 1s
+          header:
+            show: true
+            title: Historique des 15 derniers jours
+            show_states: true
+            colorize_states: true
+          graph_span: 15d
+          update_interval: 12h
           stacked : true
           locale: fr
-          # experimental:
-          #   brush : true
-          # brush:
-          #   selection_span: 10m
+          color_list: [var(--primary-color), var(--secondary-color), var(--third-color), var(--fourth-color), var(--fifth-color)]
+          show:
+            last_updated: true
           apex_config:
             chart:
               fontFamily: var(--primary-font-family)
-              height: 600px
+              height: 650px
             tooltip:
               style:
                 fontSize: 14px
               x:
                 show: true
-                format: dddd HH:mm
-            # xaxis:
-            #   crosshairs:
-            #     show: false
-            # legend:
-            #   fontSize: 14px
-            #   fontWeight: 500
-            #   itemMargin:
-            #     horizontal: 25
-            #   markers:
-            #     width: 26
-            #     height: 23
-            #     # customHTML:
-            #     #   - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-            #     #   - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-            #     fillColors:
-            #       - none
-            #       - none
-            fill:
-              type: gradient
-              gradient:
-                type: vertical
-                opacityFrom: 0.8
-                opacityTo: 0
-                stops:
-                  - 0
-                  - 99
-                  - 100
+                format: dddd
+            legend:
+              show : false 
             stroke:
+              show: true
               width: 1
           all_series_config:
             type: column
-            fill_raw: last
+            opacity: 0.2
           series:
-            - entity: sensor.plug1_power
-              name: Prise Salon
-              # color: var(--secondary-color)
-            - entity: sensor.plug2_power
+            - entity: sensor.plug_bureau_energy
               name: PC Bureau
-              # color: var(--primary-color)
-            - entity: sensor.wiser_lts_power_salon
+              transform: "return x / 1000;"
+              unit: kWh
+              group_by:
+                duration: 1d
+                func: max
+            - entity: sensor.plug_media_salon_energy
+              name: Media salon
+              transform: "return x / 1000;"
+              unit: kWh
+              group_by:
+                duration: 1d
+                func: max
+            - entity: sensor.plug_chambre_energy
+              name: Prises chambre
+              transform: "return x / 1000;"
+              unit: kWh
+              group_by:
+                duration: 1d
+                func: max
+            - entity: sensor.wiser_lts_energy_salon
               name: Chauffage (convecteur)
-            - entity: sensor.wiser_lts_power_salon_2
+              group_by:
+                duration: 1d
+                func: max
+            - entity: sensor.wiser_lts_energy_salon_2
               name: Chauffage (inertie)
-
-        - type: statistics-graph
-          title: 'Histo'
-          entities:
-            - entity: sensor.plug1_power
-              name: Prise Salon
-              # color: var(--secondary-color)
-            - entity: sensor.plug2_power
-              name: PC Bureau
-              # color: var(--primary-color)
-            - entity: sensor.wiser_lts_power_salon
-              name: Chauffage (convecteur)
-            - entity: sensor.wiser_lts_power_salon_2
-              name: Chauffage (inertie)
-
+              group_by:
+                duration: 1d
+                func: max
 
         - type: custom:apexcharts-card
           header:
             show: true
-            title: Repartition
+            title: Temps réel
             show_states: true
             colorize_states: true
           chart_type: donut
+          color_list: [var(--primary-color), var(--secondary-color), var(--third-color), var(--fourth-color), var(--fifth-color)]
+          apex_config:
+            chart:
+              height: 650px
+              fontFamily: var(--primary-font-family)
+            tooltip:
+              style:
+                fontSize: 14px
+            x:
+              show: true
+              format: dddd
+            legend:
+              show : false
+            stroke:
+              show: true
+              width: 1
+            dataLabels:
+              formatter: |
+                EVAL:function(value) {
+                  return value.toFixed(0) + " %";
+                }
+            plotOptions:
+              pie:
+                donut:
+                  labels:
+                    show: true
+                    total:
+                      show: true
+                      label: Total
+                      formatter: |
+                        EVAL:function(w) {
+                          return w.globals.seriesTotals.reduce((a, b) => {return (a + b)} , 0).toFixed(1) + " W"
+                          }
+          all_series_config:
+            opacity: 0.1
           series:
-            - entity: sensor.plug1_power
-              name: Prise Salon
-            - entity: sensor.plug2_power
+            - entity: sensor.plug_bureau_power
               name: PC Bureau
+            - entity: sensor.plug_media_salon_power
+              name: Media salon
+            - entity: sensor.plug_chambre_power
+              name: Prises chambre
             - entity: sensor.wiser_lts_power_salon
               name: Chauffage (convecteur)
             - entity: sensor.wiser_lts_power_salon_2

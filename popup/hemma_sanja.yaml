@@ -101,7 +101,7 @@ browser_mod:
                 - color: '#303435'
                   from: 11
                   to: 999
-                - color: '#6d2525'
+                - color: var(--red-color)
                   from: 0
                   to: 10
               entity_row: true
