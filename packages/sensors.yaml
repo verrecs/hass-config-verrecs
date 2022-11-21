@@ -89,12 +89,12 @@ samsungtv:
     app_list:
      '{"Plex": "kIciSQlYEM.plex","Netflix": "11101200001", "YouTubeTV": " PvWgqxV3Xa.YouTubeTV"}'
 
-# media_player:
-#   - platform: samsungtv_tizen
-#     name: TV
-#     # device_id: 47f56a24-c389-4ea4-84d0-01c4af42abd8
-#     host: 192.168.1.57
-    # mac: 9c:8c:6e:29:3a:30
+media_player:
+  - platform: samsungtv_tizen
+    name: TV_salon
+    # device_id: 47f56a24-c389-4ea4-84d0-01c4af42abd8
+    host: 192.168.1.57
+    mac: 9c:8c:6e:29:3a:30
     # api_key: 4c8ba490-fe54-4362-aeeb-cae76327d808
     # update_method: smartthings
     # turn_on_action:
