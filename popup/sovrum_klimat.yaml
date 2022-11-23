@@ -101,12 +101,6 @@ browser_mod:
                 group_by:
                   duration: 30min
                   func: avg
-              - entity: sensor.hue_motion_sensor_1_temperature_2
-                type: line
-                name: Couloir
-                group_by:
-                  duration: 30min
-                  func: avg
               - entity: sensor.wiser_lts_target_temperature_salon
                 type: column
                 opacity: 0.2
@@ -114,6 +108,13 @@ browser_mod:
                 group_by:
                   duration: 30min
                   func: avg
+              - entity: sensor.hue_motion_sensor_1_temperature_2
+                type: line
+                name: Couloir
+                group_by:
+                  duration: 30min
+                  func: avg
+              
               # - entity: sensor.paris_10eme_arrondissement_temperature
               #   name: Extérieure
               #   type: area

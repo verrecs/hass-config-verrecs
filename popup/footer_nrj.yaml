@@ -110,6 +110,10 @@ browser_mod:
                     total:
                       show: true
                       label: Total
+                      fontSize: '40px'
+                      fontFamily: 'Helvetica, Arial, sans-serif'
+                      fontWeight: 600
+                      color: '#373d3f'
                       formatter: |
                         EVAL:function(w) {
                           return w.globals.seriesTotals.reduce((a, b) => {return (a + b)} , 0).toFixed(1) + " W"
