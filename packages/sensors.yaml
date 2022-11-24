@@ -104,6 +104,12 @@ media_player:
     # app_list:
     #  '{"Plex": "kIciSQlYEM.plex","Netflix": "11101200001", "YouTubeTV": " PvWgqxV3Xa.YouTubeTV"}'
 
+climate:
+  - platform: generic_thermostat
+    name: Bureau
+    heater: climate.actionneur_chauffage_thermostat
+    target_sensor: sensor.hue_motion_sensor_1_temperature_2
+
 # switch:
 #   - platform: wake_on_lan
 #     mac: !secret tv_mac

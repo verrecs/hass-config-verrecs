@@ -64,12 +64,17 @@ browser_mod:
                 duration: 1d
                 func: max
             - entity: sensor.wiser_lts_energy_salon
-              name: Chauffage (convecteur)
+              name: Chauffage du slon (convecteur)
               group_by:
                 duration: 1d
                 func: max
             - entity: sensor.wiser_lts_energy_salon_2
-              name: Chauffage (inertie)
+              name: Chauffage du salon (inertie)
+              group_by:
+                duration: 1d
+                func: max
+            - entity: climate.actionneur_chauffage_thermostat
+              name: Chauffage du bureau
               group_by:
                 duration: 1d
                 func: max
@@ -128,6 +133,8 @@ browser_mod:
             - entity: sensor.plug_chambre_power
               name: Prises chambre
             - entity: sensor.wiser_lts_power_salon
-              name: Chauffage (convecteur)
+              name: Chauffage du salon (convecteur)
             - entity: sensor.wiser_lts_power_salon_2
-              name: Chauffage (inertie)
+              name: Chauffage du salon (inertie)
+            - entity: sensor.actionneur_chauffage_instantaneous_demand
+              name: Chauffage du bureau
