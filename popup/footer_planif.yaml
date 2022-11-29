@@ -5,10 +5,12 @@ browser_mod:
     title: Planificateur
     timeout: 600000
     style: >
+      --popup-min-width: 1200px;
       --popup-max-width: 1200px;
       --ha-card-border-radius: 0;
     content:
       type: vertical-stack
+      
       cards:
         - type: entities
           state_color: true
@@ -23,6 +25,54 @@ browser_mod:
                 - light
               customize:
                 climate.wiser_salon:
+                  name: Salon
+                  icon: mdi:sofa
+                  actions:
+                    - service: set_hvac_mode
+                      variables: 
+                        hvac_mode:
+                          name: Mode
+                          options:
+                            - value: heat
+                              icon: "hass:fire"
+                            - value: "off"
+                              icon: "hass:power"
+                    - service: set_preset_mode
+                      variables: 
+                        preset_mode:
+                          name: Pré-réglage
+                          options:
+                            - value: Cancel Overrides
+                            - value: "Boost 30m"
+                            - value: "Boost 1h"
+                            - value: "Boost 2h"
+                            - value: "Boost 3h"
+                climate.wiser_bureau:
+                  name: Bureau
+                  icon: mdi:chair-rolling
+                  actions:
+                    - service: set_hvac_mode
+                      variables: 
+                        hvac_mode:
+                          name: Mode
+                          options:
+                            - value: heat
+                              icon: "hass:fire"
+                            - value: "off"
+                              icon: "hass:power"
+                    - service: set_preset_mode
+                      variables: 
+                        preset_mode:
+                          name: Pré-réglage
+                          options:
+                            - value: Cancel Overrides
+                            - value: "Boost 30m"
+                            - value: "Boost 1h"
+                            - value: "Boost 2h"
+                            - value: "Boost 3h"
+                climate.wiser_chambre:
+                  name: Chambre
+                  icon: mdi:bed-king
                   actions:
                     - service: set_hvac_mode
                       variables: 

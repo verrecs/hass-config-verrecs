@@ -296,25 +296,63 @@ views:
       #################################################
 
       - type: grid
-        title: Autres
+        title: Chauffage
         view_layout:
           grid-area: sovrum
         columns: 2
         cards:
 
-          # TODO : changer l'icone en fonction du statut + réglage comme les lampes
           - type: custom:button-card
             entity: climate.wiser_salon
-            name: Chauffage
+            name: Salon
             show_state: true
             double_tap_action:
-              !include popup/sovrum_klimat.yaml
+              !include popup/salon_klimat.yaml
             tap_action:
-              !include popup/sovrum_klimat.yaml
+              !include popup/salon_klimat.yaml
             template:
               - thermostat
               - icon_climate
               - circle
+
+          - type: custom:button-card
+            entity: climate.wiser_bureau
+            name: Bureau
+            show_state: true
+            double_tap_action:
+              !include popup/bureau_klimat.yaml
+            tap_action:
+              !include popup/bureau_klimat.yaml
+            template:
+              - thermostat
+              - icon_climate
+              - circle
+
+          - type: custom:button-card
+            entity: climate.wiser_chambre
+            name: Chambre
+            show_state: true
+            double_tap_action:
+              !include popup/chambre_klimat.yaml
+            tap_action:
+              !include popup/chambre_klimat.yaml
+            template:
+              - thermostat
+              - icon_climate
+              - circle
+
+          # - type: custom:button-card
+          #   entity: climate.bureau
+          #   name: BTest 2
+          #   show_state: true
+          #   double_tap_action:
+          #     !include popup/bureau_klimat.yaml
+          #   # tap_action:
+          #   #   !include popup/bureau_klimat.yaml
+          #   template:
+          #     - thermostat
+          #     - icon_climate
+          #     - circle
 
       #################################################
       #                                               #

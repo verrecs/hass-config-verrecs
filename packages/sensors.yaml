@@ -104,11 +104,51 @@ media_player:
     # app_list:
     #  '{"Plex": "kIciSQlYEM.plex","Netflix": "11101200001", "YouTubeTV": " PvWgqxV3Xa.YouTubeTV"}'
 
-climate:
-  - platform: generic_thermostat
-    name: Bureau
-    heater: climate.actionneur_chauffage_thermostat
-    target_sensor: sensor.hue_motion_sensor_1_temperature_2
+# Définition d'un Thermostat générique avec remplacement du capteur de température par un autre capteur
+# template:
+#   - thermostat:
+#     - unique_id: custo_thermostat
+#       state: template
+#       attributes:
+#         time: >
+#           {% set hours = now().strftime('%H') %}
+#           {% set minutes = now().strftime('%M') %}
+#           <span class="time">
+#             {{ hours }}<span class="time-colon">:</span>{{ minutes }}
+#           </span>
+#         min_temp: 15
+#         max_temp: 30
+#         ac_mode: false
+#         # target_temp: 17
+#         cold_tolerance: 0.3
+#         hot_tolerance: 0
+#         min_cycle_duration:
+#           seconds: 5
+#         keep_alive:
+#           minutes: 3
+#         # initial_hvac_mode: "off"
+#         away_temp: 16
+#         precision: 0.1
+
+
+# climate:
+#   - platform: generic_thermostat
+#     name: bureau
+#     heater: climate.actionneur_chauffage_thermostat
+#     target_sensor: sensor.hue_motion_sensor_1_temperature_2
+#     min_temp: 15
+#     max_temp: 30
+#     ac_mode: false
+#     # target_temp: 17
+#     cold_tolerance: 0.3
+#     hot_tolerance: 0
+#     min_cycle_duration:
+#       seconds: 5
+#     keep_alive:
+#       minutes: 3
+#     # initial_hvac_mode: "off"
+#     away_temp: 16
+#     precision: 0.1
 
 # switch:
 #   - platform: wake_on_lan

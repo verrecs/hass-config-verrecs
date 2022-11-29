@@ -1,0 +1,79 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Thermostat du bureau
+    size: fullscreen
+    timeout: 300000
+    style: >
+      --ha-card-border-radius: 0;
+    content:
+      type: vertical-stack
+      cards:
+
+          - type: custom:simple-thermostat
+            entity: climate.wiser_bureau
+            header: false
+            step_size: 0.5
+            control:
+              hvac:
+                auto: false
+                heat: true
+                  # name: Activé
+                "off": true
+              preset:
+                Advance Schedule: false
+                Cancel Overrides:
+                  name: Annuler boost
+                  icon: mdi:fire-off
+                Boost 30m:
+                  icon: mdi:fire
+                Boost 1h:
+                  icon: mdi:fire
+                Boost 2h:
+                  icon: mdi:fire
+                Boost 3h:
+                  icon: mdi:fire
+
+          - type: custom:apexcharts-card
+            apex_config:
+                chart:
+                  height: 375px
+                  fontFamily: var(--primary-font-family)
+                tooltip:
+                  style:
+                    fontSize: 14px
+                  x:
+                    show: true
+                    format: dddd HH:mm
+            graph_span: 3d
+            locale: fr
+            header:
+              show: false
+            all_series_config:
+                stroke_width: 1
+                unit: °C
+            header:
+              show: false
+              title: Historique des températures
+              show_states: true
+              colorize_states: true
+            yaxis:
+              - min : 15
+                decimals: 0
+            color_list: [var(--primary-color), var(--secondary-color), var(--third-color), var(--fourth-color), var(--fifth-color)]
+            series:
+              - entity: sensor.wiser_lts_temperature_bureau
+                type: line
+                name: Température actuelle
+                group_by:
+                  duration: 30min
+                  func: avg
+
+              - entity: sensor.wiser_lts_target_temperature_bureau
+                type: column
+                opacity: 0.2
+                name: Température cible
+                group_by:
+                  duration: 30min
+                  func: avg

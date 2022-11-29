@@ -26,7 +26,7 @@ browser_mod:
           apex_config:
             chart:
               fontFamily: var(--primary-font-family)
-              height: 650px
+              height: 550px
             tooltip:
               style:
                 fontSize: 14px
@@ -64,7 +64,7 @@ browser_mod:
                 duration: 1d
                 func: max
             - entity: sensor.wiser_lts_energy_salon
-              name: Chauffage du slon (convecteur)
+              name: Chauffage du salon (convecteur)
               group_by:
                 duration: 1d
                 func: max
@@ -73,8 +73,13 @@ browser_mod:
               group_by:
                 duration: 1d
                 func: max
-            - entity: climate.actionneur_chauffage_thermostat
+            - entity: sensor.wiser_lts_energy_bureau
               name: Chauffage du bureau
+              group_by:
+                duration: 1d
+                func: max
+            - entity: sensor.wiser_lts_energy_chambre
+              name: Chauffage de la chambre
               group_by:
                 duration: 1d
                 func: max
@@ -89,7 +94,7 @@ browser_mod:
           color_list: [var(--primary-color), var(--secondary-color), var(--third-color), var(--fourth-color), var(--fifth-color)]
           apex_config:
             chart:
-              height: 650px
+              height: 550px
               fontFamily: var(--primary-font-family)
             tooltip:
               style:
@@ -136,5 +141,7 @@ browser_mod:
               name: Chauffage du salon (convecteur)
             - entity: sensor.wiser_lts_power_salon_2
               name: Chauffage du salon (inertie)
-            - entity: sensor.actionneur_chauffage_instantaneous_demand
+            - entity: sensor.wiser_lts_power_bureau
               name: Chauffage du bureau
+            - entity: sensor.wiser_lts_power_chambre
+              name: Chauffage de la chambre

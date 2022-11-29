@@ -2,7 +2,7 @@ action: fire-dom-event
 browser_mod:
   service: browser_mod.popup
   data:
-    title: Chauffage & températures
+    title: Thermostat de la chambre
     size: fullscreen
     timeout: 300000
     style: >
@@ -11,11 +11,8 @@ browser_mod:
       type: vertical-stack
       cards:
 
-          # - type: thermostat
-          #   entity: climate.wiser_salon
-
           - type: custom:simple-thermostat
-            entity: climate.wiser_salon
+            entity: climate.wiser_chambre
             header: false
             step_size: 0.5
             control:
@@ -37,29 +34,6 @@ browser_mod:
                   icon: mdi:fire
                 Boost 3h:
                   icon: mdi:fire
-
-
-          # - type: history-graph
-          #   hours_to_show: 48
-          #   entities:
-          #     - entity: climate.wiser_salon
-
-          # - type: custom:history-explorer-card
-          #   combineSameUnits: true
-          #   graphs:
-          #     - type: line
-          #       entities:
-          #         # - entity: climate.wiser_salon
-          #         - entity: sensor.wiser_lts_temperature_salon
-          #         - entity: sensor.hue_motion_sensor_1_temperature
-          #     - type: bar
-          #       title: Température cible
-          #       entities:
-          #         - entity: sensor.wiser_lts_target_temperature_salon
-          #     - type: timelines
-          #       title: Actif
-          #       entities:
-          #         - entity: sensor.wiser_heating_2
 
           - type: custom:apexcharts-card
             apex_config:
@@ -89,41 +63,17 @@ browser_mod:
                 decimals: 0
             color_list: [var(--primary-color), var(--secondary-color), var(--third-color), var(--fourth-color), var(--fifth-color)]
             series:
-              - entity: sensor.wiser_lts_temperature_salon
+              - entity: sensor.wiser_lts_temperature_chambre
                 type: line
-                name: Salon
+                name: Température actuelle
                 group_by:
                   duration: 30min
                   func: avg
-              - entity: sensor.hue_motion_sensor_1_temperature
-                type: line
-                name: Entrée
-                group_by:
-                  duration: 30min
-                  func: avg
-              - entity: sensor.wiser_lts_target_temperature_salon
+
+              - entity: sensor.wiser_lts_target_temperature_chambre
                 type: column
                 opacity: 0.2
                 name: Température cible
                 group_by:
                   duration: 30min
                   func: avg
-              - entity: sensor.hue_motion_sensor_1_temperature_2
-                type: line
-                name: Couloir
-                group_by:
-                  duration: 30min
-                  func: avg
-              
-              # - entity: sensor.paris_10eme_arrondissement_temperature
-              #   name: Extérieure
-              #   type: area
-              #   color: '#eeeeee'
-              #   opacity: 0.2
-              #   group_by:
-              #     duration: 30min
-              #     func: avg
-              # - entity: sensor.wiser_heating_2
-              #   type: column
-              #   name: Actif
-              #   transform: "return x === 'on' ? 1 : 0;"

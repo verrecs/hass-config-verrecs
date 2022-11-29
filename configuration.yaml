@@ -13,6 +13,10 @@ homeassistant:
   # allowlist_external_dirs:
   #   - /config
 
+  # customize:
+  #   climate.actionneur_chauffage_thermostat:
+  #     current_temperature: sensor.hue_motion_sensor_1_temperature_2
+
 default_config:
 zeroconf:
 wake_on_lan:
@@ -85,5 +89,5 @@ spotcast:
 logger:
   default: info
   logs:  
-    homeassistant.components.zha: info
-    zigpy: info
+    homeassistant.components.zha: debug
+    zigpy: debug

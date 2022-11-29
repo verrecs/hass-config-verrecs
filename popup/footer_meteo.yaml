@@ -61,6 +61,28 @@ browser_mod:
                     func: avg
 
                 - entity: sensor.wiser_lts_temperature_salon
+                  name: Salon
+                  curve: smooth
+                  type: line
+                  group_by:
+                    duration: 30min
+                    func: avg
+
+                - entity: sensor.wiser_lts_temperature_bureau
+                  type: line
+                  name: Bureau
+                  group_by:
+                    duration: 30min
+                    func: avg
+
+                - entity: sensor.wiser_lts_temperature_chambre
+                  type: line
+                  name: Chambre
+                  group_by:
+                    duration: 30min
+                    func: avg
+
+                - entity: sensor.hue_motion_sensor_1_temperature
                   name: Entrée
                   curve: smooth
                   type: line
@@ -68,16 +90,8 @@ browser_mod:
                     duration: 30min
                     func: avg
 
-                - entity: sensor.hue_motion_sensor_1_temperature
-                  name: Chambre
-                  curve: smooth
-                  type: line
-                  group_by:
-                    duration: 30min
-                    func: avg
-
                 - entity: sensor.hue_motion_sensor_1_temperature_2
-                  name: Bureau
+                  name: Couloir
                   curve: smooth
                   type: line
                   group_by:
