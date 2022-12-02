@@ -63,7 +63,7 @@ browser_mod:
       cards:
 
         ### Internet
-
+        
         - type: entities
           view_layout:
             grid-area: internet

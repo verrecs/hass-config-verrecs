@@ -4,25 +4,35 @@ browser_mod:
   data:
     title: Thermostat du salon
     size: fullscreen
-    # timeout: 300000
+    timeout: 500000
     style: >
       --ha-card-border-radius: 0;
     content:
       type: vertical-stack
       cards:
 
-          # - type: thermostat
-          #   entity: climate.wiser_salon
-
           - type: custom:simple-thermostat
             entity: climate.wiser_salon
+            style: |
+              ha-card {
+                --st-font-size-sensors: 20px;
+                --st-spacing: 2px;
+                --st-mode-active-background: var(--highlight-color)
+              }
             header: false
             step_size: 0.5
+            sensors:
+              - attribute: current_humidity
+                name: Humidité
+                unit: "%"
+              - attribute: boost_time_remaining
+                name: 'Boost - temps restant'
+                unit: "min"
             control:
               hvac:
                 auto: false
-                heat: true
-                  # name: Activé
+                heat: 
+                  name: Activé
                 "off": true
               preset:
                 Advance Schedule: false
@@ -38,40 +48,19 @@ browser_mod:
                 Boost 3h:
                   icon: mdi:fire
 
-
-          # - type: history-graph
-          #   hours_to_show: 48
-          #   entities:
-          #     - entity: climate.wiser_salon
-
-          # - type: custom:history-explorer-card
-          #   combineSameUnits: true
-          #   graphs:
-          #     - type: line
-          #       entities:
-          #         # - entity: climate.wiser_salon
-          #         - entity: sensor.wiser_lts_temperature_salon
-          #         - entity: sensor.hue_motion_sensor_1_temperature
-          #     - type: bar
-          #       title: Température cible
-          #       entities:
-          #         - entity: sensor.wiser_lts_target_temperature_salon
-          #     - type: timelines
-          #       title: Actif
-          #       entities:
-          #         - entity: sensor.wiser_heating_2
-
           - type: custom:apexcharts-card
             apex_config:
-                chart:
-                  height: 375px
-                  fontFamily: var(--primary-font-family)
-                tooltip:
-                  style:
-                    fontSize: 14px
-                  x:
-                    show: true
-                    format: dddd HH:mm
+              chart:
+                height: 375px
+                fontFamily: var(--primary-font-family)
+              tooltip:
+                style:
+                  fontSize: 14px
+                x:
+                  show: true
+                  format: dddd HH:mm
+            show:
+              last_updated: true
             graph_span: 3d
             locale: fr
             header:
@@ -85,37 +74,22 @@ browser_mod:
               show_states: true
               colorize_states: true
             yaxis:
-              - min : 15
-                decimals: 0
-            color_list: [var(--primary-color), var(--secondary-color), var(--third-color), var(--fourth-color), var(--fifth-color)]
+              - min : '|-1|'
+                decimals: 1
+                opposite: true
+                apex_config:
+                  tickAmount: 4
+                  labels:
+                    formatter: |
+                      EVAL:v => `${v.toFixed(0)} °C`
+            color_list: [var(--fourth-color), var(--fifth-color)]
             series:
-              # - entity: climate.wiser_salon
-              #   attribute: current_humidity
-              #   type: line
-              #   name: Humidité
-              #   group_by:
-              #     duration: 30min
-              #     func: avg
               - entity: sensor.wiser_lts_temperature_salon
                 type: line
                 name: Température actuelle
                 group_by:
                   duration: 30min
                   func: avg
-              # - entity: sensor.hue_motion_sensor_1_temperature
-              #   name: Chambre
-              #   curve: smooth
-              #   type: line
-              #   group_by:
-              #     duration: 30min
-              #     func: avg
-              
-              # - entity: sensor.hue_motion_sensor_1_temperature_2
-              #   type: line
-              #   name: Bureau
-              #   group_by:
-              #     duration: 30min
-              #     func: avg
 
               - entity: sensor.wiser_lts_target_temperature_salon
                 type: column
@@ -124,16 +98,9 @@ browser_mod:
                 group_by:
                   duration: 30min
                   func: avg
-              
-              # - entity: sensor.paris_10eme_arrondissement_temperature
-              #   name: Extérieure
-              #   type: area
-              #   color: '#eeeeee'
-              #   opacity: 0.2
-              #   group_by:
-              #     duration: 30min
-              #     func: avg
-              # - entity: sensor.wiser_heating_2
-              #   type: column
-              #   name: Actif
-              #   transform: "return x === 'on' ? 1 : 0;"
+
+          # - type: custom:scheduler-card
+          #   title: Planifications liées
+          #   tags: [salon, chauffage]
+          #   show_add_button: false
+          #   discover_existing: false

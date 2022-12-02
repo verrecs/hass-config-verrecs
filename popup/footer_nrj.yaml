@@ -83,6 +83,12 @@ browser_mod:
               group_by:
                 duration: 1d
                 func: max
+            - entity: sensor.tz3000_2putqrmw_ts011f_summation_delivered
+              name: Prise du bar
+              group_by:
+                duration: 1d
+                func: max
+
 
         - type: custom:apexcharts-card
           header:
@@ -126,7 +132,7 @@ browser_mod:
                       color: '#373d3f'
                       formatter: |
                         EVAL:function(w) {
-                          return w.globals.seriesTotals.reduce((a, b) => {return (a + b)} , 0).toFixed(1) + " W"
+                          return w.globals.seriesTotals.reduce((a, b) => {return (a + b)} , 0).toFixed(0) + " W"
                           }
           all_series_config:
             opacity: 0.1
@@ -145,3 +151,6 @@ browser_mod:
               name: Chauffage du bureau
             - entity: sensor.wiser_lts_power_chambre
               name: Chauffage de la chambre
+            - entity: sensor.tz3000_2putqrmw_ts011f_active_power
+              name: Prise du bar
+

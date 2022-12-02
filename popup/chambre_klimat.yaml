@@ -4,7 +4,7 @@ browser_mod:
   data:
     title: Thermostat de la chambre
     size: fullscreen
-    timeout: 300000
+    timeout: 500000
     style: >
       --ha-card-border-radius: 0;
     content:
@@ -13,13 +13,26 @@ browser_mod:
 
           - type: custom:simple-thermostat
             entity: climate.wiser_chambre
+            style: |
+              ha-card {
+                --st-font-size-sensors: 20px;
+                --st-spacing: 2px;
+                --st-mode-active-background: var(--highlight-color)
+              }
             header: false
             step_size: 0.5
+            sensors:
+              - attribute: current_humidity
+                name: Humidité
+                unit: "%"
+              - attribute: boost_time_remaining
+                name: 'Boost - temps restant'
+                unit: "min"
             control:
               hvac:
                 auto: false
-                heat: true
-                  # name: Activé
+                heat: 
+                  name: Activé
                 "off": true
               preset:
                 Advance Schedule: false
@@ -37,15 +50,17 @@ browser_mod:
 
           - type: custom:apexcharts-card
             apex_config:
-                chart:
-                  height: 375px
-                  fontFamily: var(--primary-font-family)
-                tooltip:
-                  style:
-                    fontSize: 14px
-                  x:
-                    show: true
-                    format: dddd HH:mm
+              chart:
+                height: 375px
+                fontFamily: var(--primary-font-family)
+              tooltip:
+                style:
+                  fontSize: 14px
+                x:
+                  show: true
+                  format: dddd HH:mm
+            show:
+              last_updated: true
             graph_span: 3d
             locale: fr
             header:
@@ -59,9 +74,15 @@ browser_mod:
               show_states: true
               colorize_states: true
             yaxis:
-              - min : 15
-                decimals: 0
-            color_list: [var(--primary-color), var(--secondary-color), var(--third-color), var(--fourth-color), var(--fifth-color)]
+              - min : '|-1|'
+                decimals: 1
+                opposite: true
+                apex_config:
+                  tickAmount: 4
+                  labels:
+                    formatter: |
+                      EVAL:v => `${v.toFixed(0)} °C`
+            color_list: [var(--fourth-color), var(--fifth-color)]
             series:
               - entity: sensor.wiser_lts_temperature_chambre
                 type: line
@@ -77,3 +98,9 @@ browser_mod:
                 group_by:
                   duration: 30min
                   func: avg
+
+          # - type: custom:scheduler-card
+          #   title: Planifications liées
+          #   tags: [salon, chauffage]
+          #   show_add_button: false
+          #   discover_existing: false

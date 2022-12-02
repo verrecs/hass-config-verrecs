@@ -37,6 +37,15 @@ browser_mod:
               brush:
                 selection_span: 30m
               color_list: [var(--primary-color), var(--secondary-color), var(--third-color), var(--fourth-color), var(--fifth-color)]
+              yaxis:
+                - min : '|-1|'
+                  decimals: 0
+                  opposite: true
+                  apex_config:
+                    tickAmount: 5
+                    labels:
+                      formatter: |
+                        EVAL:v => `${v.toFixed(0)} °C`
               series:
 
                 - entity: sensor.paris_10eme_arrondissement_temperature

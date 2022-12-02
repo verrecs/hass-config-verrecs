@@ -16,8 +16,7 @@ themes:
     fourth-color: '#A5FFD6'
     fifth-color: '#d6bbc0'
 
-
-
+    highlight-color: var(--secondary-color)
     gray-color: '#9da0a2'
     red-color: '#6d2525'
 

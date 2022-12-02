@@ -19,9 +19,16 @@ browser_mod:
           entities:
 
             - type: custom:scheduler-card
+              # title: Récurrent
+              # tags: récurrent
+              # icon: mdi:repeat
+              title: false
+              # show_header_toggle: true
+              exclude:
+                - "*plug*dndmode*"
               include:
                 - vacuum.roberto
-                - climate.wiser_salon
+                - climate
                 - light
               customize:
                 climate.wiser_salon:
@@ -112,3 +119,4 @@ browser_mod:
                   icon: "hass:ceiling-light"
                   include:
                     - light
+                  
