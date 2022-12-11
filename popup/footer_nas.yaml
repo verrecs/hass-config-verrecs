@@ -3,7 +3,7 @@ browser_mod:
   service: browser_mod.popup
   data:
     title: Geek Zone
-    timeout: 300000
+    timeout: 500000
     style: >
       --popup-max-width: calc(400px + 400px + 400px);
       --ha-card-border-radius: 0;
@@ -114,6 +114,7 @@ browser_mod:
                   icon: mdi:arrow-up-bold
                   color: var(--primary-color)
 
+            - entity: sensor.plex_nucleide
             - entity: switch.nzbget_download
             - entity: sensor.nzbget_queue_size
             - entity: sensor.nzbget_post_processing_jobs

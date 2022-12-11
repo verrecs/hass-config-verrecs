@@ -7,6 +7,7 @@ homeassistant:
   temperature_unit: C
   time_zone: Europe/Paris
   currency: EUR
+  country: FR
   packages: !include_dir_named packages
   # customize_domain:
       # initial_state: true

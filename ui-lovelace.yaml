@@ -128,6 +128,18 @@ views:
           #         entity_id: input_boolean.laundry_display
           #     template: laundry
 
+          # - type: custom:button-card
+          #   entity: sensor.ecowatt_level_today
+          #   name: Aujourd'hui
+          #   # template:
+          #   #   - footer
+          # - type: custom:button-card
+          #   entity: sensor.ecowatt_level_tomorrow
+          #   name: Demain
+          #   # template:
+          #   #   - footer
+
+
       #################################################
       #                                               #
       #                     SALON                     #
@@ -629,27 +641,30 @@ views:
             tap_action:
               !include popup/footer_nas.yaml
             triggers_update:
-              # - binary_sensor.template_udm_upgradable
               - binary_sensor.internet_ping
+              - sensor.nzbget_queue_size
+              - sensor.disk_use_percent
+              - sensor.disk_use_percent_filer
+              - sensor.processor_temperature
+              - sensor.plex_nucleide
               # - binary_sensor.nas_update_available
               # - sensor.nas_volume_1_status
               # - binary_sensor.nas_security_status
               # - sensor.disk_use_percent
+              # - binary_sensor.template_udm_upgradable
             variables:
               notify: >
                 [[[
-                  let id = states['binary_sensor.internet_ping'];
-                  if (id) return id.state === 'off';
+                  let id = this._config.triggers_update;
+                  if (id.every(e => states[e]))
+                      return states[id[0]].state === 'off'
+                        ? 1
+                        : parseFloat(states[id[1]].state) > 0 ||
+                          parseFloat(states[id[2]].state) >= 85 ||
+                          parseFloat(states[id[3]].state) >= 85 ||
+                          parseFloat(states[id[4]].state) >= 80 ||
+                          parseFloat(states[id[5]].state);
                 ]]]
-              #   [[[
-              #     let id = this._config.triggers_update;
-              #     if (id.every(e => states[e]))
-              #         return states[id[0]].state === 'on'
-              #             ? 1
-              #             : states[id[1]].state === 'background_scrubbing' ||
-              #               states[id[2]].state === 'on' ||
-              #               parseFloat(states[id[3]].state) >= 85;
-              #   ]]]
             template: footer
 
           # - type: custom:button-card
@@ -683,7 +698,7 @@ views:
 
           - type: custom:button-card
             name: >
-              <ha-icon icon="mdi:robot-vacuum-variant"></ha-icon> Aspirateur
+              <ha-icon icon="mdi:robot-vacuum"></ha-icon> Aspirateur
             tap_action:
               !include popup/footer_vacuum.yaml
             triggers_update:
