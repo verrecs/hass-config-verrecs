@@ -111,6 +111,18 @@ views:
             hide_today_section: true
             hide_forecast_section: false
 
+          - type: custom:button-card
+            name: >
+              <ha-icon icon="mdi:bell-badge"></ha-icon> Notifications
+            tap_action:
+              !include popup/footer_popup.yaml
+            # variables:
+            #   notify: >
+            #     [[[
+            #       let id = states['binary_sensor.galaxy_tab_a_plugged_in'];
+            #       if (id) return id.state === 'off';
+            #     ]]]
+            template: footer
           # - type: custom:sun-card
           #   darkMode: true
 

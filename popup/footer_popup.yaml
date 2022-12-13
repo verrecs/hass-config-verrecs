@@ -1,0 +1,16 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Popup
+    timeout: 500000
+    size: fullscreen
+    content:
+      type: grid
+      columns: 2
+      square: false
+      cards:
+
+        test
+
+
