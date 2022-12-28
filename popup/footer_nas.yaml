@@ -91,7 +91,7 @@ browser_mod:
                 fill: true
                 graph: bar
               entities:
-                - sensor.speedtest_ping
+                - sensor.speedtest_cli_ping
 
             - type: custom:mini-graph-card
               font_size: 70
@@ -105,11 +105,11 @@ browser_mod:
                 extrema: true
                 labels: false
               entities:
-                - entity: sensor.speedtest_download
+                - entity: sensor.speedtest_cli_download
                   name : Download
                   icon: mdi:arrow-down-bold
                   color: var(--secondary-color)
-                - entity: sensor.speedtest_upload
+                - entity: sensor.speedtest_cli_upload
                   name : Upload
                   icon: mdi:arrow-up-bold
                   color: var(--primary-color)

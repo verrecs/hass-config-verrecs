@@ -111,18 +111,6 @@ views:
             hide_today_section: true
             hide_forecast_section: false
 
-          - type: custom:button-card
-            name: >
-              <ha-icon icon="mdi:bell-badge"></ha-icon> Notifications
-            tap_action:
-              !include popup/footer_popup.yaml
-            # variables:
-            #   notify: >
-            #     [[[
-            #       let id = states['binary_sensor.galaxy_tab_a_plugged_in'];
-            #       if (id) return id.state === 'off';
-            #     ]]]
-            template: footer
           # - type: custom:sun-card
           #   darkMode: true
 
@@ -273,6 +261,13 @@ views:
               - light
               - icon_spot
 
+          - type: custom:button-card
+            entity: switch.prise_sapin_de_noel_switch_2
+            name: Sapin
+            template:
+              - base
+              - icon_noel
+
           # - type: custom:button-card
           #   entity: switch.imac
           #   name: Dator
@@ -315,7 +310,7 @@ views:
 
       #################################################
       #                                               #
-      #                    SOVRUM                     #
+      #                    Chauffrage                 #
       #                                               #
       #################################################
 
@@ -646,6 +641,29 @@ views:
         view_layout:
           grid-area: footer
         cards:
+
+          - type: custom:button-card
+            name: >
+              <ha-icon icon="mdi:bell-badge"></ha-icon>
+            tap_action:
+              !include popup/footer_popup.yaml
+            triggers_update:
+              - number.notifications
+            variables:
+              notify: >
+                [[[
+                  let id = states['persistent_notification|count'];
+                  if (id) 
+                    return id.state === 0
+                      ? 1
+                      : parseFloat(states[id].state);
+                ]]]
+            template: footer
+
+                # [[[
+                #   let id = states['binary_sensor.galaxy_tab_a_plugged_in'];
+                #   if (id) return id.state === 'off';
+                # ]]]
 
           - type: custom:button-card
             name: >

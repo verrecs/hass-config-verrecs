@@ -2,15 +2,53 @@ action: fire-dom-event
 browser_mod:
   service: browser_mod.popup
   data:
-    title: Popup
+    title: Notifications
     timeout: 500000
     size: fullscreen
     content:
       type: grid
-      columns: 2
+      columns: 1
       square: false
       cards:
-
-        test
-
-
+        - type: custom:home-feed-card
+          style: |
+            ha-card {
+              font-size: 70px !important;
+              line-height: 80px !important;
+            }
+            hr {
+              border-top: 0px;
+              border-bottom: 0px;
+              border-left: 0px;
+              border-right: 0px;
+              padding: 10px;
+            }
+            ha-svg-icon {
+              transform: scale(3.0)
+            }
+            hui-timestamp-display {
+              font-size: 40px;
+            }
+          show_empty: false
+          show_notification_title: false
+          compact_mode: false
+          show_icons: true
+          # id_filter: ^home_feed_.*
+          more_info_on_tap: false
+          state_color: true
+          remove_repeats: false
+          entities:
+          #   - entity: sensor.notifications_onscreen
+          #     #name: Notifications
+          #     #content_template: '{{display_name}} arrived at {{state}} ({{latitude}},{{longitude}})'
+          #     #content_template: '{{payload}}'
+          #     icon: mdi:bell-ring-outline
+          #     include_history: true
+          #     max_history: 10
+          
+        # - type: custom:button-card
+        #   name: Marquer comme vue(s)
+        #   tap_action:
+        #     action: call-service
+        #     service: script.dismiss_all_notifications
+        #   template: icon_name

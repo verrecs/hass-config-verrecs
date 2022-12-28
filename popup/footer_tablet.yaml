@@ -3,7 +3,7 @@ browser_mod:
   service: browser_mod.popup
   data:
     title: Tablette
-    timeout: 30000
+    timeout: 50000
     style: >
       --popup-max-width: 1200px;
       --ha-card-border-radius: 0;
@@ -19,7 +19,7 @@ browser_mod:
             - type: custom:slider-entity-row
               entity: number.galaxy_tab_a_screen_off_timer
               min: 2
-              max: 30
+              max: 60
 
             - entity: number.galaxy_tab_a_screen_brightness
             - entity: switch.galaxy_tab_a_motion_detection

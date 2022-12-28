@@ -50,7 +50,7 @@ browser_mod:
           yaxis:
             - id: elec
               show: true
-              max: 3000
+              max: 4000
               opposite: true
               apex_config:
                 forceNiceScale: true
@@ -149,6 +149,7 @@ browser_mod:
               yaxis_id: temp
               type: line
               color: var(--primary-color)
+              unit: '°C'
               stroke_width: 2
               show:
                 in_header: false

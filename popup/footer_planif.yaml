@@ -18,6 +18,9 @@ browser_mod:
             class: content
           entities:
 
+            # https://github.com/nielsfaber/scheduler-card
+            # https://github.com/nielsfaber/scheduler-component
+
             - type: custom:scheduler-card
               # title: Récurrent
               # tags: récurrent
@@ -54,6 +57,7 @@ browser_mod:
                             - value: "Boost 1h"
                             - value: "Boost 2h"
                             - value: "Boost 3h"
+                    
                 climate.wiser_bureau:
                   name: Bureau
                   icon: mdi:chair-rolling
@@ -90,6 +94,11 @@ browser_mod:
                               icon: "hass:fire"
                             - value: "off"
                               icon: "hass:power"
+                        # temperature:
+                        #   name: "Température"
+                        #   min: 15
+                        #   max: 25
+                        #   step: 0.5
                     - service: set_preset_mode
                       variables: 
                         preset_mode:
@@ -100,6 +109,13 @@ browser_mod:
                             - value: "Boost 1h"
                             - value: "Boost 2h"
                             - value: "Boost 3h"
+                    # - service: set_temperature
+                    #   variables:
+                    #     level:
+                    #       name: "Température"
+                    #       min: 15
+                    #       max: 25
+                    #       step: 0.5
                 vacuum.roberto:
                   # name: "Aspiration & lavage"
                   # icon: "hass:ceiling-light"

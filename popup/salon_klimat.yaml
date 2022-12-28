@@ -74,18 +74,34 @@ browser_mod:
               show_states: true
               colorize_states: true
             yaxis:
-              - min : '|-1|'
+              - id : temp
+                min : '|-1|'
                 decimals: 1
                 opposite: true
                 apex_config:
+                  title:
+                    text: Températures
                   tickAmount: 4
                   labels:
                     formatter: |
-                      EVAL:v => `${v.toFixed(0)} °C`
-            color_list: [var(--fourth-color), var(--fifth-color)]
+                      EVAL:v => `${v.toFixed(1)} °C`
+              - id : humid
+                min : '|-1|'
+                decimals: 0
+                opposite: false
+                apex_config:
+                  title:
+                    text: Humidité
+                  tickAmount: 4
+                  labels:
+                    formatter: |
+                      EVAL:v => `${v.toFixed(0)} %`
+            color_list: [var(--fourth-color), var(--fifth-color), var(--primary-color)]
             series:
               - entity: sensor.wiser_lts_temperature_salon
                 type: line
+                stroke_width: 2
+                yaxis_id: temp
                 name: Température actuelle
                 group_by:
                   duration: 30min
@@ -93,8 +109,20 @@ browser_mod:
 
               - entity: sensor.wiser_lts_target_temperature_salon
                 type: column
+                # curve: stepline
+                yaxis_id: temp
                 opacity: 0.2
                 name: Température cible
+                group_by:
+                  duration: 30min
+                  func: avg
+
+              - entity: climate.wiser_salon
+                attribute: current_humidity
+                yaxis_id: humid
+                type: line
+                name: Humidité
+                unit: '%'
                 group_by:
                   duration: 30min
                   func: avg

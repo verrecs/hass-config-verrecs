@@ -11,6 +11,17 @@ browser_mod:
       type: vertical-stack
       cards:
 
+          # - type: custom:mini-climate
+          #   entity: climate.wiser_bureau
+          #   target_temperature:
+          #     icons:
+          #       up: mdi:chevron-up
+          #       down: mdi:chevron-down
+          #     unit: '°C'
+          #     min: 17
+          #     max: 25
+          #     step: 0.5
+
           - type: custom:simple-thermostat
             entity: climate.wiser_bureau
             style: |
@@ -61,7 +72,11 @@ browser_mod:
                   format: dddd HH:mm
             show:
               last_updated: true
+            # experimental:
+            #   brush: true
             graph_span: 3d
+            # brush:
+            #   selection_span: 1d
             locale: fr
             header:
               show: false
@@ -74,27 +89,57 @@ browser_mod:
               show_states: true
               colorize_states: true
             yaxis:
-              - min : '|-1|'
+              - id : temp
+                min : '|-1|'
                 decimals: 1
                 opposite: true
                 apex_config:
+                  title:
+                    text: Températures
                   tickAmount: 4
                   labels:
                     formatter: |
-                      EVAL:v => `${v.toFixed(0)} °C`
-            color_list: [var(--fourth-color), var(--fifth-color)]
+                      EVAL:v => `${v.toFixed(1)} °C`
+              - id : humid
+                min : '|-1|'
+                decimals: 0
+                opposite: false
+                apex_config:
+                  title:
+                    text: Humidité
+                  tickAmount: 4
+                  labels:
+                    formatter: |
+                      EVAL:v => `${v.toFixed(0)} %`
+            color_list: [var(--fourth-color), var(--fifth-color), var(--primary-color)]
             series:
               - entity: sensor.wiser_lts_temperature_bureau
                 type: line
+                stroke_width: 2
+                yaxis_id: temp
                 name: Température actuelle
+                # show:
+                #   in_brush: true
                 group_by:
                   duration: 30min
                   func: avg
 
               - entity: sensor.wiser_lts_target_temperature_bureau
                 type: column
+                # curve: stepline
+                yaxis_id: temp
                 opacity: 0.2
                 name: Température cible
+                group_by:
+                  duration: 30min
+                  func: avg
+
+              - entity: climate.wiser_bureau
+                attribute: current_humidity
+                yaxis_id: humid
+                type: line
+                name: Humidité
+                unit: '%'
                 group_by:
                   duration: 30min
                   func: avg
