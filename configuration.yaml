@@ -14,10 +14,6 @@ homeassistant:
   # allowlist_external_dirs:
   #   - /config
 
-  # customize:
-  #   climate.actionneur_chauffage_thermostat:
-  #     current_temperature: sensor.hue_motion_sensor_1_temperature_2
-
 default_config:
 zeroconf:
 wake_on_lan:
@@ -55,14 +51,68 @@ lovelace:
       # { url: /hacsfiles/history-explorer-card/history-explorer-card.js,                 type: module },
       # { url: /hacsfiles/home-assistant-sun-card/home-assistant-sun-card.js,             type: module },
       # { url: https://cdn.jsdelivr.net/gh/Imbuzi/meteo-france-weather-card/dist/meteo-france-weather-card.js,     type: module },
+      { url: /hacsfiles/mini-climate-card/mini-climate-card-bundle.js?v=2.2.1,          type: module },
       { url: /hacsfiles/spotify-card/spotify-card.js,                                   type: module },
-      # { url: /hacsfiles/slovelace-home-feed-card/lovelace-home-feed-card.js,            type: js },
+      { url: /hacsfiles/lovelace-home-feed-card/lovelace-home-feed-card.js,             type: js },
       { url: /hacsfiles/mini-media-player/mini-media-player-bundle.js?v=1.16.4,         type: module },
       { url: /local/marked.min.js?v=4.1.0,                                              type: module },
       { url: /local/vanilla-tilt.min.js?v=1.7.2,                                        type: module },
       { url: /hacsfiles/scheduler-card/scheduler-card.js?v=0,                           type: module },
       { url: /local/fonts.css?v=2.1,                                                    type: css }
     ]
+
+# Configuration de la base de donnée
+# https://www.home-assistant.io/integrations/recorder/
+recorder:
+  purge_keep_days: 15 # Durée globale de conservation
+  # commit_interval: 60 # Enregistrement toutes les 60 secondes
+  auto_purge: true
+  auto_repack: true
+  include:
+    domains:
+      # - device_tracker
+      # - media_player
+      # - uptime
+      # - time_date
+      # - worldclock
+      - light
+    entity_globs:
+      - climate.*
+      - sensor.wiser*
+      - switch.wiser*
+      - sensor.*_summation_delivered*
+      - sensor.*power*
+      - sensor.*temperature*
+      - sensor.*energy*
+      - sensor.speedtest*
+      - sensor.network_throughput_*
+      - binary_sensor.trend_temp*
+
+  #   entities:
+  #     # - camera.front_door
+  #     # - sensor.home_assistant_v2_db
+  #     # - sensor.memory_free
+  #     # - sensor.memory_use
+  #     # - sensor.memory_use_percent
+  #     # - sensor.processor_use
+  #     # - weather.openweathermap
+  # exclude:
+  #   domains:
+  #     - automation
+  #     - updater
+  #     - systemmonitor
+  #     - Application mobile
+  #     - Browser mod
+  #     # - light
+  #     - script
+  #   entity_globs:
+  #     - sensor.roberto.*
+  #   entities:
+  #     - sun.sun # Don't record sun data
+  #     - sensor.last_boot # Comes from 'systemmonitor' sensor platform
+  #     - sensor.date
+  #   event_types:
+  #     - call_service # Don't record service calls
 
 zha:
   zigpy_config:
@@ -88,8 +138,8 @@ spotcast:
     #   sp_dc: !secret ming_sp_dc
     #   sp_key: !secret ming_sp_key
 
-logger:
-  default: info
-  logs:  
-    homeassistant.components.zha: debug
-    zigpy: debug
+# logger:
+#   default: info
+#   logs:  
+#     homeassistant.components.zha: debug
+#     zigpy: debug
