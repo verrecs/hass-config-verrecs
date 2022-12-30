@@ -79,15 +79,15 @@ sensor:
       - type: ipv4_address
         arg: wg0
 
-  - platform: bbox
-    name: bbox
-    monitored_variables:
-      - down_max_bandwidth
-      - up_max_bandwidth
-      - current_down_bandwidth
-      - current_up_bandwidth
-      - uptime
-      - number_of_reboots
+  # - platform: bbox
+  #   name: bbox
+  #   monitored_variables:
+  #     - down_max_bandwidth
+  #     - up_max_bandwidth
+  #     - current_down_bandwidth
+  #     - current_up_bandwidth
+  #     - uptime
+  #     - number_of_reboots
 
   # https://github.com/NemesisRE/sensor.plex_recently_added
   - platform: plex_recently_added
@@ -139,14 +139,14 @@ template:
         state_class: measurement
         state: "{{ ((states('sensor.speedtest_cli_data') | from_json).upload * 8 / 1000 / 1000) | round(2) }}"
 
-samsungtv:
-  - host: !secret tv_ip
-    turn_on_action:
-      - service: wake_on_lan.send_magic_packet
-        data:
-          mac: !secret tv_mac
-    app_list:
-      '{"Plex": "kIciSQlYEM.plex","Netflix": "11101200001", "YouTubeTV": " PvWgqxV3Xa.YouTubeTV"}'
+# samsungtv:
+#   - host: !secret tv_ip
+#     turn_on_action:
+#       - service: wake_on_lan.send_magic_packet
+#         data:
+#           mac: !secret tv_mac
+#     app_list:
+#       '{"Plex": "kIciSQlYEM.plex","Netflix": "11101200001", "YouTubeTV": " PvWgqxV3Xa.YouTubeTV"}'
 
 media_player:
   - platform: samsungtv_tizen
@@ -163,77 +163,28 @@ media_player:
     # app_list:
     #  '{"Plex": "kIciSQlYEM.plex","Netflix": "11101200001", "YouTubeTV": " PvWgqxV3Xa.YouTubeTV"}'
 
-# Définition d'un Thermostat générique avec remplacement du capteur de température par un autre capteur
-# template:
-#   - thermostat:
-#     - unique_id: custo_thermostat
-#       state: template
-#       attributes:
-#         time: >
-#           {% set hours = now().strftime('%H') %}
-#           {% set minutes = now().strftime('%M') %}
-#           <span class="time">
-#             {{ hours }}<span class="time-colon">:</span>{{ minutes }}
-#           </span>
-#         min_temp: 15
-#         max_temp: 30
-#         ac_mode: false
-#         # target_temp: 17
-#         cold_tolerance: 0.3
-#         hot_tolerance: 0
-#         min_cycle_duration:
-#           seconds: 5
-#         keep_alive:
-#           minutes: 3
-#         # initial_hvac_mode: "off"
-#         away_temp: 16
-#         precision: 0.1
+# DEPRECATED - Spotify 
+# spotify:
+#     client_id: !secret spotify_client_id
+#     client_secret: !secret spotify_secret
 
+# Spotcast https://github.com/fondberg/spotcast
+spotcast:
+  sp_dc: !secret stef_sp_dc
+  sp_key: !secret stef_sp_key
+  # country: FR #optional
+  accounts:
+    stef:
+      sp_dc: !secret stef_sp_dc
+      sp_key: !secret stef_sp_key
+    # jo:
+    #   sp_dc: !secret ming_sp_dc
+    #   sp_key: !secret ming_sp_key
 
-# climate:
-#   - platform: generic_thermostat
-#     name: bureau
-#     heater: climate.actionneur_chauffage_thermostat
-#     target_sensor: sensor.hue_motion_sensor_1_temperature_2
-#     min_temp: 15
-#     max_temp: 30
-#     ac_mode: false
-#     # target_temp: 17
-#     cold_tolerance: 0.3
-#     hot_tolerance: 0
-#     min_cycle_duration:
-#       seconds: 5
-#     keep_alive:
-#       minutes: 3
-#     # initial_hvac_mode: "off"
-#     away_temp: 16
-#     precision: 0.1
+# device_tracker:
+#   - platform: bbox
 
-# switch:
-#   - platform: wake_on_lan
-#     mac: !secret tv_mac
-
-#   - platform: template
-#     switches:
-#       netflix:
-#         friendly_name: "Netflix"
-#         value_template: >-
-#           "{{ is_state_attr('media_player.samsung_6_series_43', 'source', 'Netflix') }}"
-#         icon_template: mdi:netflix
-#         turn_on:
-#           service: media_player.select_source
-#           data:
-#             entity_id: media_player.samsung_6_series_43
-#             source: "Netflix"
-#         turn_off:
-#           service: media_player.select_source
-#           data:
-#             entity_id: media_player.samsung_6_series_43
-#             source: "TV"
-
-device_tracker:
-  - platform: bbox
-
+# Ping : connexion internet et VPN
 binary_sensor:
   - platform: ping
     name: internet_ping
@@ -261,6 +212,7 @@ binary_sensor:
     scan_interval: 15
 
   # Tendance de température : pour la détection des fenêtres ouvertes
+  # https://www.home-assistant.io/integrations/trend/
   - platform: trend
     sensors:
       trend_temp_chambre:
@@ -269,7 +221,7 @@ binary_sensor:
         friendly_name: Détection ouverture fenêtre chambre
         sample_duration: 300
         max_samples: 5
-        min_gradient: -0.0015
+        min_gradient: -0.0017
         device_class: window
 
       trend_temp_salon:
@@ -278,7 +230,7 @@ binary_sensor:
         friendly_name: Détection ouverture fenêtre salon
         sample_duration: 300
         max_samples: 5
-        min_gradient: -0.0015
+        min_gradient: -0.0017
         device_class: window
 
       trend_temp_bureau:
@@ -287,7 +239,7 @@ binary_sensor:
         friendly_name: Détection ouverture fenêtre bureau
         sample_duration: 300
         max_samples: 5
-        min_gradient: -0.0015
+        min_gradient: -0.0017
         device_class: window
 
       # temp_rising:
@@ -338,23 +290,3 @@ binary_sensor:
 # shell_command:
 #   restart_container: !secret restart_container
 #   purge_log: truncate -s 0 /config/home-assistant.log
-
-# https://github.com/ualex73/monitor_docker
-# monitor_docker:
-#   - name: Docker
-#     containers:
-#       - watchtower
-#       - home-assistant
-#       - transmission-seed
-#     monitored_conditions: allinone
-#     scan_interval: 900
-
-# automation:
-#   - alias: purge_log_filesize
-#     id: '3331821824310'
-#     trigger:
-#       platform: numeric_state
-#       entity_id: sensor.home_assistant_log_size
-#       above: 50
-#     action:
-#       service: shell_command.purge_log

@@ -95,12 +95,14 @@ browser_mod:
 
             - type: custom:mini-graph-card
               font_size: 70
-              height: 100
+              height: 75
               hours_to_show: 48
               points_per_hour: 0.25
               icon: mdi:web
               line_width: 1
               name: Débits
+              header:
+                show: false
               show:
                 extrema: true
                 labels: false

@@ -9,6 +9,8 @@ homeassistant:
   currency: EUR
   country: FR
   packages: !include_dir_named packages
+  external_url: "http://homeassistant.local:8123"  
+  internal_url: "http://192.168.1.6:8123"
   # customize_domain:
       # initial_state: true
   # allowlist_external_dirs:
@@ -18,6 +20,7 @@ default_config:
 zeroconf:
 wake_on_lan:
 zha_toolkit:
+my:
 
 frontend: !include themes.yaml
 template: !include sidebar.yaml
@@ -65,7 +68,7 @@ lovelace:
 # https://www.home-assistant.io/integrations/recorder/
 recorder:
   purge_keep_days: 15 # Durée globale de conservation
-  # commit_interval: 60 # Enregistrement toutes les 60 secondes
+  commit_interval: 60 # Enregistrement toutes les 60 secondes
   auto_purge: true
   auto_repack: true
   include:
@@ -125,18 +128,6 @@ zha:
       ledvance_provider: false
       salus_provider: false
       # ikea_update_url: http://fw.test.ota.homesmart.ikea.net/feed/version_info.json
-
-spotcast:
-  sp_dc: !secret stef_sp_dc
-  sp_key: !secret stef_sp_key
-  # country: FR #optional
-  accounts:
-    stef:
-      sp_dc: !secret stef_sp_dc
-      sp_key: !secret stef_sp_key
-    # jo:
-    #   sp_dc: !secret ming_sp_dc
-    #   sp_key: !secret ming_sp_key
 
 # logger:
 #   default: info

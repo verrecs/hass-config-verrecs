@@ -2,7 +2,7 @@ action: fire-dom-event
 browser_mod:
   service: browser_mod.popup
   data:
-    title: Thermostat du bureau
+    title: Thermostat de la chambre
     size: fullscreen
     timeout: 500000
     style: >
