@@ -53,15 +53,50 @@ browser_mod:
                   - entity_id: media_player.sonos_bedroom
                     name: Sonos Bedroom
 
-        # - type: entities
-        #   state_color: true
-        #   card_mod:
-        #     class: content
-        #   entities:
+        - type: entities
+          state_color: true
+          card_mod:
+            class: content
+          entities:
+            # https://github.com/custom-cards/spotify-card
+            - type: 'custom:spotify-card'
+              limit: 10
+              always_play_random_song: true
+              name:
+              style: |
+                :host {
+                    left: 79.5%;
+                    top: 39.8%;
+                    width: 31%;
+                    height: 62.3%;
+                    border-radius: 1vw;
+                }
+                #header{
+                    display:none !important;
+                }
+                #content{
+                    border:none !important;
+                }
+                .playback-controls{
+                    display:none !important;
+                }
+                #header-track{
+                    display:none;
+                }
+                .list-item > p{
+                    white-space: nowrap;
+                        overflow: hidden;
+                }
+                .list-item{
+                    border-radius: 0.2vw;
+                    overflow:hidden;
+                    border:none !important;
+                    margin-bottom:2px;
+                }
 
-        - type: iframe
-          url: http://192.168.1.6:8123/music-assistant
-          aspect_ratio: 100%
+        # - type: iframe
+        #   url: http://192.168.1.6:8123/music-assistant
+        #   aspect_ratio: 100%
 
             # Spotcast https://github.com/fondberg/spotcast
             # - service: spotcast.start
@@ -69,41 +104,3 @@ browser_mod:
             #     spotify_device_id: "4d6d97ff6f5e1f1dac14e619fc91616317bc8b53" #AppleTV
             #     uri: "spotify:playlist:37i9dQZF1DX3yvAYDslnv8"
             #     random_song: true
-
-            # https://github.com/custom-cards/spotify-card
-            # - type: 'custom:spotify-card'
-            #   limit: 10
-            #   always_play_random_song: true
-            #   name:
-            #   style: |
-            #     :host {
-            #         left: 79.5%;
-            #         top: 39.8%;
-            #         width: 31%;
-            #         height: 62.3%;
-            #         border-radius: 1vw;
-            #     }
-            #     #header{
-            #         display:none !important;
-            #     }
-            #     #content{
-            #         border:none !important;
-            #     }
-            #     .playback-controls{
-            #         display:none !important;
-            #     }
-            #     #header-track{
-            #         display:none;
-            #     }
-            #     .list-item > p{
-            #         white-space: nowrap;
-            #             overflow: hidden;
-            #     }
-            #     .list-item{
-            #         border-radius: 0.2vw;
-            #         overflow:hidden;
-            #         border:none !important;
-            #         margin-bottom:2px;
-            #     }
-
-

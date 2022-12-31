@@ -555,16 +555,37 @@ views:
               show_state: true
               tap_action:
                 action: call-service
-                service: spotcast.start
-                data:
-                  spotify_device_id: !secret spotify_device_apple_tv
-                  force_playback: true
-                  device_name: "Apple TV"
-                  # uri: "spotify:playlist:37i9dQZF1DX3yvAYDslnv8"
-                  # random_song: true
+                service: browser_mod.sequence
+                service_data:
+                  sequence:
+                    - service: browser_mod.notification
+                      data:
+                        message: Spotify STeF...
+                    - service: script.new_spotify_stef
+                      data:
+                        entity_id: script.new_spotify_stef
+                    # - !include popup/footer_spotify.yaml
+                browser_id: work-chrome
               template:
-                - media
+                - base
                 - icon_spotify
+
+                  
+
+            # WORKING
+            # - type: custom:button-card  
+            #   entity: input_boolean.spotify_stef_state
+            #   name: "STeF"
+            #   show_state: true
+            #   tap_action:
+            #     action: call-service
+            #     service: media_player.select_source
+            #     service_data:
+            #       source: Spotify - Musique et podcasts
+            #       entity_id: media_player.samsung_6_series_43
+            #   template:
+            #     - media
+            #     - icon_spotify
 
             # - type: custom:button-card  
             #   entity: input_boolean.spotify_stef_state

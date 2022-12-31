@@ -139,21 +139,21 @@ template:
         state_class: measurement
         state: "{{ ((states('sensor.speedtest_cli_data') | from_json).upload * 8 / 1000 / 1000) | round(2) }}"
 
-# samsungtv:
-#   - host: !secret tv_ip
-#     turn_on_action:
-#       - service: wake_on_lan.send_magic_packet
-#         data:
-#           mac: !secret tv_mac
-#     app_list:
-#       '{"Plex": "kIciSQlYEM.plex","Netflix": "11101200001", "YouTubeTV": " PvWgqxV3Xa.YouTubeTV"}'
+samsungtv:
+  - host: !secret tv_ip
+    turn_on_action:
+      - service: wake_on_lan.send_magic_packet
+        data:
+          mac: !secret tv_mac
+    # app_list:
+    #   '{"Plex": "kIciSQlYEM.plex","Netflix": "11101200001", "YouTubeTV": " PvWgqxV3Xa.YouTubeTV"}'
 
-media_player:
-  - platform: samsungtv_tizen
-    name: samsung_tv_salon
-    # device_id: 47f56a24-c389-4ea4-84d0-01c4af42abd8
-    host: 192.168.1.57
-    mac: 9c:8c:6e:29:3a:30
+# media_player:
+#   - platform: samsungtv_tizen
+#     name: samsung_tv_salon
+#     # device_id: 47f56a24-c389-4ea4-84d0-01c4af42abd8
+#     host: 192.168.1.57
+#     mac: 9c:8c:6e:29:3a:30
     # api_key: 4c8ba490-fe54-4362-aeeb-cae76327d808
     # update_method: smartthings
     # turn_on_action:
