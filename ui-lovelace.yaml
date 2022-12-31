@@ -554,18 +554,7 @@ views:
               name: "STeF"
               show_state: true
               tap_action:
-                action: call-service
-                service: browser_mod.sequence
-                service_data:
-                  sequence:
-                    - service: browser_mod.notification
-                      data:
-                        message: Spotify STeF...
-                    - service: script.new_spotify_stef
-                      data:
-                        entity_id: script.new_spotify_stef
-                    # - !include popup/footer_spotify.yaml
-                browser_id: work-chrome
+                !include popup/footer_spotify.yaml
               template:
                 - base
                 - icon_spotify

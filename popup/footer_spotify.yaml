@@ -1,106 +1,115 @@
 action: fire-dom-event
 browser_mod:
-  service: browser_mod.popup
+  service: browser_mod.sequence
   data:
-    title: Spotify
-    # timeout: 300000
-    style: >
-      --popup-max-width: 1200px;
-      --ha-card-border-radius: 0;
-    content:
-      type: grid
-      columns: 2
-      square: false
-      cards:
-        - type: entities
-          state_color: true
-          card_mod:
-            class: content
-          entities:
-            # https://github.com/kalkih/mini-media-player
-            - type: custom:mini-media-player
-              entity: media_player.spotify_stephane_verrecchia
-              artwork: full-cover
-              # scale: 4
-              hide:
-                power: true
-                progress: false
-                runtime: false
-                # volume: true
-                # source: true
-              style: |
-                ha-card{
-                  border-radius: 1vw !important;
-                  overflow: hidden !important;
-                  width: 600px;
-                  height: 600px;
-                }
-                :host #primaryProgress{
-                  background: #474A52 !important;
-                }
-              speaker_group:
-                platform: sonos
-                show_group_count: true
+    sequence:
+      - service: browser_mod.notification
+        data:
+          message: Spotify STeF...
+      - service: script.new_spotify_stef
+        data:
+          entity_id: script.new_spotify_stef
+      - service: browser_mod.popup
+        data:
+          title: Spotify
+          # timeout: 300000
+          style: >
+            --popup-max-width: 1200px;
+            --ha-card-border-radius: 0;
+          content:
+            type: grid
+            columns: 2
+            square: false
+            cards:
+              - type: entities
+                state_color: true
+                card_mod:
+                  class: content
                 entities:
-                  - entity_id: media_player.apple_tv_salon
-                    name: Apple TV
-                  - entity_id: media_player.sonos_livingroom
-                    name: Sonos Livingroom
-                  - entity_id: media_player.sonos_kitchen
-                    name: Sonos Kitchen
-                  - entity_id: media_player.sonos_bathroom
-                    name: Sonos Bathroom
-                  - entity_id: media_player.sonos_bedroom
-                    name: Sonos Bedroom
+                  # https://github.com/kalkih/mini-media-player
+                  - type: custom:mini-media-player
+                    entity: media_player.spotify_stephane_verrecchia
+                    artwork: full-cover
+                    # scale: 4
+                    hide:
+                      power: true
+                      progress: false
+                      runtime: false
+                      # volume: true
+                      # source: true
+                    style: |
+                      ha-card{
+                        border-radius: 1vw !important;
+                        overflow: hidden !important;
+                        width: 600px;
+                        height: 600px;
+                      }
+                      :host #primaryProgress{
+                        background: #474A52 !important;
+                      }
+                    speaker_group:
+                      platform: sonos
+                      show_group_count: true
+                      entities:
+                        - entity_id: media_player.apple_tv_salon
+                          name: Apple TV
+                        - entity_id: media_player.sonos_livingroom
+                          name: Sonos Livingroom
+                        - entity_id: media_player.sonos_kitchen
+                          name: Sonos Kitchen
+                        - entity_id: media_player.sonos_bathroom
+                          name: Sonos Bathroom
+                        - entity_id: media_player.sonos_bedroom
+                          name: Sonos Bedroom
 
-        - type: entities
-          state_color: true
-          card_mod:
-            class: content
-          entities:
-            # https://github.com/custom-cards/spotify-card
-            - type: 'custom:spotify-card'
-              limit: 10
-              always_play_random_song: true
-              name:
-              style: |
-                :host {
-                    left: 79.5%;
-                    top: 39.8%;
-                    width: 31%;
-                    height: 62.3%;
-                    border-radius: 1vw;
-                }
-                #header{
-                    display:none !important;
-                }
-                #content{
-                    border:none !important;
-                }
-                .playback-controls{
-                    display:none !important;
-                }
-                #header-track{
-                    display:none;
-                }
-                .list-item > p{
-                    white-space: nowrap;
-                        overflow: hidden;
-                }
-                .list-item{
-                    border-radius: 0.2vw;
-                    overflow:hidden;
-                    border:none !important;
-                    margin-bottom:2px;
-                }
+              - type: entities
+                state_color: true
+                card_mod:
+                  class: content
+                entities:
+                  # https://github.com/custom-cards/spotify-card
+                  - type: 'custom:spotify-card'
+                    limit: 10
+                    always_play_random_song: true
+                    name:
+                    style: |
+                      :host {
+                          left: 79.5%;
+                          top: 39.8%;
+                          width: 31%;
+                          height: 62.3%;
+                          border-radius: 1vw;
+                      }
+                      #header{
+                          display:none !important;
+                      }
+                      #content{
+                          border:none !important;
+                      }
+                      .playback-controls{
+                          display:none !important;
+                      }
+                      #header-track{
+                          display:none;
+                      }
+                      .list-item > p{
+                          white-space: nowrap;
+                              overflow: hidden;
+                      }
+                      .list-item{
+                          border-radius: 0.2vw;
+                          overflow:hidden;
+                          border:none !important;
+                          margin-bottom:2px;
+                      }
 
-        # - type: iframe
-        #   url: http://192.168.1.6:8123/music-assistant
-        #   aspect_ratio: 100%
+              # - type: iframe
+              #   url: http://192.168.1.6:8123/music-assistant
+              #   aspect_ratio: 100%
 
-            # Spotcast https://github.com/fondberg/spotcast
-            # - service: spotcast.start
-            #   data:
-            #     spotify_device_id: "4d6d97ff6f5e1f1dac14e619fc91616317bc8b53" #AppleTV
-            #     uri: "spotify:playlist:37i9dQZF1DX3yvAYDslnv8"
-            #     random_song: true
+                  # Spotcast https://github.com/fondberg/spotcast
+                  # - service: spotcast.start
+                  #   data:
+                  #     spotify_device_id: "4d6d97ff6f5e1f1dac14e619fc91616317bc8b53" #AppleTV
+                  #     uri: "spotify:playlist:37i9dQZF1DX3yvAYDslnv8"
+                  #     random_song: true

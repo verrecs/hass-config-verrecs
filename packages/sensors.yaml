@@ -148,7 +148,7 @@ samsungtv:
     # app_list:
     #   '{"Plex": "kIciSQlYEM.plex","Netflix": "11101200001", "YouTubeTV": " PvWgqxV3Xa.YouTubeTV"}'
 
-# media_player:
+# DEPRECATED - media_player:
 #   - platform: samsungtv_tizen
 #     name: samsung_tv_salon
 #     # device_id: 47f56a24-c389-4ea4-84d0-01c4af42abd8
