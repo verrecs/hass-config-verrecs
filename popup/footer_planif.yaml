@@ -25,13 +25,13 @@ browser_mod:
               # title: Récurrent
               # tags: récurrent
               # icon: mdi:repeat
-              title: false
+              # title: false
               # show_header_toggle: true
-              exclude:
-                - "*plug*dndmode*"
+              # exclude:
+              #   - "*plug*dndmode*"
               include:
                 - vacuum.roberto
-                - climate
+                - climate.wiser_salon
                 - light
               customize:
                 climate.wiser_salon:

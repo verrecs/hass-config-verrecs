@@ -670,6 +670,13 @@ views:
                 ]]]
             template: footer
 
+          - type: custom:button-card
+            name: >
+              <ha-icon icon="mdi:wifi"></ha-icon>
+            tap_action:
+              !include popup/footer_wifi.yaml
+            template: footer
+
                 # [[[
                 #   let id = states['binary_sensor.galaxy_tab_a_plugged_in'];
                 #   if (id) return id.state === 'off';

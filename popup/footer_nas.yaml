@@ -3,10 +3,11 @@ browser_mod:
   service: browser_mod.popup
   data:
     title: Geek Zone
+    size: fullscreen
     timeout: 500000
-    style: >
-      --popup-max-width: calc(400px + 400px + 400px);
-      --ha-card-border-radius: 0;
+    # style: >
+    #   --popup-max-width: calc(400px + 400px + 400px);
+    #   --ha-card-border-radius: 0;
     card_mod:
       style:
         layout-card:
@@ -47,7 +48,7 @@ browser_mod:
       layout_type: custom:grid-layout
       layout:
         margin: 0
-        grid-template-columns: 400px 400px 400px
+        grid-template-columns: 450px 400px 450px
         grid-template-rows: 1fr
         grid-template-areas: |
           "internet vpn nuc"

@@ -16,7 +16,7 @@ browser_mod:
             title: Historique des 15 derniers jours
             show_states: true
             colorize_states: true
-          graph_span: 7d
+          graph_span: 15d
           update_interval: 1d
           stacked : true
           locale: fr
@@ -35,12 +35,14 @@ browser_mod:
             tooltip:
               enable: true
               shared: true
+              enabledOnSeries: [0,1,2,3,4,5,6,7,8]
               style:
                 fontSize: 14px
               x:
                 show: true
                 format: 'dddd d MMMM'
               y:
+                show: true
                 formatter: |
                   function(value, { series, seriesIndex, dataPointIndex, w }) {
                     return value
@@ -50,7 +52,7 @@ browser_mod:
           yaxis:
             - id: elec
               show: true
-              max: 4000
+              max: 4500
               opposite: true
               apex_config:
                 forceNiceScale: true

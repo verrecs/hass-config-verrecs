@@ -1,0 +1,17 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Code WIFI
+    size: fullscreen
+    content:
+      type: grid
+      columns: 2
+      square: false
+      cards:
+
+        - type: picture
+          image: /local/img/Jo_STeF-qrcode.png
+
+        - type: picture
+          image: /local/img/Jo_STeF-2GHz-qrcode.png
