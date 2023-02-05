@@ -2,10 +2,11 @@ action: fire-dom-event
 browser_mod:
   service: browser_mod.popup
   data:
-    title: Code WIFI
+    title: Programmer un téléchargement
+    timeout: 500000
     style: >
-      --popup-max-width: 650px;
-      --popup-min-width: 650px;
+      --popup-max-width: 700px;
+      --popup-min-width: 700px;
       --ha-card-border-radius: 0;
     card_mod:
       style:
@@ -50,19 +51,31 @@ browser_mod:
         --mdc-typography-button-font-size: 14px
       tabs:
         - card:
-            ### 5Gh
+            ### Serie
             type: vertical-stack
             cards:
-              - type: picture
-                image: /local/img/Jo_STeF-qrcode.png
-          attributes:
-            label: 5 GHz
+              - type: iframe
+                card_mod:
+                  # style: |
+                  #   .type-iframe {
+                  #     border: 2px solid red;
 
+                  #     .PageHeader-header-JYJAc {
+                  #       visibility: hidden;
+                  #     }
+                  #   }
+                    
+                url: http://192.168.1.6:8989/add/new
+                aspect_ratio: 100%
+          attributes:
+            label: Ajouter une série
         - card:
-            ### 2Gh
+            ### Film
             type: vertical-stack
             cards:
-              - type: picture
-                image: /local/img/Jo_STeF-2GHz-qrcode.png
+              - type: iframe
+                url: http://192.168.1.6:7878/add/new
+                aspect_ratio: 100%
+          
           attributes:
-            label: 2 GHz
+            label: Ajouter un film

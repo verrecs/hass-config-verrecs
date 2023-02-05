@@ -48,7 +48,7 @@ browser_mod:
       layout_type: custom:grid-layout
       layout:
         margin: 0
-        grid-template-columns: 450px 400px 450px
+        grid-template-columns: 40% 20% 40%
         grid-template-rows: 1fr
         grid-template-areas: |
           "internet vpn nuc"

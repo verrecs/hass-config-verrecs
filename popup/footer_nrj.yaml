@@ -10,6 +10,7 @@ browser_mod:
       square: false
       cards:
 
+        # https://github.com/RomRider/apexcharts-card
         - type: custom:apexcharts-card
           header:
             show: true
@@ -27,15 +28,16 @@ browser_mod:
             chart:
               fontFamily: var(--primary-font-family)
               height: 550px
-            xaxis:
-              labels:
-                show: false
+            # xaxis:
+            #   labels:
+            #     show: false
                 # datetimeFormatter:
                 #   day: 'dddd'
             tooltip:
               enable: true
               shared: true
-              enabledOnSeries: [0,1,2,3,4,5,6,7,8]
+              intersect: false
+              # enabledOnSeries: [0,1,2,3,4,5,6,7,8]
               style:
                 fontSize: 14px
               x:
@@ -43,16 +45,22 @@ browser_mod:
                 format: 'dddd d MMMM'
               y:
                 show: true
-                formatter: |
-                  function(value, { series, seriesIndex, dataPointIndex, w }) {
-                    return value
-                  }
+                # formatter: |
+                #   function({ series, seriesIndex, dataPointIndex, w }) {
+                #     let currentTotal = 0
+                #     series.forEach((s) => {
+                #       currentTotal += s[dataPointIndex]
+                #     })
+                #     return '<div class="custom-tooltip">' +
+                #       '<span><b>Total: </b>' + currentTotal + '</span>' +
+                #       '</div>'
+                #   }
             legend:
               show : false 
           yaxis:
             - id: elec
               show: true
-              max: 4500
+              max: 5500
               opposite: true
               apex_config:
                 forceNiceScale: true
@@ -60,18 +68,18 @@ browser_mod:
                 labels:
                   formatter: |
                     EVAL:v => `${v.toFixed(0)} kWh`
-            - id : temp
-              show: true
-              apex_config:
-                title:
-                  text: Température extérieure
-                forceNiceScale: true
-                decimalsInFloat: 0
-                labels:
-                  style:
-                    color: var(--primary-color)
-                  formatter: |
-                    EVAL:v => `${v.toFixed(0)} °C`
+            # - id : temp
+            #   show: true
+            #   apex_config:
+            #     title:
+            #       text: Température extérieure
+            #     forceNiceScale: true
+            #     decimalsInFloat: 0
+            #     labels:
+            #       style:
+            #         color: var(--primary-color)
+            #       formatter: |
+            #         EVAL:v => `${v.toFixed(0)} °C`
           all_series_config:
             type: column
             opacity: 0.2
@@ -131,13 +139,13 @@ browser_mod:
               group_by:
                 duration: 1d
                 func: max
-            - entity: sensor.tz3000_2putqrmw_ts011f_summation_delivered
-              name: Prise du bar
-              stroke_width: 1
-              yaxis_id: elec
-              group_by:
-                duration: 1d
-                func: max
+            # - entity: sensor.tz3000_2putqrmw_ts011f_summation_delivered
+            #   name: Prise du bar
+            #   stroke_width: 1
+            #   yaxis_id: elec
+            #   group_by:
+            #     duration: 1d
+            #     func: max
             - entity: sensor.prise_chambre_2_summation_delivered_2
               name: Prise de la chambre (entrée)
               stroke_width: 1
@@ -146,19 +154,19 @@ browser_mod:
                 duration: 1d
                 func: max
 
-            - entity: sensor.paris_10eme_arrondissement_temperature
-              name: Température extérieure
-              yaxis_id: temp
-              type: line
-              color: var(--primary-color)
-              unit: '°C'
-              stroke_width: 2
-              show:
-                in_header: false
-              opacity: 1
-              group_by:
-                duration: 1d
-                func: avg
+            # - entity: sensor.paris_10eme_arrondissement_temperature
+            #   name: Température extérieure
+            #   yaxis_id: temp
+            #   type: line
+            #   color: var(--primary-color)
+            #   unit: '°C'
+            #   stroke_width: 2
+            #   show:
+            #     in_header: false
+            #   opacity: 1
+            #   group_by:
+            #     duration: 1d
+            #     func: avg
 
         - type: custom:apexcharts-card
           header:
@@ -220,8 +228,8 @@ browser_mod:
               name: Chauffage du bureau
             - entity: sensor.wiser_lts_power_chambre
               name: Chauffage de la chambre
-            - entity: sensor.tz3000_2putqrmw_ts011f_active_power
-              name: Prise du bar
+            # - entity: sensor.tz3000_2putqrmw_ts011f_active_power
+            #   name: Prise du bar
             - entity: sensor.prise_chambre_2_active_power_2
               name: Prise de la chambre (entrée)
 

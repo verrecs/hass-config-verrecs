@@ -116,20 +116,20 @@ browser_mod:
                     #       min: 15
                     #       max: 25
                     #       step: 0.5
-                vacuum.roberto:
-                  # name: "Aspiration & lavage"
-                  # icon: "hass:ceiling-light"
-                  actions:
-                    - service: turn_on
-                      service_data:
-                        brightness: 100 # note that brightness is from 0-255 so 100 = 40%
-                      name: "Aspiration & lavage"
-                      icon: "hass:lightbulb-on-outline"
-                    - service: turn_on
-                      service_data:
-                        brightness: 100 # note that brightness is from 0-255 so 100 = 40%
-                      name: "Aspiration"
-                      icon: "hass:lightbulb-on-outline"
+                # vacuum.roberto:
+                #   # name: "Aspiration & lavage"
+                #   # icon: "hass:ceiling-light"
+                #   actions:
+                #     - service: turn_on
+                #       service_data:
+                #         brightness: 100 # note that brightness is from 0-255 so 100 = 40%
+                #       name: "Aspiration & lavage"
+                #       icon: "hass:lightbulb-on-outline"
+                #     - service: turn_on
+                #       service_data:
+                #         brightness: 100 # note that brightness is from 0-255 so 100 = 40%
+                #       name: "Aspiration"
+                #       icon: "hass:lightbulb-on-outline"
               groups:
                 - name: "Lumières"
                   icon: "hass:ceiling-light"

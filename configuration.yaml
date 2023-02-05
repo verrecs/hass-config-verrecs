@@ -60,7 +60,8 @@ lovelace:
       { url: /hacsfiles/mini-media-player/mini-media-player-bundle.js?v=1.16.4,         type: module },
       { url: /local/marked.min.js?v=4.1.0,                                              type: module },
       { url: /local/vanilla-tilt.min.js?v=1.7.2,                                        type: module },
-      { url: /hacsfiles/scheduler-card/scheduler-card.js?v=0,                           type: module },
+      { url: /hacsfiles/scheduler-card/scheduler-card.js,                               type: module },
+      { url: /hacsfiles/tabbed-card/tabbed-card.js,                                     type: module },
       { url: /local/fonts.css?v=2.1,                                                    type: css }
     ]
 
