@@ -48,10 +48,11 @@ browser_mod:
       layout_type: custom:grid-layout
       layout:
         margin: 0
-        grid-template-columns: 40% 20% 40%
+        # grid-template-columns: 40% 20% 40%
+        grid-template-columns: 50% 50%
         grid-template-rows: 1fr
         grid-template-areas: |
-          "internet vpn nuc"
+          "internet nuc"
         mediaquery:
           #portrait
           "(max-width: 1200px)":
@@ -59,7 +60,6 @@ browser_mod:
             grid-template-rows: repeat(3, 1fr)
             grid-template-areas: |
               "internet"
-              "vpn"
               "nuc"
       cards:
 
@@ -120,95 +120,99 @@ browser_mod:
             - entity: sensor.plex_nucleide
             - entity: switch.nzbget_download
             - entity: sensor.nzbget_queue_size
-            - entity: sensor.nzbget_post_processing_jobs
+            # - entity: sensor.nzbget_post_processing_jobs
 
         ### VPN
 
-        - type: entities
-          view_layout:
-            grid-area: vpn
-          title: VPN
-          state_color: true
-          show_header_toggle: false
-          card_mod:
-            class: header
-          entities:
+        # - type: entities
+        #   view_layout:
+        #     grid-area: vpn
+        #   title: VPN
+        #   state_color: true
+        #   show_header_toggle: false
+        #   card_mod:
+        #     class: header
+        #   entities:
 
-            - entity: sensor.ipv4_address_wg0
-              name: Nucleide
+        #     - entity: sensor.ipv4_address_wg0
+        #       name: Nucleide
 
-            - entity: binary_sensor.vpn_stef_iphone_perso
-              secondary_info: last-changed
-              name: STeF iPhone
+        #     - entity: binary_sensor.connexion_s_vpn
+        #       secondary_info: last-changed
+        #       name: Connexion(s) VPN
 
-            # - entity: binary_sensor.vpn_stef_iphone_pro
-            #   secondary_info: last-changed
-            #   name: STeF iPhone Pro
+        #     - entity: binary_sensor.vpn_stef_iphone_perso
+        #       secondary_info: last-changed
+        #       name: STeF iPhone
 
-            - entity: binary_sensor.vpn_stef_macbook
-              secondary_info: last-changed
-              name: STeF Macbook
+        #     # - entity: binary_sensor.vpn_stef_iphone_pro
+        #     #   secondary_info: last-changed
+        #     #   name: STeF iPhone Pro
 
-            - entity: binary_sensor.vpn_sonia
-              secondary_info: last-changed
-              name: Sonia
+        #     - entity: binary_sensor.vpn_stef_macbook
+        #       secondary_info: last-changed
+        #       name: STeF Macbook
 
-          footer:
-            type: custom:apexcharts-card
-            layout: minimal
-            graph_span: 6h
-            # update_delay: 1s
-            # update_interval: 1s
-            locale: fr
-            apex_config:
-              chart:
-                fontFamily: var(--primary-font-family)
-                height: 300px
-              tooltip:
-                style:
-                  fontSize: 14px
-                x:
-                  show: true
-                  format: dddd HH:mm
-              xaxis:
-                crosshairs:
-                  show: false
-              legend:
-                fontSize: 14px
-                fontWeight: 500
-                itemMargin:
-                  horizontal: 25
-                markers:
-                  width: 26
-                  height: 23
-                  customHTML:
-                    - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-                    - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-                  fillColors:
-                    - none
-                    - none
-              fill:
-                type: gradient
-                gradient:
-                  type: vertical
-                  opacityFrom: 0.8
-                  opacityTo: 0
-                  stops:
-                    - 0
-                    - 99
-                    - 100
-              stroke:
-                width: 1
-            all_series_config:
-              type: area
-              fill_raw: last
-            series:
-              - entity: sensor.network_throughput_in_wg0
-                name: Down
-                color: var(--secondary-color)
-              - entity: sensor.network_throughput_out_wg0
-                name: Up
-                color: var(--primary-color)
+        #     - entity: binary_sensor.vpn_sonia
+        #       secondary_info: last-changed
+        #       name: Sonia
+
+        #   footer:
+        #     type: custom:apexcharts-card
+        #     layout: minimal
+        #     graph_span: 6h
+        #     # update_delay: 1s
+        #     # update_interval: 1s
+        #     locale: fr
+        #     apex_config:
+        #       chart:
+        #         fontFamily: var(--primary-font-family)
+        #         height: 300px
+        #       tooltip:
+        #         style:
+        #           fontSize: 14px
+        #         x:
+        #           show: true
+        #           format: dddd HH:mm
+        #       xaxis:
+        #         crosshairs:
+        #           show: false
+        #       legend:
+        #         fontSize: 14px
+        #         fontWeight: 500
+        #         itemMargin:
+        #           horizontal: 25
+        #         markers:
+        #           width: 26
+        #           height: 23
+        #           customHTML:
+        #             - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+        #             - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+        #           fillColors:
+        #             - none
+        #             - none
+        #       fill:
+        #         type: gradient
+        #         gradient:
+        #           type: vertical
+        #           opacityFrom: 0.8
+        #           opacityTo: 0
+        #           stops:
+        #             - 0
+        #             - 99
+        #             - 100
+        #       stroke:
+        #         width: 1
+        #     all_series_config:
+        #       type: area
+        #       fill_raw: last
+        #     series:
+        #       - entity: sensor.network_throughput_in_wg0
+        #         name: Down
+        #         color: var(--secondary-color)
+        #       - entity: sensor.network_throughput_out_wg0
+        #         name: Up
+        #         color: var(--primary-color)
 
         ### NUCleide
 
@@ -279,7 +283,10 @@ browser_mod:
 
             - entity: sensor.processor_temperature
             - entity: sensor.last_boot
-            - entity: sensor.ipv4_address_eno1
+            # - entity: sensor.ipv4_address_eno1
+            - entity: binary_sensor.connexion_s_vpn
+              secondary_info: last-changed
+              name: Connexion(s) VPN
 
           footer:
             type: custom:apexcharts-card
@@ -288,6 +295,7 @@ browser_mod:
             # update_delay: 1s
             # update_interval: 1s
             locale: fr
+            color_list: [var(--secondary-color), var(--primary-color), var(--third-color), var(--fifth-color), var(--fourth-color)]
             apex_config:
               chart:
                 fontFamily: var(--primary-font-family)
@@ -302,19 +310,21 @@ browser_mod:
                 crosshairs:
                   show: false
               legend:
-                fontSize: 14px
-                fontWeight: 500
+                fontSize: 11px
+                # fontWeight: 500
                 itemMargin:
                   horizontal: 25
-                markers:
-                  width: 26
-                  height: 23
-                  customHTML:
-                    - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-                    - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-                  fillColors:
-                    - none
-                    - none
+                # markers:
+                #   width: 26
+                #   height: 23
+                #   customHTML:
+                #     - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+                #     - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+                #     - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+                #     - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+                #   fillColors:
+                #     - none
+                #     - none
               fill:
                 type: gradient
                 gradient:
@@ -333,7 +343,9 @@ browser_mod:
             series:
               - entity: sensor.network_throughput_in_eno1
                 name: Down
-                color: var(--secondary-color)
               - entity: sensor.network_throughput_out_eno1
                 name: Up
-                color: var(--primary-color)
+              - entity: sensor.network_throughput_in_wg0
+                name: Down (VPN)
+              - entity: sensor.network_throughput_out_wg0
+                name: Up (VPN)

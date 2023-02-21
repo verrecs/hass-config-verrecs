@@ -479,7 +479,7 @@ views:
                       !include popup/footer_download.yaml
                     template:
                       - base
-                      - icon_tv
+                      - icon_download
                       - loader
 
               - type: grid

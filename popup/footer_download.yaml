@@ -5,7 +5,7 @@ browser_mod:
     title: Programmer un téléchargement
     timeout: 500000
     style: >
-      --popup-max-width: 700px;
+      --popup-max-width: 900px;
       --popup-min-width: 700px;
       --ha-card-border-radius: 0;
     card_mod:
@@ -56,15 +56,10 @@ browser_mod:
             cards:
               - type: iframe
                 card_mod:
-                  # style: |
-                  #   .type-iframe {
-                  #     border: 2px solid red;
-
-                  #     .PageHeader-header-JYJAc {
-                  #       visibility: hidden;
-                  #     }
-                  #   }
-                    
+                  style: |
+                    #root {
+                      margin-top:-60px;
+                    }                    
                 url: http://192.168.1.6:8989/add/new
                 aspect_ratio: 100%
           attributes:
@@ -74,6 +69,11 @@ browser_mod:
             type: vertical-stack
             cards:
               - type: iframe
+                card_mod:
+                  style: |
+                    #root {
+                      margin-top:-60px;
+                    } 
                 url: http://192.168.1.6:7878/add/new
                 aspect_ratio: 100%
           
