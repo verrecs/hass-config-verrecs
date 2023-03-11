@@ -135,3 +135,9 @@ zha:
 #   logs:  
 #     homeassistant.components.zha: debug
 #     zigpy: debug
+
+logger:
+  default: warning
+  logs:
+    custom_components.localtuya: debug
+    custom_components.localtuya.pytuya: debug

@@ -1,0 +1,78 @@
+action: fire-dom-event
+browser_mod:
+  service: browser_mod.popup
+  data:
+    title: Music assistant
+    timeout: 500000
+    size: fullscreen
+    # card_mod:
+    #   style:
+    #     layout-card:
+    #       $grid-layout$:
+    #         # card divider border
+    #         .: |
+    #           #root {
+    #               margin: -24px 0 !important;
+    #           }
+    #         hui-entities-card:
+    #           $: |
+    #             .card-content {
+    #               padding: var(--tablet-popup-content-padding);
+    #               padding-bottom: 0.8em;
+    #             }
+    #             ha-card {
+    #               border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+    #               border-radius: 0;
+    #               transition: none;
+    #             }
+    #             /* portrait */
+    #             @media screen and (max-width: 1200px) {
+    #               ha-card {
+    #                 border-right: none;
+    #                 border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+    #               }
+    #             }
+    #           $hui-horizontal-stack-card:
+    #             # horizontal bottom buttons
+    #             $: |
+    #               #root {
+    #                 justify-content: space-evenly;
+    #                 margin-top: 1.7em;
+    #                 max-width: 82vw; /* iphonex */
+    #               }
+    content:
+      type: custom:tabbed-card
+      styles:
+        --mdc-theme-primary: var(--primary-text-color)
+        --mdc-tab-text-label-color-default: rgba(var(--rgb-primary-text-color), 0.8)
+        --mdc-typography-button-font-size: 14px
+      tabs:
+        - card:
+            ### Serie
+            type: vertical-stack
+            cards:
+              - type: iframe
+                card_mod:
+                  style: |
+                    #root {
+                      margin-top:-60px;
+                    }                    
+                url: http://192.168.1.6:8123/music-assistant
+                aspect_ratio: 100%
+          attributes:
+            label: Stéphane
+        - card:
+            ### Film
+            type: vertical-stack
+            cards:
+              - type: iframe
+                card_mod:
+                  style: |
+                    #root {
+                      margin-top:-60px;
+                    } 
+                url: http://192.168.1.6:7878/add/new
+                aspect_ratio: 100%
+          
+          attributes:
+            label: Jo

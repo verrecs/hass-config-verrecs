@@ -3,7 +3,7 @@ browser_mod:
   service: browser_mod.popup
   data:
     title: Philippo, l'aspiro déglingo
-    timeout: 600000
+    timeout: 180000
     style: |
       --popup-max-width: calc(385px + 800px);
 # 

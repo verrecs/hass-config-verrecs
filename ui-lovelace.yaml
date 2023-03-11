@@ -599,16 +599,26 @@ views:
                 
             - type: custom:button-card
               entity: input_boolean.spotify_jo_state
-              name: "Jo"
+              name: "Music Assistant"
               show_state: true
               tap_action:
-                action: call-service
-                service: script.spotify_jo
-                data:
-                  entity_id: script.spotify_jo
+                !include popup/footer_music_assistant.yaml
               template:
                 - media
                 - icon_spotify
+            
+            # - type: custom:button-card
+            #   entity: input_boolean.spotify_jo_state
+            #   name: "Jo"
+            #   show_state: true
+            #   tap_action:
+            #     action: call-service
+            #     service: script.spotify_jo
+            #     data:
+            #       entity_id: script.spotify_jo
+            #   template:
+            #     - media
+            #     - icon_spotify
 
             - type: custom:button-card
               entity: input_boolean.radio_state
