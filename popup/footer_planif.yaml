@@ -33,6 +33,7 @@ browser_mod:
                 - vacuum.roberto
                 - climate.wiser_salon
                 - light
+                - input_boolean.presence_maison
               customize:
                 climate.wiser_salon:
                   name: Salon
@@ -135,4 +136,7 @@ browser_mod:
                   icon: "hass:ceiling-light"
                   include:
                     - light
-                  
+                - name: "Capteur"
+                  icon: "mdi:motion-sensor"
+                  include:
+                    - input_boolean.presence_maison
