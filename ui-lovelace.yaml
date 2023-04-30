@@ -398,11 +398,12 @@ views:
                 entity: sensor.plex_recently_added
                 name: Dernier téléchargement
                 tap_action:
-                  action: call-service
-                  service: media_player.select_source
-                  service_data:
-                    source: Plex
-                    entity_id: media_player.samsung_6_series_43
+                  !include popup/footer_download.yaml
+                  # action: call-service
+                  # service: media_player.select_source
+                  # service_data:
+                  #   source: Plex
+                  #   entity_id: media_player.samsung_6_series_43
                 template:
                   - conditional_media
                   - icon_plex
@@ -477,16 +478,16 @@ views:
                       - media
                       - icon_apple_tv
                   
-                  - type: custom:button-card
-                    name: "Téléchargement"
-                    entity: sensor.nzbget_speed
-                    tap_action:
-                      !include popup/footer_download.yaml
-                    template:
-                      - base
-                      # - conditional_media
-                      - icon_download
-                      - loader
+                  # - type: custom:button-card
+                  #   name: "Téléchargement"
+                  #   entity: sensor.nzbget_speed
+                  #   tap_action:
+                  #     !include popup/footer_download.yaml
+                  #   template:
+                  #     - base
+                  #     # - conditional_media
+                  #     - icon_download
+                  #     - loader
 
 
               - type: grid
