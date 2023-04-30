@@ -139,12 +139,18 @@ template:
         state_class: measurement
         state: "{{ ((states('sensor.speedtest_cli_data') | from_json).upload * 8 / 1000 / 1000) | round(2) }}"
 
-samsungtv:
-  - host: !secret tv_ip
-    turn_on_action:
-      - service: wake_on_lan.send_magic_packet
-        data:
-          mac: !secret tv_mac
+# utility_meter:
+#   daily_wiser_lts_energy_salon:
+#     source: sensor.wiser_lts_energy_salon
+#     name: Conso journalière salon 1 (Offpeak)
+#     cycle: daily
+
+# samsungtv:
+#   - host: !secret tv_ip
+#     turn_on_action:
+#       - service: wake_on_lan.send_magic_packet
+#         data:
+#           mac: !secret tv_mac
     # app_list:
     #   '{"Plex": "kIciSQlYEM.plex","Netflix": "11101200001", "YouTubeTV": " PvWgqxV3Xa.YouTubeTV"}'
 

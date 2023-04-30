@@ -63,289 +63,389 @@ browser_mod:
               "nuc"
       cards:
 
-        ### Internet
-        
-        - type: entities
-          view_layout:
-            grid-area: internet
-          title: Internet
-          show_header_toggle: false
-          card_mod:
-            class: header
-          entities:
+        ### Internet & AdGuard
+        - type: custom:tabbed-card
+          styles:
+            --mdc-theme-primary: var(--primary-text-color)
+            --mdc-tab-text-label-color-default: rgba(var(--rgb-primary-text-color), 0.8)
+            --mdc-typography-button-font-size: 14px
+          tabs:
+            - card:
+                ### Internet
+                type: entities
+                view_layout:
+                  grid-area: internet
+                # title: Internet
+                show_header_toggle: false
+                card_mod:
+                  class: header
+                entities:
 
-            - entity: binary_sensor.internet_ping
-              secondary_info: last-changed
-              name: Connexion internet
-              icon: mdi:lan-connect
+                  - entity: binary_sensor.internet_ping
+                    secondary_info: last-changed
+                    name: Connexion internet
+                    icon: mdi:lan-connect
 
-            - type: custom:mini-graph-card
-              font_size: 70
-              height: 30
-              hours_to_show: 48
-              icon: mdi:pulse
-              line_color: var(--primary-color)
-              line_width: 0.25
-              name: Ping
-              points_per_hour: 1
-              show:
-                fill: true
-                graph: bar
-              entities:
-                - sensor.speedtest_cli_ping
+                  - type: custom:mini-graph-card
+                    font_size: 70
+                    height: 30
+                    hours_to_show: 48
+                    icon: mdi:pulse
+                    line_color: var(--primary-color)
+                    line_width: 0.25
+                    name: Ping
+                    points_per_hour: 1
+                    show:
+                      fill: true
+                      graph: bar
+                    entities:
+                      - sensor.speedtest_cli_ping
 
-            - type: custom:mini-graph-card
-              font_size: 70
-              height: 75
-              hours_to_show: 48
-              points_per_hour: 0.25
-              icon: mdi:web
-              line_width: 1
-              name: Débits
-              header:
-                show: false
-              show:
-                extrema: true
-                labels: false
-              entities:
-                - entity: sensor.speedtest_cli_download
-                  name : Download
-                  icon: mdi:arrow-down-bold
-                  color: var(--secondary-color)
-                - entity: sensor.speedtest_cli_upload
-                  name : Upload
-                  icon: mdi:arrow-up-bold
-                  color: var(--primary-color)
+                  - type: custom:mini-graph-card
+                    font_size: 70
+                    height: 70
+                    hours_to_show: 48
+                    points_per_hour: 0.25
+                    icon: mdi:web
+                    line_width: 1
+                    name: Débits
+                    header:
+                      show: false
+                    show:
+                      extrema: true
+                      labels: false
+                    entities:
+                      - entity: sensor.speedtest_cli_download
+                        name : Download
+                        icon: mdi:arrow-down-bold
+                        color: var(--secondary-color)
+                      - entity: sensor.speedtest_cli_upload
+                        name : Upload
+                        icon: mdi:arrow-up-bold
+                        color: var(--primary-color)
 
-            - entity: sensor.plex_nucleide
-            - entity: switch.nzbget_download
-            - entity: sensor.nzbget_queue_size
-            # - entity: sensor.nzbget_post_processing_jobs
+                  - entity: sensor.plex_nucleide
+                  - entity: switch.nzbget_download
+                  - entity: sensor.nzbget_queue_size
+              attributes:
+                label: Internet
 
-        ### VPN
+            - card:
+                ### AdGuard
+                type: entities
+                view_layout:
+                  grid-area: adguard
+                # title: Internet
+                show_header_toggle: false
+                card_mod:
+                  class: header
+                entities:
+                  - entity: switch.adguard_home_filtering
+                  - entity: switch.adguard_home_protection
+                  - entity: switch.adguard_home_safe_browsing
+                  - entity: switch.adguard_home_safe_search
+                  - entity: sensor.adguard_home_average_processing_speed
 
-        # - type: entities
-        #   view_layout:
-        #     grid-area: vpn
-        #   title: VPN
-        #   state_color: true
-        #   show_header_toggle: false
-        #   card_mod:
-        #     class: header
-        #   entities:
+                  # - type: custom:bar-card
+                  #   width: 55%
+                  #   height: 2em
+                  #   decimal: 0
+                  #   unit_of_measurement: '%'
+                  #   positions: &bar_card_positions
+                  #     icon: outside
+                  #     indicator: 'off'
+                  #     name: outside
+                  #   severity:
+                  #     - color: var(--red-color)
+                  #       from: 75
+                  #       to: 100
+                  #     - color: '#303435'
+                  #       from: 0
+                  #       to: 75
+                  #   entity_row: true
+                  #   entities:
+                  #     - entity : sensor.adguard_home_dns_queries_blocked_ratio
 
-        #     - entity: sensor.ipv4_address_wg0
-        #       name: Nucleide
+                  - type: custom:apexcharts-card
+                    update_delay: 5m
+                    update_interval: 5m
+                    header:
+                      show: true
+                      title: Filtrage
+                      show_states: true
+                      colorize_states: true
+                    chart_type: donut
+                    color_list: [var(--primary-color), var(--secondary-color), var(--third-color), var(--fourth-color), var(--fifth-color)]
+                    # show:
+                    #   last_updated: true
+                    apex_config:
+                      chart:
+                        height: 350px
+                        fontFamily: var(--primary-font-family)
+                      tooltip:
+                        style:
+                          fontSize: 14px
+                      legend:
+                        show : false
+                      stroke:
+                        show: true
+                        width: 1
+                      datalabels : percent
+                    #   dataLabels:
+                    #     formatter: |
+                    #       EVAL:function(value) {
+                    #         return value.toFixed(0) + " %";
+                    #       }
+                      # plotOptions:
+                      #   pie:
+                      #     donut:
+                      #       labels:
+                      #         show: true
+                      #         total:
+                      #           show: true
+                      #           label: Ratio
+                      #           fontSize: '30px'
+                      #           fontFamily: 'Helvetica, Arial, sans-serif'
+                      #           fontWeight: 600
+                      #           color: '#373d3f'
+                      #           formatter: |
+                      #             EVAL:function(w) {
+                      #               return sensor.adguard_home_dns_queries_blocked_ratio + " %"
+                      #               }
+                    series:
+                      - entity: sensor.adguard_home_dns_queries
+                        name : Requêtes DNS
+                      - entity: sensor.adguard_home_dns_queries_blocked
+                        name : Requêtes DNS bloquées
+              attributes:
+                label: AdGuard
 
-        #     - entity: binary_sensor.connexion_s_vpn
-        #       secondary_info: last-changed
-        #       name: Connexion(s) VPN
+        ### NUCleide & VPN
+        - type: custom:tabbed-card
+          styles:
+            --mdc-theme-primary: var(--primary-text-color)
+            --mdc-tab-text-label-color-default: rgba(var(--rgb-primary-text-color), 0.8)
+            --mdc-typography-button-font-size: 14px
+          tabs:
+            - card:
+                ### NUCleide
+                type: entities
+                view_layout:
+                  grid-area: NUCleide
+                # title: Internet
+                show_header_toggle: false
+                card_mod:
+                  class: header
+                entities:
+                  - type: custom:bar-card
+                    width: 55%
+                    height: 2em
+                    decimal: 0
+                    unit_of_measurement: '%'
+                    positions: &bar_card_positions
+                      icon: outside
+                      indicator: 'off'
+                      name: outside
+                    severity:
+                      - color: var(--red-color)
+                        from: 76
+                        to: 100
+                      - color: '#303435'
+                        from: 0
+                        to: 75
+                    entity_row: true
+                    entities:
 
-        #     - entity: binary_sensor.vpn_stef_iphone_perso
-        #       secondary_info: last-changed
-        #       name: STeF iPhone
+                      - entity: sensor.processor_use
+                        name: CPU
+                        tap_action:
+                          action: call-service
+                          service: homeassistant.update_entity
+                          service_data:
+                            entity_id: sensor.processor_use_percent
 
-        #     # - entity: binary_sensor.vpn_stef_iphone_pro
-        #     #   secondary_info: last-changed
-        #     #   name: STeF iPhone Pro
+                      - entity: sensor.memory_use_percent
+                        name: RAM (8Go)
+                        tap_action:
+                          action: call-service
+                          service: homeassistant.update_entity
+                          service_data:
+                            entity_id: sensor.memory_use_percent
 
-        #     - entity: binary_sensor.vpn_stef_macbook
-        #       secondary_info: last-changed
-        #       name: STeF Macbook
+                      - entity: sensor.disk_use_percent
+                        name: / (30Go)
+                        tap_action:
+                          action: call-service
+                          service: homeassistant.update_entity
+                          service_data:
+                            entity_id: sensor.disk_use_percent
 
-        #     - entity: binary_sensor.vpn_sonia
-        #       secondary_info: last-changed
-        #       name: Sonia
+                      - entity: sensor.disk_use_percent_filer
+                        name: /filer (3.6To)
+                        tap_action:
+                          action: call-service
+                          service: homeassistant.update_entity
+                          service_data:
+                            entity_id: sensor.disk_use_percent_filer
+                
+                  - entity: sensor.processor_temperature
+                  - entity: sensor.last_boot
+                  - entity: sensor.ipv4_address_eno1
+                  - entity: binary_sensor.connexion_s_vpn
+                    secondary_info: last-changed
+                    name: Connexion(s) VPN
 
-        #   footer:
-        #     type: custom:apexcharts-card
-        #     layout: minimal
-        #     graph_span: 6h
-        #     # update_delay: 1s
-        #     # update_interval: 1s
-        #     locale: fr
-        #     apex_config:
-        #       chart:
-        #         fontFamily: var(--primary-font-family)
-        #         height: 300px
-        #       tooltip:
-        #         style:
-        #           fontSize: 14px
-        #         x:
-        #           show: true
-        #           format: dddd HH:mm
-        #       xaxis:
-        #         crosshairs:
-        #           show: false
-        #       legend:
-        #         fontSize: 14px
-        #         fontWeight: 500
-        #         itemMargin:
-        #           horizontal: 25
-        #         markers:
-        #           width: 26
-        #           height: 23
-        #           customHTML:
-        #             - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-        #             - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-        #           fillColors:
-        #             - none
-        #             - none
-        #       fill:
-        #         type: gradient
-        #         gradient:
-        #           type: vertical
-        #           opacityFrom: 0.8
-        #           opacityTo: 0
-        #           stops:
-        #             - 0
-        #             - 99
-        #             - 100
-        #       stroke:
-        #         width: 1
-        #     all_series_config:
-        #       type: area
-        #       fill_raw: last
-        #     series:
-        #       - entity: sensor.network_throughput_in_wg0
-        #         name: Down
-        #         color: var(--secondary-color)
-        #       - entity: sensor.network_throughput_out_wg0
-        #         name: Up
-        #         color: var(--primary-color)
+                footer:
+                  type: custom:apexcharts-card
+                  layout: minimal
+                  graph_span: 2h
+                  # update_delay: 1s
+                  # update_interval: 1s
+                  locale: fr
+                  color_list: [var(--secondary-color), var(--primary-color), var(--third-color), var(--fifth-color), var(--fourth-color)]
+                  apex_config:
+                    chart:
+                      fontFamily: var(--primary-font-family)
+                      height: 300px
+                    tooltip:
+                      style:
+                        fontSize: 14px
+                      x:
+                        show: true
+                        format: dddd HH:mm
+                    xaxis:
+                      crosshairs:
+                        show: false
+                    legend:
+                      fontSize: 11px
+                      # fontWeight: 500
+                      itemMargin:
+                        horizontal: 25
+                      # markers:
+                      #   width: 26
+                      #   height: 23
+                      #   customHTML:
+                      #     - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+                      #     - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+                      #     - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+                      #     - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+                      #   fillColors:
+                      #     - none
+                      #     - none
+                    fill:
+                      type: gradient
+                      gradient:
+                        type: vertical
+                        opacityFrom: 0.8
+                        opacityTo: 0
+                        stops:
+                          - 0
+                          - 99
+                          - 100
+                    stroke:
+                      width: 1
+                  all_series_config:
+                    type: area
+                    fill_raw: last
+                  series:
+                    - entity: sensor.network_throughput_in_eno1
+                      name: Down
+                    - entity: sensor.network_throughput_out_eno1
+                      name: Up
+                    - entity: sensor.network_throughput_in_wg0
+                      name: Down (VPN)
+                    - entity: sensor.network_throughput_out_wg0
+                      name: Up (VPN)
 
-        ### NUCleide
+              attributes:
+                label: NUCleide
 
-        - type: entities
-          view_layout:
-            grid-area: nuc
-          title: NUCleide
-          show_header_toggle: false
-          card_mod:
-            class: header
-            # no border on last card
-            style: |
-              ha-card {
-                border: none !important;
-              }
-          entities:
+            - card:
+                ### VPN
+                type: entities
+                view_layout:
+                  grid-area: vpn
+                title: VPN
+                state_color: true
+                show_header_toggle: false
+                card_mod:
+                  class: header
+                entities:
+                  - entity: sensor.ipv4_address_wg0
+                    name: Nucleide
 
-            - type: custom:bar-card
-              width: 55%
-              height: 2em
-              decimal: 0
-              unit_of_measurement: '%'
-              positions: &bar_card_positions
-                icon: outside
-                indicator: 'off'
-                name: outside
-              severity:
-                - color: var(--red-color)
-                  from: 76
-                  to: 100
-                - color: '#303435'
-                  from: 0
-                  to: 75
-              entity_row: true
-              entities:
+                  - entity: binary_sensor.connexion_s_vpn
+                    secondary_info: last-changed
+                    name: Connexion(s) VPN
 
-                - entity: sensor.processor_use
-                  name: CPU
-                  tap_action:
-                    action: call-service
-                    service: homeassistant.update_entity
-                    service_data:
-                      entity_id: sensor.processor_use_percent
+                  - entity: binary_sensor.vpn_stef_iphone_perso
+                    secondary_info: last-changed
+                    name: STeF iPhone
 
-                - entity: sensor.memory_use_percent
-                  name: RAM (8Go)
-                  tap_action:
-                    action: call-service
-                    service: homeassistant.update_entity
-                    service_data:
-                      entity_id: sensor.memory_use_percent
+                  - entity: binary_sensor.vpn_stef_macbook
+                    secondary_info: last-changed
+                    name: STeF Macbook
 
-                - entity: sensor.disk_use_percent
-                  name: / (30Go)
-                  tap_action:
-                    action: call-service
-                    service: homeassistant.update_entity
-                    service_data:
-                      entity_id: sensor.disk_use_percent
+                  - entity: binary_sensor.vpn_sonia
+                    secondary_info: last-changed
+                    name: Sonia
 
-                - entity: sensor.disk_use_percent_filer
-                  name: /filer (3.6To)
-                  tap_action:
-                    action: call-service
-                    service: homeassistant.update_entity
-                    service_data:
-                      entity_id: sensor.disk_use_percent_filer
-
-            - entity: sensor.processor_temperature
-            - entity: sensor.last_boot
-            # - entity: sensor.ipv4_address_eno1
-            - entity: binary_sensor.connexion_s_vpn
-              secondary_info: last-changed
-              name: Connexion(s) VPN
-
-          footer:
-            type: custom:apexcharts-card
-            layout: minimal
-            graph_span: 2h
-            # update_delay: 1s
-            # update_interval: 1s
-            locale: fr
-            color_list: [var(--secondary-color), var(--primary-color), var(--third-color), var(--fifth-color), var(--fourth-color)]
-            apex_config:
-              chart:
-                fontFamily: var(--primary-font-family)
-                height: 300px
-              tooltip:
-                style:
-                  fontSize: 14px
-                x:
-                  show: true
-                  format: dddd HH:mm
-              xaxis:
-                crosshairs:
-                  show: false
-              legend:
-                fontSize: 11px
-                # fontWeight: 500
-                itemMargin:
-                  horizontal: 25
-                # markers:
-                #   width: 26
-                #   height: 23
-                #   customHTML:
-                #     - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-                #     - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-                #     - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-                #     - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
-                #   fillColors:
-                #     - none
-                #     - none
-              fill:
-                type: gradient
-                gradient:
-                  type: vertical
-                  opacityFrom: 0.8
-                  opacityTo: 0
-                  stops:
-                    - 0
-                    - 99
-                    - 100
-              stroke:
-                width: 1
-            all_series_config:
-              type: area
-              fill_raw: last
-            series:
-              - entity: sensor.network_throughput_in_eno1
-                name: Down
-              - entity: sensor.network_throughput_out_eno1
-                name: Up
-              - entity: sensor.network_throughput_in_wg0
-                name: Down (VPN)
-              - entity: sensor.network_throughput_out_wg0
-                name: Up (VPN)
+                footer:
+                  type: custom:apexcharts-card
+                  layout: minimal
+                  graph_span: 6h
+                  # update_delay: 1s
+                  # update_interval: 1s
+                  locale: fr
+                  apex_config:
+                    chart:
+                      fontFamily: var(--primary-font-family)
+                      height: 400px
+                    tooltip:
+                      style:
+                        fontSize: 14px
+                      x:
+                        show: true
+                        format: dddd HH:mm
+                    xaxis:
+                      crosshairs:
+                        show: false
+                    legend:
+                      fontSize: 14px
+                      fontWeight: 520
+                      itemMargin:
+                        horizontal: 25
+                      markers:
+                        width: 26
+                        height: 23
+                        customHTML:
+                          - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-down-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+                          - 'EVAL:() => {return `<ha-icon icon="mdi:arrow-up-bold" style="--mdc-icon-size: 23px;"></ha-icon>`}'
+                        fillColors:
+                          - none
+                          - none
+                    fill:
+                      type: gradient
+                      gradient:
+                        type: vertical
+                        opacityFrom: 0.8
+                        opacityTo: 0
+                        stops:
+                          - 0
+                          - 99
+                          - 100
+                    stroke:
+                      width: 1
+                  all_series_config:
+                    type: area
+                    fill_raw: last
+                  series:
+                    - entity: sensor.network_throughput_in_wg0
+                      name: Down
+                      color: var(--secondary-color)
+                    - entity: sensor.network_throughput_out_wg0
+                      name: Up
+                      color: var(--primary-color)
+                    
+              attributes:
+                label: VPN

@@ -418,6 +418,9 @@ views:
                 hide_unflagged: true
                 title_size: medium
                 line_size: small
+                text_shadows: false
+                box_shadows: false
+                all_shadows: false
 
               - type: custom:upcoming-media-card
                 entity: sensor.plex_recently_movie_added
@@ -481,8 +484,10 @@ views:
                       !include popup/footer_download.yaml
                     template:
                       - base
+                      # - conditional_media
                       - icon_download
                       - loader
+
 
               - type: grid
                 columns: 2
