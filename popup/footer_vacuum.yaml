@@ -3,7 +3,7 @@ browser_mod:
   service: browser_mod.popup
   data:
     title: Philippo, l'aspiro déglingo
-    timeout: 180000
+    # timeout: 180000
     style: |
       --popup-max-width: calc(385px + 800px);
 # 
@@ -187,7 +187,7 @@ browser_mod:
             style: |
               ha-card {
                 --map-card-primary-color: #FFFFFF10;
-                --map-card-secondary-color: none;
+                --map-card-secondary-color: rgb(0,0,0);
                 --map-card-secondary-text-color: #9da0a2;
                 --map-card-zoomer-background: none;
                 --map-card-predefined-rectangle-fill-color: none;
@@ -214,6 +214,7 @@ browser_mod:
                 color: #9da0a2 !important;
                 padding: 0.42em;
               }
+
           language: fr
           entity: vacuum.roberto
           map_source:
