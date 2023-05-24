@@ -381,7 +381,7 @@ views:
       #################################################
 
       - type: grid
-        title: Media
+        title: Films & Séries
         view_layout:
           grid-area: media
         columns: 1
@@ -393,6 +393,40 @@ views:
               spaceBetween: 40
               threshold: 5
             cards:
+
+              - type: conditional
+                conditions:
+                  - entity: sensor.nzbget_speed
+                    state_not: '0'
+                card:
+                  type: custom:button-card
+                  entity: sensor.nzbget_speed
+                  name: Transfert en cours
+                  border: 2px solid var(--secondary-color)
+                  tap_action:
+                    action: call-service
+                    service: switch.toggle
+                    service_data: {}
+                    target:
+                      entity_id: switch.nzbget_download
+                  template:
+                    - big_graph
+                    - base
+              
+              - type: conditional
+                conditions:
+                  - entity: sensor.plex_nucleide
+                    state_not: '0'
+                  - entity: binary_sensor.connexion_s_vpn
+                    state: 'on'
+                card:
+                  type: custom:button-card
+                  entity: sensor.network_throughput_out_eno1
+                  name: Upload en cours
+                  border: 2px solid var(--primary-color)
+                  template:
+                    - big_graph
+                    - base
 
               - type: custom:button-card
                 entity: sensor.plex_recently_added
@@ -477,7 +511,7 @@ views:
                     template:
                       - media
                       - icon_apple_tv
-                  
+
                   # - type: custom:button-card
                   #   name: "Téléchargement"
                   #   entity: sensor.nzbget_speed
@@ -715,7 +749,6 @@ views:
               !include popup/footer_nas.yaml
             triggers_update:
               - binary_sensor.internet_ping
-              - sensor.nzbget_queue_size
               - sensor.disk_use_percent
               - sensor.disk_use_percent_filer
               - sensor.processor_temperature
@@ -732,11 +765,10 @@ views:
                   if (id.every(e => states[e]))
                       return states[id[0]].state === 'off'
                         ? 1
-                        : parseFloat(states[id[1]].state) > 0 ||
-                          parseFloat(states[id[2]].state) >= 85 ||
-                          parseFloat(states[id[3]].state) >= 85 ||
-                          parseFloat(states[id[4]].state) >= 80 ||
-                          parseFloat(states[id[5]].state);
+                        : parseFloat(states[id[1]].state) >= 85 ||
+                          parseFloat(states[id[2]].state) >= 90 ||
+                          parseFloat(states[id[3]].state) >= 80 ||
+                          parseFloat(states[id[4]].state);
                 ]]]
             template: footer
 

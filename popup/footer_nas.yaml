@@ -84,7 +84,7 @@ browser_mod:
                   - entity: binary_sensor.internet_ping
                     secondary_info: last-changed
                     name: Connexion internet
-                    icon: mdi:lan-connect
+                    icon: mdi:wan
 
                   - type: custom:mini-graph-card
                     font_size: 70
@@ -365,7 +365,7 @@ browser_mod:
                 type: entities
                 view_layout:
                   grid-area: vpn
-                title: VPN
+                # title: VPN
                 state_color: true
                 show_header_toggle: false
                 card_mod:
@@ -374,9 +374,9 @@ browser_mod:
                   - entity: sensor.ipv4_address_wg0
                     name: Nucleide
 
-                  - entity: binary_sensor.connexion_s_vpn
-                    secondary_info: last-changed
-                    name: Connexion(s) VPN
+                  # - entity: binary_sensor.connexion_s_vpn
+                  #   secondary_info: last-changed
+                  #   name: Connexion(s) VPN
 
                   - entity: binary_sensor.vpn_stef_iphone_perso
                     secondary_info: last-changed
@@ -389,6 +389,10 @@ browser_mod:
                   - entity: binary_sensor.vpn_sonia
                     secondary_info: last-changed
                     name: Sonia
+
+                  - entity: binary_sensor.vpn_matt
+                    secondary_info: last-changed
+                    name: Matt
 
                 footer:
                   type: custom:apexcharts-card

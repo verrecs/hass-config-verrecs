@@ -217,6 +217,11 @@ binary_sensor:
     host: !secret network_vpn_sonia
     scan_interval: 15
 
+  - platform: ping
+    name: vpn_matt
+    host: !secret network_vpn_matt
+    scan_interval: 15
+
   # Tendance de température : pour la détection des fenêtres ouvertes
   # https://www.home-assistant.io/integrations/trend/
   - platform: trend

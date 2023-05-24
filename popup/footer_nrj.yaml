@@ -16,8 +16,7 @@ browser_mod:
             --mdc-tab-text-label-color-default: rgba(var(--rgb-primary-text-color), 0.8)
             --mdc-typography-button-font-size: 14px
           tabs:
-            - card:
-                ### Quotidienne (15j)
+            - card: ### Quotidienne (15j)
                 type: vertical-stack
                 cards:
                   # https://github.com/RomRider/apexcharts-card
@@ -29,6 +28,7 @@ browser_mod:
                       colorize_states: true
                     graph_span: 15d
                     update_interval: 1d
+                    update_delay: 2h
                     stacked : true
                     locale: fr
                     color_list: [var(--primary-color), var(--secondary-color), var(--third-color), var(--fourth-color), var(--fifth-color)]
@@ -181,17 +181,121 @@ browser_mod:
               attributes:
                 label: Quotidienne (15j)
 
-            - card:
-                ### Mensuelle (à venir...)
+            - card: ### Mensuelle
                 type: vertical-stack
                 cards:
-                  - type: picture
-                    image: /local/img/Jo_STeF-2GHz-qrcode.png
+                  # https://github.com/RomRider/apexcharts-card
+                  - type: custom:apexcharts-card
+                    header:
+                      show: true
+                      show_states: true
+                      colorize_states: true
+                    graph_span: 12m
+                    update_interval: 1m
+                    update_delay: 15d
+                    stacked : true
+                    locale: fr
+                    color_list: [var(--primary-color), var(--secondary-color), var(--third-color), var(--fourth-color), var(--fifth-color)]
+                    show:
+                      last_updated: true
+                    apex_config:
+                      chart:
+                        fontFamily: var(--primary-font-family)
+                        height: 550px
+                      tooltip:
+                        enable: true
+                        shared: true
+                        intersect: false
+                        style:
+                          fontSize: 14px
+                        x:
+                          show: true
+                          format: 'MMMM'
+                        y:
+                          show: true
+                      legend:
+                        show : false 
+                    yaxis:
+                      - id: elec
+                        show: true
+                        max: 10
+                        opposite: true
+                        apex_config:
+                          forceNiceScale: true
+                          decimalsInFloat: 0
+                          labels:
+                            formatter: |
+                              EVAL:v => `${v.toFixed(0)} kWh`
+                    all_series_config:
+                      type: column
+                      opacity: 0.2
+                    series:
+                      - entity: sensor.monthly_plug_bureau_energy
+                        name: PC Bureau
+                        stroke_width: 1
+                        yaxis_id: elec
+                        transform: "return x / 1000;"
+                        unit: kWh
+                        group_by:
+                          duration: 1d
+                          func: max
+                      - entity: sensor.monthly_plug_media_salon_energy
+                        name: Media salon
+                        stroke_width: 1
+                        yaxis_id: elec
+                        transform: "return x / 1000;"
+                        unit: kWh
+                        group_by:
+                          duration: 1d
+                          func: max
+                      - entity: sensor.monthly_plug_chambre_energy
+                        name: Prises chambre (lit)
+                        stroke_width: 1
+                        yaxis_id: elec
+                        transform: "return x / 1000;"
+                        unit: kWh
+                        group_by:
+                          duration: 1d
+                          func: max
+                      - entity: sensor.monthly_wiser_lts_energy_salon
+                        name: Chauffage du salon (convecteur)
+                        stroke_width: 1
+                        yaxis_id: elec
+                        group_by:
+                          duration: 1d
+                          func: max
+                      - entity: sensor.monthly_wiser_lts_energy_salon_2
+                        name: Chauffage du salon (inertie)
+                        stroke_width: 1
+                        yaxis_id: elec
+                        group_by:
+                          duration: 1d
+                          func: max
+                      - entity: sensor.monthly_wiser_lts_energy_bureau
+                        name: Chauffage du bureau
+                        stroke_width: 1
+                        yaxis_id: elec
+                        group_by:
+                          duration: 1d
+                          func: max
+                      - entity: sensor.monthly_wiser_lts_energy_chambre
+                        name: Chauffage de la chambre
+                        stroke_width: 1
+                        yaxis_id: elec
+                        group_by:
+                          duration: 1d
+                          func: max
+                      - entity: sensor.prise_chambre_2_summation_delivered_2
+                        name: Prise de la chambre (entrée)
+                        stroke_width: 1
+                        yaxis_id: elec
+                        group_by:
+                          duration: 1d
+                          func: max
               attributes:
-                label: Mensuelle (à venir...)
+                label: Mensuelle
 
-            - card:
-                ### Mensuelle (à venir...)
+            - card: ### Comparatif (à venir...)
                 type: vertical-stack
                 cards:
                   - type: picture

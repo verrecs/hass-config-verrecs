@@ -1,0 +1,82 @@
+#################################################
+#                                               #
+#                   BIG GRAPH                   #
+#                                               #
+#################################################
+big_graph:
+  aspect_ratio: 1000/996
+  template:
+    - base
+  styles:
+    grid:
+      - gap: 0.65%
+    name:
+      - padding: 0.2vw
+      - margin: -0.2vw
+      - z-index: 2
+    state:
+      - padding-bottom: 5.25%
+      - max-width: unset
+      - overflow: visible
+      - z-index: 2
+    card:
+      - padding: 0 0 0 0 #5.75%
+      - border-radius: calc(var(--button-card-border-radius) / 2)
+      # - background: rgba(115, 115, 115, 0.2) center center/cover no-repeat
+
+  custom_fields:
+    graph:
+      card:
+        type: custom:apexcharts-card
+        layout: minimal
+        graph_span: 15m
+        update_delay: 1s
+        update_interval: 1s
+        locale: fr
+        show:
+          loading: false
+        apex_config:
+          chart:
+            fontFamily: var(--primary-font-family)
+            height: 300px
+          tooltip:
+            enabled: false
+            followCursor: false
+            intersect: false
+          xaxis:
+            crosshairs:
+              show: false
+          fill:
+            type: gradient
+            gradient:
+              type: vertical
+              opacityFrom: 0.8
+              opacityTo: 0
+              stops:
+                - 0
+                - 99
+                - 100
+          stroke:
+            width: 1
+        all_series_config:
+          type: area
+          fill_raw: last
+        series:
+          - entity: sensor.network_throughput_in_eno1
+            name: Down
+            color: var(--secondary-color)
+          - entity: sensor.network_throughput_out_eno1
+            name: Up
+            color: var(--primary-color)
+  styles:
+    custom_fields:
+      graph:
+        - z-index: 1
+        - filter: opacity(90%)
+        - position: absolute
+        - left: 0%
+        - right: 0%
+        - top: 0%
+        - bottom: 0%
+    card:
+      - overflow: false
