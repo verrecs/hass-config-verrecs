@@ -188,7 +188,7 @@ browser_mod:
               ha-card {
                 --map-card-primary-color: #FFFFFF10;
                 --map-card-secondary-color: rgb(0,0,0);
-                --map-card-secondary-text-color: #9da0a2;
+                --map-card-secondary-text-color: #FFFFFF;
                 --map-card-zoomer-background: none;
                 --map-card-predefined-rectangle-fill-color: none;
                 --map-card-predefined-rectangle-line-color: none;
@@ -223,57 +223,140 @@ browser_mod:
             camera: true
           map_locked: true
           map_modes:
-            # - template: vacuum_clean_segment
-            #   predefined_selections:
-            #     - id: 14
-            #       outline: [[ 21458, 32131 ], [ 24235, 32152 ], [ 24194, 27409 ], [ 23181, 27409 ]]
-            #       label:
-            #         text: "Chambre"
-            #         x: 22932
-            #         y: 30339
-            #         offset_y: 35
-            #       icon:
-            #         name: "mdi:bed"
-            #         x: 22932
-            #         y: 30339
-            #     - id: 19
-            #       outline: [[ 21478, 27237 ], [ 23048, 27250 ], [ 23061, 25655 ], [ 21478, 25680 ]]
-            #       label:
-            #         text: "Salle de bain"
-            #         x: 22282
-            #         y: 26496
-            #         offset_y: 35
-            #       icon:
-            #         name: "mdi:shower"
-            #         x: 22282
-            #         y: 26496
-            # - template: vacuum_clean_zone
-            # - template: vacuum_clean_zone_predefined
-            #   predefined_selections:
-            #     - zones: [[14895, 20640, 18409, 24058]]
-            #       icon:
-            #         name: mdi:silverware-fork-knife
-            #         x: 16708
-            #         y: 22291
-            #     - zones: [[15208, 17278, 20204, 20980]]
-            #       icon:
-            #         name: mdi:bed
-            #         x: 17706
-            #         y: 19043
-            #     - zones: [[18170, 20925, 23138, 25026]]
-            #       icon:
-            #         name: mdi:door
-            #         x: 22293
-            #         y: 21864
-            #     - zones: [[21474, 24942, 27269, 28873]]
-            #       icon:
-            #         name: mdi:sofa
-            #         x: 24401
-            #         y: 26736
-            #     - zones: [[17687, 24885, 21487, 28816]]
-            #       icon:
-            #         name: mdi:speaker
-            #         x: 19757
-            #         y: 26622
-            # - template: vacuum_goto
-            # - template: vacuum_follow_path
+            - template: vacuum_clean_segment
+              predefined_selections:
+                - id: '16'
+                  icon:
+                    name: mdi:door-sliding-open
+                    x: 24588
+                    'y': 19634
+                  label:
+                    text: Couloir
+                    x: 24556
+                    'y': 19634
+                    offset_y: 35
+                  outline:
+                    - - 23700
+                      - 17550
+                    - - 26200
+                      - 17550
+                    - - 26200
+                      - 21800
+                    - - 23700
+                      - 21800
+                - id: '17'
+                  icon:
+                    name: mdi:desktop-classic
+                    x: 22050
+                    'y': 20200
+                  label:
+                    text: Bureau
+                    x: 22050
+                    'y': 20200
+                    offset_y: 35
+                  outline:
+                    - - 20350
+                      - 18650
+                    - - 23750
+                      - 18650
+                    - - 23750
+                      - 21750
+                    - - 20350
+                      - 21750
+                - id: '18'
+                  icon:
+                    name: mdi:bed-king
+                    x: 22375
+                    'y': 16900
+                  label:
+                    text: Chambre
+                    x: 22375
+                    'y': 16900
+                    offset_y: 35
+                  outline:
+                    - - 20200
+                      - 15400
+                    - - 24550
+                      - 15400
+                    - - 24550
+                      - 18400
+                    - - 20200
+                      - 18400
+                - id: '19'
+                  icon:
+                    name: mdi:bathtub
+                    x: 25800
+                    'y': 20050
+                  label:
+                    text: Salle de bain
+                    x: 25800
+                    'y': 20050
+                    offset_y: 35
+                  outline:
+                    - - 24950
+                      - 19400
+                    - - 26650
+                      - 19400
+                    - - 26650
+                      - 20700
+                    - - 24950
+                      - 20700
+                - id: '20'
+                  icon:
+                    name: mdi:coat-rack
+                    x: 25225
+                    'y': 22975
+                  label:
+                    text: Entrée
+                    x: 25225
+                    'y': 22975
+                    offset_y: 35
+                  outline:
+                    - - 23800
+                      - 21750
+                    - - 26650
+                      - 21750
+                    - - 26650
+                      - 24200
+                    - - 23800
+                      - 24200
+                - id: '23'
+                  icon:
+                    name: mdi:fridge
+                    x: 22200
+                    'y': 23000
+                  label:
+                    text: Cuisine
+                    x: 22200
+                    'y': 23000
+                    offset_y: 35
+                  outline:
+                    - - 20500
+                      - 21850
+                    - - 23900
+                      - 21850
+                    - - 23900
+                      - 24150
+                    - - 20500
+                      - 24150
+                - id: '24'
+                  icon:
+                    name: mdi:sofa
+                    x: 22975
+                    'y': 26775
+                  label:
+                    text: Salon
+                    x: 22975
+                    'y': 26775
+                    offset_y: 35
+                  outline:
+                    - - 19650
+                      - 24250
+                    - - 26300
+                      - 24250
+                    - - 26300
+                      - 29300
+                    - - 19650
+                      - 29300
+            - template: vacuum_clean_zone
+            - template: vacuum_goto

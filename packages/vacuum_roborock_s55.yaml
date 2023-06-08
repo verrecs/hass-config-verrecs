@@ -122,4 +122,6 @@ camera:
       vacuum_radius: 10
     attributes:
       - calibration_points
-    scan_interval: 10
+      # A reactiver pour reconfigurer les pièces
+      # - rooms
+    scan_interval: 30
