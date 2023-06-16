@@ -68,7 +68,7 @@ lovelace:
 # Configuration de la base de donnée
 # https://www.home-assistant.io/integrations/recorder/
 recorder:
-  purge_keep_days: 15 # Durée globale de conservation
+  purge_keep_days: 730 # Durée globale de conservation : 2 ans
   commit_interval: 60 # Enregistrement toutes les 60 secondes
   auto_purge: true
   auto_repack: true
