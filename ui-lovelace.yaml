@@ -139,6 +139,47 @@ views:
           #   # template:
           #   #   - footer
 
+          # Débit internet
+          - type: custom:apexcharts-card
+            layout: minimal
+            graph_span: 15m
+            # update_delay: 1s
+            # update_interval: 1s
+            locale: fr
+            color_list: [var(--secondary-color), var(--primary-color), var(--third-color), var(--fifth-color), var(--fourth-color)]
+            show:
+              loading: false
+            apex_config:
+              chart:
+                fontFamily: var(--primary-font-family)
+                height: 125px
+              tooltip:
+                style:
+                  fontSize: 10px
+              legend:
+                show: false
+                fontSize: 9px
+                height: 9px
+              fill:
+                type: gradient
+                gradient:
+                  type: vertical
+                  opacityFrom: 0.8
+                  opacityTo: 0
+                  stops:
+                    - 0
+                    - 99
+                    - 100
+              stroke:
+                width: 1
+            all_series_config:
+              type: area
+              fill_raw: last
+            series:
+              - entity: sensor.network_throughput_in_eno1
+                name: Down
+              - entity: sensor.network_throughput_out_eno1
+                name: Up
 
       #################################################
       #                                               #
@@ -394,39 +435,39 @@ views:
               threshold: 5
             cards:
 
-              - type: conditional
-                conditions:
-                  - entity: sensor.nzbget_speed
-                    state_not: '0'
-                card:
-                  type: custom:button-card
-                  entity: sensor.nzbget_speed
-                  name: Transfert en cours
-                  border: 2px solid var(--secondary-color)
-                  tap_action:
-                    action: call-service
-                    service: switch.toggle
-                    service_data: {}
-                    target:
-                      entity_id: switch.nzbget_download
-                  template:
-                    - big_graph
-                    - base
+              # - type: conditional
+              #   conditions:
+              #     - entity: sensor.nzbget_speed
+              #       state_not: '0'
+              #   card:
+              #     type: custom:button-card
+              #     entity: sensor.nzbget_speed
+              #     name: Transfert en cours
+              #     border: 2px solid var(--secondary-color)
+              #     tap_action:
+              #       action: call-service
+              #       service: switch.toggle
+              #       service_data: {}
+              #       target:
+              #         entity_id: switch.nzbget_download
+              #     template:
+              #       - big_graph
+              #       - base
               
-              - type: conditional
-                conditions:
-                  - entity: sensor.plex_nucleide
-                    state_not: '0'
-                  - entity: binary_sensor.connexion_s_vpn
-                    state: 'on'
-                card:
-                  type: custom:button-card
-                  entity: sensor.network_throughput_out_eno1
-                  name: Upload en cours
-                  border: 2px solid var(--primary-color)
-                  template:
-                    - big_graph
-                    - base
+              # - type: conditional
+              #   conditions:
+              #     - entity: sensor.plex_nucleide
+              #       state_not: '0'
+              #     - entity: binary_sensor.connexion_s_vpn
+              #       state: 'on'
+              #   card:
+              #     type: custom:button-card
+              #     entity: sensor.network_throughput_out_eno1
+              #     name: Upload en cours
+              #     border: 2px solid var(--primary-color)
+              #     template:
+              #       - big_graph
+              #       - base
 
               - type: custom:button-card
                 entity: sensor.plex_recently_added
