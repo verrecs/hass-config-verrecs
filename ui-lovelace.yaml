@@ -154,7 +154,7 @@ views:
         cards:
 
           - type: custom:button-card
-            entity: light.salon_group
+            entity: light.salon_2
             name: Salon
             template:
               - light
@@ -318,62 +318,129 @@ views:
         title: Chauffage
         view_layout:
           grid-area: sovrum
-        columns: 2
+        columns: 1
         cards:
 
-          - type: custom:button-card
-            entity: climate.wiser_salon
-            name: Salon
-            show_state: true
-            double_tap_action:
-              !include popup/salon_klimat.yaml
-            tap_action:
-              !include popup/salon_klimat.yaml
-            template:
-              - thermostat
-              - icon_climate
-              - circle
+          - type: custom:swipe-card
+            parameters:
+              speed: 550
+              spaceBetween: 40
+              threshold: 5
+            cards:
 
-          - type: custom:button-card
-            entity: climate.wiser_bureau
-            name: Bureau
-            show_state: true
-            double_tap_action:
-              !include popup/bureau_klimat.yaml
-            tap_action:
-              !include popup/bureau_klimat.yaml
-            template:
-              - thermostat
-              - icon_climate
-              - circle
+              - type: grid
+                columns: 2
+                cards:
+                
+                  - type: custom:button-card
+                    entity: climate.wiser_salon
+                    name: Salon
+                    show_state: true
+                    double_tap_action:
+                      !include popup/salon_klimat.yaml
+                    tap_action:
+                      !include popup/salon_klimat.yaml
+                    template:
+                      - thermostat
+                      - icon_climate
+                      - circle
 
-          - type: custom:button-card
-            entity: climate.wiser_chambre
-            name: Chambre
-            show_state: true
-            double_tap_action:
-              !include popup/chambre_klimat.yaml
-            tap_action:
-              !include popup/chambre_klimat.yaml
-            template:
-              - thermostat
-              - icon_climate
-              - circle
+                  - type: custom:button-card
+                    entity: climate.wiser_bureau
+                    name: Bureau
+                    show_state: true
+                    double_tap_action:
+                      !include popup/bureau_klimat.yaml
+                    tap_action:
+                      !include popup/bureau_klimat.yaml
+                    template:
+                      - thermostat
+                      - icon_climate
+                      - circle
 
-          - type: custom:button-card
-            entity: input_boolean.presence_maison
-            name: A la maison
-            show_state: true
-            # double_tap_action:
-            #   !include popup/chambre_klimat.yaml
-            # tap_action:
-            #   !include popup/chambre_klimat.yaml
-            template:
-              # - thermostat
-              - icon_home
-              - base
-              - loader
+                  - type: custom:button-card
+                    entity: climate.wiser_chambre
+                    name: Chambre
+                    show_state: true
+                    double_tap_action:
+                      !include popup/chambre_klimat.yaml
+                    tap_action:
+                      !include popup/chambre_klimat.yaml
+                    template:
+                      - thermostat
+                      - icon_climate
+                      - circle
 
+                  - type: custom:button-card
+                    entity: input_boolean.presence_maison
+                    name: A la maison
+                    show_state: true
+                    # double_tap_action:
+                    #   !include popup/chambre_klimat.yaml
+                    # tap_action:
+                    #   !include popup/chambre_klimat.yaml
+                    template:
+                      # - thermostat
+                      - icon_home
+                      - base
+                      - loader
+
+              - type: grid
+                columns: 2
+                cards:
+                
+                  - type: custom:button-card
+                    entity: climate.wiser_salon
+                    name: Salon
+                    show_state: true
+                    double_tap_action:
+                      !include popup/salon_klimat.yaml
+                    tap_action:
+                      !include popup/salon_klimat.yaml
+                    template:
+                      - thermostat
+                      - icon_climate
+                      - circle
+
+                  - type: custom:button-card
+                    entity: climate.wiser_bureau
+                    name: Bureau
+                    show_state: true
+                    double_tap_action:
+                      !include popup/bureau_klimat.yaml
+                    tap_action:
+                      !include popup/bureau_klimat.yaml
+                    template:
+                      - thermostat
+                      - icon_climate
+                      - circle
+
+                  - type: custom:button-card
+                    entity: climate.wiser_chambre
+                    name: Chambre
+                    show_state: true
+                    double_tap_action:
+                      !include popup/chambre_klimat.yaml
+                    tap_action:
+                      !include popup/chambre_klimat.yaml
+                    template:
+                      - thermostat
+                      - icon_climate
+                      - circle
+
+                  - type: custom:button-card
+                    entity: input_boolean.presence_maison
+                    name: A la maison
+                    show_state: true
+                    # double_tap_action:
+                    #   !include popup/chambre_klimat.yaml
+                    # tap_action:
+                    #   !include popup/chambre_klimat.yaml
+                    template:
+                      # - thermostat
+                      - icon_home
+                      - base
+                      - loader
       #################################################
       #                                               #
       #                     MEDIA                     #
